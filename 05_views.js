@@ -122,7 +122,8 @@ const multi_dropdown = babeViews.view_generator("forced_choice", {
     QUD: "Choose one option for each missing word in this sentence.",
     name: 'multi_dropdown',
     // You can also randomize (shuffle) the trials of a view
-    data: _.shuffle(main_trials.multi_dropdown),
+    data: main_trials.multi_dropdown,
+    //_.shuffle(main_trials.multi_dropdown),
     // There is the possibility to add hooks after different events in the trials life cycle
     // after_pause, after_fix_point, after_stim_shown, after_stim_hidden, after_response_enabled
     hook: {

@@ -16,3 +16,11 @@
 .custom-border {
    border: 1px solid powderblue;
 }
+
+
+/* get rid of picture space in slider rating */
+.babe-view-stimulus-container {
+    display: flex;
+    height: auto; /*before it was hardcoded 350px;*/
+    margin: 0 auto;
+    width: auto;

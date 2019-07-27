@@ -123,10 +123,21 @@ var cols = 4;
 var names = ["John", "Lisa", "Amy", "Daniel", "Alex", "Tina"]
 var questions = ["Q1", "Q2", "Q3", "Q4"]
 
-var matrix = [];
-for (var i = 0; i < cols; i++) {
-  matrix[i] = []; // Initialize inner array
+// function to generate random 1 and 0 values for table
+function createMatrix(cols, rows) {
+  var matrix = [];
+  for (var i = 0; i < cols; i++) {
+    matrix[i] = []; // Initialize inner array
+    for (var j = 0; j < rows; j++) {
+      matrix[i][j] = Math.round(Math.random());
+    }
+  }
+  return matrix;
 }
+
+var matrix1 = createMatrix(4, 6);
+var matrix2 = createMatrix(4, 6);
+var matrix3 = createMatrix(4, 6);
 
 // alternative idea to safe values of matrix here
 // for (var i = 0 ; i < cols; i++) {
@@ -137,19 +148,20 @@ for (var i = 0; i < cols; i++) {
 
 
 
-for (var i = -1; i < cols; i++) {
-  table += '<th>' + questions[i] + '</th>';
-}
-for (var r = 0; r < rows; r++) {
+// for (var i = -1; i < cols; i++) {
+//   table += '<th>' + questions[i] + '</th>';
+// }
+// for (var r = 0; r < rows; r++) {
+//
+//   table += '<tr>';
+//   table += '<th>' + names[r] + '</th>';
+//   for (var c = 0; c < cols; c++) {
+//     table += '<td>' + Math.round(Math.random()); + '</td>';
+//
+//   }
+//   table += '</tr>';
+// }
 
-  table += '<tr>';
-  table += '<th>' + names[r] + '</th>';
-  for (var c = 0; c < cols; c++) {
-    table += '<td>' + Math.round(Math.random()); + '</td>';
-
-  }
-  table += '</tr>';
-}
 //
 // '<style >' +
 // th, td {
