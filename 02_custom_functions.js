@@ -148,19 +148,26 @@ var matrix3 = createMatrix(4, 6);
 
 
 
-// for (var i = -1; i < cols; i++) {
-//   table += '<th>' + questions[i] + '</th>';
-// }
-// for (var r = 0; r < rows; r++) {
+for (var i = -1; i < cols; i++) {
+  table += '<th>' + questions[i] + '</th>';
+}
+for (var r = 0; r < rows; r++) {
+  table += '<tr>';
+  table += '<th>' + names[r] + '</th>';
+  // if I enter the mat.round .... here, I can create random tables, but it is not safed in matrix then...
+  table += '<td>' + matrix1[2][2] + '</th>';
+
+  //for (var c = 0; c < 4; c++) {
+}
+
+// table += '<td>' + matrix1[0][0] + '</td>';
+// table += '<td>' + matrix1[0][1] + '</td>';
+// table += '<td>' + matrix1[0][2] + '</td>';
+// table += '<td>' + matrix1[0][3] + '</td>';
 //
-//   table += '<tr>';
-//   table += '<th>' + names[r] + '</th>';
-//   for (var c = 0; c < cols; c++) {
-//     table += '<td>' + Math.round(Math.random()); + '</td>';
-//
-//   }
-//   table += '</tr>';
-// }
+//}
+table += '</tr>';
+
 
 //
 // '<style >' +
@@ -171,7 +178,6 @@ var matrix3 = createMatrix(4, 6);
 // '</style>'
 
 document.write('<table border=1>' + table + '<table>')
-
 
 
 // Here, we will define some generator functions for a multi-dropdown view
