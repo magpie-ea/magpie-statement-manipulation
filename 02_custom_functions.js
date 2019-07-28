@@ -149,6 +149,9 @@ function makeHTMLTable(myArray) {
     result += "<td>" + myArray[3][r] + "</td>";
     result += "<td>" + myArray[4][r] + "</td>";
     result += "<td>" + myArray[5][r] + "</td>";
+    result += "<td>" + "&#10004" + "</td>";
+    result += "<td>" + "&#10008" + "</td>";
+
     result += "</tr>";
   }
 
@@ -157,6 +160,12 @@ function makeHTMLTable(myArray) {
   return result;
 }
 
+
+// if (x === 0) {
+//   "&#10004"
+// } else {
+//   "&#10008"
+// }
 
 var table1 = makeHTMLTable(matrix1);
 document.write('<table border=1>' + table1 + '<table>');
