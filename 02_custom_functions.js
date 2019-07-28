@@ -132,12 +132,7 @@ var matrix2 = createMatrix(6, 4);
 var matrix3 = createMatrix(6, 4);
 
 
-// '<style >' +
-// th, td {
-//   padding: 15 px;
-//   font - family: calibri;
-// } +
-// '</style>'
+
 
 
 function makeHTMLTable(myArray) {
@@ -175,6 +170,7 @@ document.write('<table border=1>' + table3 + '<table>');
 
 
 // Here, we will define some generator functions for a multi-dropdown view
+// take some info from examples, but change it to my purpose
 const multi_dropdown_gens = {
   // A generator for our view template
   stimulus_container_gen: function (config, CT) {

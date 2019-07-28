@@ -23,7 +23,7 @@ const trial_info = {
 const main_trials = {
   multi_dropdown: [
     {
-      sentence_chunk_1: "Here",
+      sentence_chunk_1: "This table is a",
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",
       sentence_chunk_4: ".",
