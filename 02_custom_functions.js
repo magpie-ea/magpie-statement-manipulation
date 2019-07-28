@@ -67,63 +67,55 @@ check_response = function (data, next) {
 
 // Declare your hooks here
 
-
-/* Generators for custom view templates, answer container elements and enable response functions
- *
- *
- */
-
-// prerequisits for html table
-
-
-// build html table dynamically
-
-const formatDebugData = function (flattenedData) {
-  var output = "<table id='babe-debug-table'>";
-
-  var t = flattenedData[0];
-
-  output += "<thead><tr>";
-
-  for (var key in t) {
-    if (t.hasOwnProperty(key)) {
-      output += "<th>" + key + "</th>";
-    }
-  }
-
-  output += "</tr></thead>";
-
-  output += "<tbody><tr>";
-
-  var entry = "";
-
-  for (var i = 0; i < flattenedData.length; i++) {
-    var currentTrial = flattenedData[i];
-    for (var k in t) {
-      if (currentTrial.hasOwnProperty(k)) {
-        entry = String(currentTrial[k]);
-        output += "<td>" + entry.replace(/ /g, "&nbsp;") + "</td>";
-      }
-    }
-
-    output += "</tr>";
-  }
-
-  output += "</tbody></table>";
-
-  return output;
-};
+// // info of html table used in debug mode
+// // build html table dynamically
+// const formatDebugData = function (flattenedData) {
+//   var output = "<table id='babe-debug-table'>";
+//
+//   var t = flattenedData[0];
+//
+//   output += "<thead><tr>";
+//
+//   for (var key in t) {
+//     if (t.hasOwnProperty(key)) {
+//       output += "<th>" + key + "</th>";
+//     }
+//   }
+//
+//   output += "</tr></thead>";
+//
+//   output += "<tbody><tr>";
+//
+//   var entry = "";
+//
+//   for (var i = 0; i < flattenedData.length; i++) {
+//     var currentTrial = flattenedData[i];
+//     for (var k in t) {
+//       if (currentTrial.hasOwnProperty(k)) {
+//         entry = String(currentTrial[k]);
+//         output += "<td>" + entry.replace(/ /g, "&nbsp;") + "</td>";
+//       }
+//     }
+//
+//     output += "</tr>";
+//   }
+//
+//   output += "</tbody></table>";
+//
+//   return output;
+// };
 
 
-// create my own table
+// create my own html table
+// prerequisits
 var table = '';
 // set dimensions of table
 var rows = 6;
 var cols = 4;
 var names = ["John", "Lisa", "Amy", "Daniel", "Alex", "Tina"]
-var questions = ["Q1", "Q2", "Q3", "Q4"]
+var questions = ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6"]
 
-// function to generate random 1 and 0 values for table
+// function to generate random 1 and 0 values for table and store it
 function createMatrix(cols, rows) {
   var matrix = [];
   for (var i = 0; i < cols; i++) {
@@ -135,41 +127,11 @@ function createMatrix(cols, rows) {
   return matrix;
 }
 
-var matrix1 = createMatrix(4, 6);
-var matrix2 = createMatrix(4, 6);
-var matrix3 = createMatrix(4, 6);
-
-// alternative idea to safe values of matrix here
-// for (var i = 0 ; i < cols; i++) {
-//     for (var j = 0; j < rows; j++) {
-//         matrix[[i],[j]] = Math.round(Math.random());
-//     }
-// }
+var matrix1 = createMatrix(6, 4);
+var matrix2 = createMatrix(6, 4);
+var matrix3 = createMatrix(6, 4);
 
 
-
-for (var i = -1; i < cols; i++) {
-  table += '<th>' + questions[i] + '</th>';
-}
-for (var r = 0; r < rows; r++) {
-  table += '<tr>';
-  table += '<th>' + names[r] + '</th>';
-  // if I enter the mat.round .... here, I can create random tables, but it is not safed in matrix then...
-  table += '<td>' + matrix1[2][2] + '</th>';
-
-  //for (var c = 0; c < 4; c++) {
-}
-
-// table += '<td>' + matrix1[0][0] + '</td>';
-// table += '<td>' + matrix1[0][1] + '</td>';
-// table += '<td>' + matrix1[0][2] + '</td>';
-// table += '<td>' + matrix1[0][3] + '</td>';
-//
-//}
-table += '</tr>';
-
-
-//
 // '<style >' +
 // th, td {
 //   padding: 15 px;
@@ -177,7 +139,39 @@ table += '</tr>';
 // } +
 // '</style>'
 
-document.write('<table border=1>' + table + '<table>')
+
+function makeHTMLTable(myArray) {
+  var result = "<table border=1>";
+  for (var i = -1; i < myArray.length; i++) {
+    result += '<th>' + questions[i] + '</th>';
+  }
+  for (var r = 0; r < myArray[r].length; r++) {
+    result += '<tr>';
+    result += '<th>' + names[r] + '</th>';
+    result += "<td>" + myArray[0][r] + "</td>";
+    result += "<td>" + myArray[1][r] + "</td>";
+    result += "<td>" + myArray[2][r] + "</td>";
+    result += "<td>" + myArray[3][r] + "</td>";
+    result += "<td>" + myArray[4][r] + "</td>";
+    result += "<td>" + myArray[5][r] + "</td>";
+    result += "</tr>";
+  }
+
+  result += "</table>";
+
+  return result;
+}
+
+
+var table1 = makeHTMLTable(matrix1);
+document.write('<table border=1>' + table1 + '<table>');
+
+var table2 = makeHTMLTable(matrix2);
+document.write('<table border=1>' + table2 + '<table>');
+
+var table3 = makeHTMLTable(matrix3);
+document.write('<table border=1>' + table3 + '<table>');
+
 
 
 // Here, we will define some generator functions for a multi-dropdown view
