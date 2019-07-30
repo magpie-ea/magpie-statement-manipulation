@@ -1,2 +1,3 @@
-# language-tool
-experiment to investigate use of all, some, most, many, none to (mis-)lead listener 
+# Language-tool
+
+This is an experiment to investigate the use of all, some, most, many and none to (mis-)lead the listener.
