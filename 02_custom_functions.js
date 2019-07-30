@@ -202,17 +202,23 @@ const multi_dropdown_gens = {
                 </div>`;
   },
   // A generator for the answer container
+  // I make a change from magpie-response-dropdown to a new: magpie-response-list
+  // <select id='response1' name='answer_1'>
+  //     <option disabled selected></option>
+  //     <option value=${config.data[CT].choice_options_1[0]}>${config.data[CT].choice_options_1[0]}</option>
+  //     <option value=${config.data[CT].choice_options_1[1]}>${config.data[CT].choice_options_1[1]}</option>
+  //     <option value=${config.data[CT].choice_options_1[2]}>${config.data[CT].choice_options_1[2]}</option>
+  //     <option value=${config.data[CT].choice_options_1[3]}>${config.data[CT].choice_options_1[3]}</option>
+  //     <option value=${config.data[CT].choice_options_1[4]}>${config.data[CT].choice_options_1[4]}</option>
+  // </select>
+
   answer_container_gen: function (config, CT) {
     return `<div class='magpie-view-answer-container magpie-response-dropdown'>
                 ${config.data[CT].sentence_chunk_1}
-                <select id='response1' name='answer_1'>
-                    <option disabled selected></option>
-                    <option value=${config.data[CT].choice_options_1[0]}>${config.data[CT].choice_options_1[0]}</option>
-                    <option value=${config.data[CT].choice_options_1[1]}>${config.data[CT].choice_options_1[1]}</option>
-                    <option value=${config.data[CT].choice_options_1[2]}>${config.data[CT].choice_options_1[2]}</option>
-                    <option value=${config.data[CT].choice_options_1[3]}>${config.data[CT].choice_options_1[3]}</option>
-                    <option value=${config.data[CT].choice_options_1[4]}>${config.data[CT].choice_options_1[4]}</option>
-                </select>
+              <div class= 'response-button-group'>
+                <button name="button">${config.data[CT].choice_options_1[0]}</button>
+                <button name="button">${config.data[CT].choice_options_1[1]}</button>
+              </div>
                 ${config.data[CT].sentence_chunk_2}
                 <select id='response2' name='answer_2'>
                     <option disabled selected></option>
@@ -247,8 +253,10 @@ const multi_dropdown_gens = {
     response3 = $("#response3");
 
     // flags to check if dropdown menus have been used
+    // I think this needs to be [0,0,0]
     let response_flags = [0, 0];
 
+    // I changed the if condition to === 2, next button doesnt show after 2nd press, but also not after 3rd
     const display_button_checker = function (response_number) {
       response_flags[response_number] = 1;
       if (_.min(response_flags) === 1) {
