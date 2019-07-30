@@ -70,7 +70,7 @@ check_response = function (data, next) {
 // // info of html table used in debug mode
 // // build html table dynamically
 // const formatDebugData = function (flattenedData) {
-//   var output = "<table id='babe-debug-table'>";
+//   var output = "<table id='magpie-debug-table'>";
 //
 //   var t = flattenedData[0];
 //
@@ -113,7 +113,7 @@ var table = '';
 var rows = 6;
 var cols = 4;
 var names = ["John", "Lisa", "Amy", "Daniel", "Alex", "Tina"]
-var questions = ["Q1", "Q2", "Q3", "Q4", "Q5", "Q6"]
+var questions = [" ", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6"]
 
 // function to generate random 1 and 0 values for table and store it
 function createMatrix(cols, rows) {
@@ -127,54 +127,66 @@ function createMatrix(cols, rows) {
   return matrix;
 }
 
-var matrix1 = createMatrix(6, 4);
-var matrix2 = createMatrix(6, 4);
-var matrix3 = createMatrix(6, 4);
+var matrix1 = createMatrix(6, 6);
+var matrix2 = createMatrix(6, 6);
+var matrix3 = createMatrix(6, 6);
 
-
-
-
+function getCheck(result) {
+  if (result == 0) {
+    return "&#10004"
+  } else {
+    return "&#10008"
+  }
+}
 
 function makeHTMLTable(myArray) {
   var result = "<table border=1>";
-  for (var i = -1; i < myArray.length; i++) {
+  for (var i = 0; i <= myArray.length; i++) {
     result += '<th>' + questions[i] + '</th>';
   }
-  for (var r = 0; r < myArray[r].length; r++) {
-    result += '<tr>';
-    result += '<th>' + names[r] + '</th>';
-    result += "<td>" + myArray[0][r] + "</td>";
-    result += "<td>" + myArray[1][r] + "</td>";
-    result += "<td>" + myArray[2][r] + "</td>";
-    result += "<td>" + myArray[3][r] + "</td>";
-    result += "<td>" + myArray[4][r] + "</td>";
-    result += "<td>" + myArray[5][r] + "</td>";
-    result += "<td>" + "&#10004" + "</td>";
-    result += "<td>" + "&#10008" + "</td>";
 
+  for (var j = 0; j < myArray.length; j++) {
+    result += '<tr>';
+    result += '<th>' + names[j] + '</th>';
+    for (var k = 0; k < myArray[j].length; k++) {
+      result += "<td>" + this.getCheck(myArray[j][k]) + "</td>";
+    }
     result += "</tr>";
   }
 
+  // for (var r = 0; r < myArray[r].length; r++) {
+  //   result += '<tr>';
+  //   result += '<th>' + names[r] + '</th>';
+  //   result += "<td>" + this.getCheck(myArray[0][r]) + "</td>";
+  //   result += "<td>" + myArray[1][r] + "</td>";
+  //   result += "<td>" + myArray[2][r] + "</td>";
+  //   result += "<td>" + myArray[3][r] + "</td>";
+  //   result += "<td>" + myArray[4][r] + "</td>";
+  //   result += "<td>" + myArray[5][r] + "</td>";
+  //   result += "<td>" + "&#10004" + "</td>";
+  //   result += "<td>" + "&#10008" + "</td>";
+  //
+  //
+  // }
+
+
   result += "</table>";
+
 
   return result;
 }
 
 
-// if (x === 0) {
-//   "&#10004"
-// } else {
-//   "&#10008"
-// }
+
 
 var table1 = makeHTMLTable(matrix1);
-document.write('<table border=1>' + table1 + '<table>');
+//document.write('<table border=1>' + table1 + '<table>');
 
 var table2 = makeHTMLTable(matrix2);
-document.write('<table border=1>' + table2 + '<table>');
+//document.write('<table border=1>' + table2 + '<table>');
 
 var table3 = makeHTMLTable(matrix3);
-document.write('<table border=1>' + table3 + '<table>');
+//document.write('<table border=1>' + table3 + '<table>');
 
 
 
@@ -183,15 +195,15 @@ document.write('<table border=1>' + table3 + '<table>');
 const multi_dropdown_gens = {
   // A generator for our view template
   stimulus_container_gen: function (config, CT) {
-    return `<div class='babe-view'>
-                <h1 class='babe-view-title'>${config.title}</h1>
-                <p class='babe-view-question babe-view-qud'>${config.data[CT].QUD}</p>
-                <p class='babe-response-keypress-header' id = 'reminder'></p>
+    return `<div class='magpie-view'>
+                <h1 class='magpie-view-title'>${config.title}</h1>
+                <p class='magpie-view-question magpie-view-qud'>${config.data[CT].QUD}</p>
+                <p class='magpie-response-keypress-header' id = 'reminder'></p>
                 </div>`;
   },
   // A generator for the answer container
   answer_container_gen: function (config, CT) {
-    return `<div class='babe-view-answer-container babe-response-dropdown'>
+    return `<div class='magpie-view-answer-container magpie-response-dropdown'>
                 ${config.data[CT].sentence_chunk_1}
                 <select id='response1' name='answer_1'>
                     <option disabled selected></option>
@@ -218,16 +230,16 @@ const multi_dropdown_gens = {
                 </select>
                 ${config.data[CT].sentence_chunk_4}
                 </p>
-                <button id='next' class='babe-view-button babe-nodisplay'>Next</button>
+                <button id='next' class='magpie-view-button magpie-nodisplay'>Next</button>
             </div>`;
   },
   // A generator for the enable response function
-  handle_response_function: function (config, CT, babe, answer_container_generator, startingTime) {
+  handle_response_function: function (config, CT, magpie, answer_container_generator, startingTime) {
     let response1;
     let response2;
     let response3;
 
-    $(".babe-view")
+    $(".magpie-view")
       .append(answer_container_generator(config, CT));
 
     response1 = $("#response1");
@@ -241,7 +253,7 @@ const multi_dropdown_gens = {
       response_flags[response_number] = 1;
       if (_.min(response_flags) === 1) {
         $("#next")
-          .removeClass("babe-nodisplay");
+          .removeClass("magpie-nodisplay");
       }
     };
 
@@ -284,10 +296,10 @@ const multi_dropdown_gens = {
           RT: RT
         };
 
-        trial_data = babeUtils.view.save_config_trial_data(config.data[CT], trial_data);
+        trial_data = magpieUtils.view.save_config_trial_data(config.data[CT], trial_data);
 
-        babe.trial_data.push(trial_data);
-        babe.findNextView();
+        magpie.trial_data.push(trial_data);
+        magpie.findNextView();
       });
   }
 
