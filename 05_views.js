@@ -132,6 +132,7 @@ const multi_dropdown = babeViews.view_generator("forced_choice", {
   },
   // We add our custom generators here
   {
+
     stimulus_container_generator: multi_dropdown_gens.stimulus_container_gen,
     answer_container_generator: multi_dropdown_gens.answer_container_gen,
     handle_response_function: multi_dropdown_gens.handle_response_function
