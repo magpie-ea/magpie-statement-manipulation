@@ -42,13 +42,13 @@
 th {
   padding: 15px 15px ;
   font-family: calibri;
-  background:lightgrey;
+  background:#dbc5c5;
   }
 
 table, td, th {
   font-family: "Lato", "Noto Sans", sans-serif;
   align: center;
-  border: solid;
+  border: 1px solid;
 
 }
 
@@ -88,11 +88,12 @@ table {
    color: white; /*rgba(0, 0, 0, 0.87);*/
    font-size: 17px; /* size of button text*/
    line-height: 27px;
-   font-family: "Lato", "Noto Sans", sans-serif;
+   font-family: "Lato", "Noto Sans", sans-serif, fine;
    border: darkgrey;
    /* background: linear-gradient(lightgrey, grey); */
    border-radius: 5px;
    width: 70px;
+   background-color: #dbc5c5;
     /* margin: 30px auto; */
    /* max-width: 700px; */
   /* cursor: pointer; /* Pointer/hand icon */
