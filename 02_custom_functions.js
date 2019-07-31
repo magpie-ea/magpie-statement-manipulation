@@ -213,25 +213,33 @@ const multi_dropdown_gens = {
   //     <option value=${config.data[CT].choice_options_1[4]}>${config.data[CT].choice_options_1[4]}</option>
   // </select>
 
+  // // button trials
+  //   <span class= 'response-button-group'>
+  //     <button name="button" value=${config.data[CT].choice_options_1[0]}>${config.data[CT].choice_options_1[0]}</button>
+  //     <button name="button" value=${config.data[CT].choice_options_1[1]}>${config.data[CT].choice_options_1[1]}</button>
+  //     <button name="button" value=${config.data[CT].choice_options_1[2]} >${config.data[CT].choice_options_1[2]}</button>
+  //     <button name="button" value=${config.data[CT].choice_options_1[3]}>${config.data[CT].choice_options_1[3]}</button>
+  //     <button name="button" value=${config.data[CT].choice_options_1[4]} >${config.data[CT].choice_options_1[4]}</button>
+  //   </span>
+
 
   answer_container_gen: function (config, CT) {
     return `<div class='magpie-view-answer-container magpie-response-dropdown'>
     <div class='magpie-view-answer-container'>
-                      <p class='magpie-view-question'>${config.data[CT].question}</p>
-                      <label for='o1' class='magpie-response-buttons'>${config.data[CT].option1}</label>
-                      <input type='radio' name='answer' id='o1' value=${config.data[CT].option1} />
-                      <input type='radio' name='answer' id='o2' value=${config.data[CT].option2} />
-                      <label for='o2' class='magpie-response-buttons'>${config.data[CT].option2}</label>
-                  </div>
-
-                <span> ${config.data[CT].sentence_chunk_1}</span>
-              <span class= 'response-button-group'>
-                <button name="button" value=${config.data[CT].choice_options_1[0]}>${config.data[CT].choice_options_1[0]}</button>
-                <button name="button" value=${config.data[CT].choice_options_1[1]}>${config.data[CT].choice_options_1[1]}</button>
-                <button name="button" value=${config.data[CT].choice_options_1[2]} >${config.data[CT].choice_options_1[2]}</button>
-                <button name="button" value=${config.data[CT].choice_options_1[3]}>${config.data[CT].choice_options_1[3]}</button>
-                <button name="button" value=${config.data[CT].choice_options_1[4]} >${config.data[CT].choice_options_1[4]}</button>
-              </span>
+                  <p class='magpie-view-question'>${config.data[CT].question}</p>
+                 ${config.data[CT].sentence_chunk_1}
+                  <span class= 'response-table'>
+                      <label for='o1' class='magpie-response-buttons'>${config.data[CT].choice_options_1[0]}</label>
+                      <input type='radio' name='answer' id='o1' value=${config.data[CT].choice_options_1[0]} />
+                      <label for='o2' class='magpie-response-buttons'>${config.data[CT].choice_options_1[1]}</label>
+                      <input type='radio' name='answer' id='o2' value=${config.data[CT].choice_options_1[1]} />
+                      <label for='o3' class='magpie-response-buttons'>${config.data[CT].choice_options_1[2]}</label>
+                      <input type='radio' name='answer' id='o3' value=${config.data[CT].choice_options_1[2]} />
+                      <label for='o4' class='magpie-response-buttons'>${config.data[CT].choice_options_1[3]}</label>
+                      <input type='radio' name='answer' id='o4' value=${config.data[CT].choice_options_1[3]} />
+                      <label for='o5' class='magpie-response-buttons'>${config.data[CT].choice_options_1[4]}</label>
+                      <input type='radio' name='answer' id='o5' value=${config.data[CT].choice_options_1[4]} />
+                  </span>
                 ${config.data[CT].sentence_chunk_2}
                 <select id='response2' name='answer_2'>
                     <option disabled selected></option>

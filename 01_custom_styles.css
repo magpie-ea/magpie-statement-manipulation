@@ -68,11 +68,29 @@ table {
 .magpie-response-dropdown{
   display: flex;
   align-items: center;
+}
+
+.magpie-response-buttons {
+  display: block;
+  align-items: center;
 
 }
+
+
+.response-table  {
+  display: flex;
+  align-items: center;
+  display: block;
+  margin: 5px;
+
+}
+
+/* handles that the button list is vertical */
 .magpie-view-answer-container {
-    text-align: center;
-    margin: 70px auto; /* initially 45px */
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     /* text-align: center; */
 }
 
 /* I need to write formatting for class='magpie-view-answer-container magpie-response-list', wich is new */
@@ -111,7 +129,13 @@ table {
     background-color: #3e8e41;
 }
 
+/* doesnt function as wanted */
 .response-button-group button:focus {
     border: 2px solid red;
   /* background-color: #3e8e41; */
+}
+
+
+.type {
+  display: block;
 }
