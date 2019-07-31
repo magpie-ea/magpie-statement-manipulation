@@ -23,26 +23,42 @@ const intro = magpieViews.view_generator("intro", {
   trials: 1,
   name: 'intro',
   // If you use JavaScripts Template String `I am a Template String`, you can use HTML <></> and javascript ${} inside
-  text: `This is a sample introduction view.
-            <br />
-            <br />
-            The introduction view welcomes the participant and gives general information
-            about the experiment. You are in the <strong>${coin}</strong> group.
-            <br />
-            <br />
-            This is a minimal experiment with one forced choice view. It can serve as a starting point for programming your own experiment.`,
+  text: `Thank you for your participation in our study!
+         Your anonymous data makes an important contribution to our understanding of human language use.
+          <br />
+          <br />
+          Legal information:
+          By answering the following questions, you are participating in a study
+          being performed by scientists from the University of Osnabrueck.
+          <br />
+          <br />
+          You must be at least 18 years old to participate.
+          <br />
+          <br />
+          Your participation in this research is voluntary.
+          You may decline to answer any or all of the following questions.
+          You may decline further participation, at any time, without adverse consequences.
+          <br />
+          <br />
+          Your anonymity is assured; the researchers who have requested your
+          participation will not receive any personal information about you.
+          `,
   buttonText: 'Begin the experiment'
 });
 
 // For most tasks, you need instructions views
 const instructions = magpieViews.view_generator("instructions", {
   trials: 1,
-  name: 'instrucions',
+  name: 'instructions',
   title: 'General Instructions',
-  text: `This is a sample instructions view.
-            <br />
-            <br />
-            Tell your participants what they are to do here.`,
+  text: `In the following,
+      you will be presented with tables showing the exam results of students of the statistics class.
+      A  "&#10004" indicates that a task was graded as correclty,"&#10008" that it was graded as wrong.
+      <br />
+      <br />
+      Given the information from the table, please choose the three words to complete the sentence, so that it
+      best describes the reality.
+      `,
   buttonText: 'go to trials'
 });
 
@@ -105,7 +121,7 @@ const thanks = magpieViews.view_generator("thanks", {
 
 // Here, we initialize a normal forced_choice view
 const forced_choice_2A = magpieViews.view_generator("forced_choice", {
-  // This will use all trials specified in `data`, you can user a smaller value (for testing), but not a larger value
+  // This will use all trials specified in data you can user a smaller value (for testing), but not a larger value
   trials: trial_info.forced_choice.length,
   // name should be identical to the variable name
   name: 'forced_choice_2A',
