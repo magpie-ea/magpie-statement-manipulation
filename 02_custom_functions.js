@@ -154,6 +154,7 @@ function makeHTMLTable(myArray) {
     result += "</tr>";
   }
 
+  // still keep this info of how I did it initially
   // for (var r = 0; r < myArray[r].length; r++) {
   //   result += '<tr>';
   //   result += '<th>' + names[r] + '</th>';
@@ -214,11 +215,15 @@ const multi_dropdown_gens = {
 
   answer_container_gen: function (config, CT) {
     return `<div class='magpie-view-answer-container magpie-response-dropdown'>
-                ${config.data[CT].sentence_chunk_1}
-              <div class= 'response-button-group'>
+
+                <span> ${config.data[CT].sentence_chunk_1}</span>
+              <span class= 'response-button-group'>
                 <button name="button">${config.data[CT].choice_options_1[0]}</button>
                 <button name="button">${config.data[CT].choice_options_1[1]}</button>
-              </div>
+                <button name="button">${config.data[CT].choice_options_1[2]}</button>
+                <button name="button">${config.data[CT].choice_options_1[3]}</button>
+                <button name="button">${config.data[CT].choice_options_1[4]}</button>
+              </span>
                 ${config.data[CT].sentence_chunk_2}
                 <select id='response2' name='answer_2'>
                     <option disabled selected></option>

@@ -35,7 +35,7 @@
     line-height: 27px;
     font-family: "Lato", "Noto Sans", sans-serif;
     margin: 30px auto;
-    max-width: 700px;
+    max-width: 700px; /* this is made bigger, so that whole sentence is shown in one line */
 }
 
 
@@ -65,23 +65,45 @@ table {
   margin: 30px auto;
 }
 
+.magpie-response-dropdown{
+  display: flex;
+  align-items: center;
+}
+.magpie-view-answer-container {
+    text-align: center;
+    margin: 70px auto; /* initially 45px */
+}
+
 /* I need to write formatting for class='magpie-view-answer-container magpie-response-list', wich is new */
 
-
+/* .response-button-group {
+  padding: 10px 0 10px 0;
+  display: inline;
+} */
 .response-button-group button {
   /* background-color: #4CAF50; /* Green background */
   /* border: 1px solid green; /* Green border */
-  /* color: white; /* White text */
-  /* padding: 10px 24px; /* Some padding */
+   /*color: white;*/ /* White text */
+   padding: 5px 10px 5px 10px;
+   color: white; /*rgba(0, 0, 0, 0.87);*/
+   font-size: 17px; /* size of button text*/
+   line-height: 27px;
+   font-family: "Lato", "Noto Sans", sans-serif;
+   border: none;
+   background: linear-gradient(lightgrey, grey);
+   border-radius: 5px;
+    /* margin: 30px auto; */
+   /* max-width: 700px; */
   /* cursor: pointer; /* Pointer/hand icon */
   /* width: 50%; /* Set a width if needed */
   display: block; /* Make the buttons appear below each other */
   }
 
-  .response-button-group button:not(:last-child) {
+  /* .response-button-group button:not(:last-child) {
     border-bottom: none; /* Prevent double borders */
-  }
+  /*} */
+
 
   /* Add a background color on hover */
-  .btn-group button:hover {
+  .response-button-group button:hover {
     background-color: #3e8e41;
