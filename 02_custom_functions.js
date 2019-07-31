@@ -218,11 +218,11 @@ const multi_dropdown_gens = {
 
                 <span> ${config.data[CT].sentence_chunk_1}</span>
               <span class= 'response-button-group'>
-                <button name="button">${config.data[CT].choice_options_1[0]}</button>
-                <button name="button">${config.data[CT].choice_options_1[1]}</button>
-                <button name="button">${config.data[CT].choice_options_1[2]}</button>
-                <button name="button">${config.data[CT].choice_options_1[3]}</button>
-                <button name="button">${config.data[CT].choice_options_1[4]}</button>
+                <button name="button" value=${config.data[CT].choice_options_1[0]}>${config.data[CT].choice_options_1[0]}</button>
+                <button name="button" value=${config.data[CT].choice_options_1[1]}>${config.data[CT].choice_options_1[1]}</button>
+                <button name="button" value=${config.data[CT].choice_options_1[2]} >${config.data[CT].choice_options_1[2]}</button>
+                <button name="button" value=${config.data[CT].choice_options_1[3]}>${config.data[CT].choice_options_1[3]}</button>
+                <button name="button" value=${config.data[CT].choice_options_1[4]} >${config.data[CT].choice_options_1[4]}</button>
               </span>
                 ${config.data[CT].sentence_chunk_2}
                 <select id='response2' name='answer_2'>
