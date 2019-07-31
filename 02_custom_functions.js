@@ -213,8 +213,16 @@ const multi_dropdown_gens = {
   //     <option value=${config.data[CT].choice_options_1[4]}>${config.data[CT].choice_options_1[4]}</option>
   // </select>
 
+
   answer_container_gen: function (config, CT) {
     return `<div class='magpie-view-answer-container magpie-response-dropdown'>
+    <div class='magpie-view-answer-container'>
+                      <p class='magpie-view-question'>${config.data[CT].question}</p>
+                      <label for='o1' class='magpie-response-buttons'>${config.data[CT].option1}</label>
+                      <input type='radio' name='answer' id='o1' value=${config.data[CT].option1} />
+                      <input type='radio' name='answer' id='o2' value=${config.data[CT].option2} />
+                      <label for='o2' class='magpie-response-buttons'>${config.data[CT].option2}</label>
+                  </div>
 
                 <span> ${config.data[CT].sentence_chunk_1}</span>
               <span class= 'response-button-group'>
@@ -244,8 +252,38 @@ const multi_dropdown_gens = {
                 <button id='next' class='magpie-view-button magpie-nodisplay'>Next</button>
             </div>`;
   },
-  // A generator for the enable response function
+
+
+  //A generator for the enable response function
+  // button_choice: function (config, CT, magpie, answer_container_generator, startingTime) {
+  //   $(".magpie-view")
+  //     .append(answer_container_generator(config, CT));
+  //
+  //   // attaches an event listener to the yes / no radio inputs
+  //   // when an input is selected a response property with a value equal
+  //   // to the answer is added to the trial object
+  //   // as well as a readingTimes property with value
+  //   $("input[name=answer]")
+  //     .on("change", function () {
+  //       const RT = Date.now() - startingTime;
+  //       let trial_data = {
+  //         trial_name: config.name,
+  //         trial_number: CT + 1,
+  //         response: $("input[name=answer]:checked")
+  //           .val(),
+  //         RT: RT
+  //       };
+  //
+  //       trial_data = magpieUtils.view.save_config_trial_data(config.data[CT], trial_data);
+  //
+  //       magpie.trial_data.push(trial_data);
+  //       magpie.findNextView();
+  //     });
+  // },
+
+
   handle_response_function: function (config, CT, magpie, answer_container_generator, startingTime) {
+
     let response1;
     let response2;
     let response3;
