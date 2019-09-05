@@ -31,7 +31,7 @@ const main_trials = {
       choice_options_1: ["all", "some", "most", "many", "none"],
       choice_options_2: ["all", "some", "most", "many", "none"],
       choice_options_3: ["right", "wrong"]
-        },
+    },
     {
       QUD: '<table border=1>' + table2 + '<table>',
       sentence_chunk_1: "In this table",
@@ -41,7 +41,17 @@ const main_trials = {
       choice_options_1: ["all", "some", "most", "many", "none"],
       choice_options_2: ["all", "some", "most", "many", "none"],
       choice_options_3: ["right", "wrong"]
-        }
+    },
+    {
+      QUD: '<table border=1>' + table3 + '<table>',
+      sentence_chunk_1: "In this table",
+      sentence_chunk_2: "of the students got",
+      sentence_chunk_3: "of the questions",
+      sentence_chunk_4: ".",
+      choice_options_1: ["all", "some", "most", "many", "none"],
+      choice_options_2: ["all", "some", "most", "many", "none"],
+      choice_options_3: ["right", "wrong"]
+      }
 
   ]
 }

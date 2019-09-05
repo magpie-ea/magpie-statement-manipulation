@@ -1,18 +1,5 @@
 // Here, you can define all custom functions, you want to use and initialize some variables
 
-/* Variables
- *
- *
- */
-const coin = _.sample(["head", "tail"]); // You can determine global (random) parameters here
-// Declare your variables here
-
-
-
-/* Helper functions
- *
- *
- */
 
 
 /* For generating random participant IDs */
@@ -31,82 +18,9 @@ const generateID = function (len) {
 };
 // Declare your helper functions here
 
-
-
-/* Hooks
- *
- *
- */
-
-// Error feedback if participants exceeds the time for responding
-const time_limit = function (data, next) {
-  if (typeof window.timeout === 'undefined') {
-    window.timeout = [];
-  }
-  // Add timeouts to the timeoutarray
-  // Reminds the participant to respond after 5 seconds
-  window.timeout.push(setTimeout(function () {
-    $('#reminder')
-      .text('Please answer more quickly!');
-  }, 5000));
-  next();
-};
-
-// compares the chosen answer to the value of `option1`
-check_response = function (data, next) {
-  $('input[name=answer]')
-    .on('change', function (e) {
-      if (e.target.value === data.correct) {
-        alert('Your answer is correct! Yey!');
-      } else {
-        alert('Sorry, this answer is incorrect :( The correct answer was ' + data.correct);
-      }
-      next();
-    })
-}
-
 // Declare your hooks here
 
-// // info of html table used in debug mode
-// // build html table dynamically
-// const formatDebugData = function (flattenedData) {
-//   var output = "<table id='magpie-debug-table'>";
-//
-//   var t = flattenedData[0];
-//
-//   output += "<thead><tr>";
-//
-//   for (var key in t) {
-//     if (t.hasOwnProperty(key)) {
-//       output += "<th>" + key + "</th>";
-//     }
-//   }
-//
-//   output += "</tr></thead>";
-//
-//   output += "<tbody><tr>";
-//
-//   var entry = "";
-//
-//   for (var i = 0; i < flattenedData.length; i++) {
-//     var currentTrial = flattenedData[i];
-//     for (var k in t) {
-//       if (currentTrial.hasOwnProperty(k)) {
-//         entry = String(currentTrial[k]);
-//         output += "<td>" + entry.replace(/ /g, "&nbsp;") + "</td>";
-//       }
-//     }
-//
-//     output += "</tr>";
-//   }
-//
-//   output += "</tbody></table>";
-//
-//   return output;
-// };
-
-
-// create my own html table
+// create html table for trials
 // prerequisits
 var table = '';
 // set dimensions of table
@@ -131,6 +45,7 @@ var matrix1 = createMatrix(6, 6);
 var matrix2 = createMatrix(6, 6);
 var matrix3 = createMatrix(6, 6);
 
+// function which changes 0 and 1 to crossmark and checker
 function getCheck(result) {
   if (result == 0) {
     return "&#10004"
@@ -166,20 +81,14 @@ function makeHTMLTable(myArray) {
   //   result += "<td>" + myArray[5][r] + "</td>";
   //   result += "<td>" + "&#10004" + "</td>";
   //   result += "<td>" + "&#10008" + "</td>";
-  //
-  //
   // }
 
-
   result += "</table>";
-
-
   return result;
 }
 
 
-
-
+// these are final tables
 var table1 = makeHTMLTable(matrix1);
 //document.write('<table border=1>' + table1 + '<table>');
 
