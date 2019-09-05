@@ -335,67 +335,94 @@ const multi_button_generator = {
   // },
 
 
+  // old handle response function with dropdown approach
+  // handle_response_function: function (config, CT, magpie, answer_container_generator, startingTime) {
+  //
+  //   let response1;
+  //   let response2;
+  //   let response3;
+  //
+  //   $(".magpie-view")
+  //     .append(answer_container_generator(config, CT));
+  //
+  //   response1 = $("#response1");
+  //   response2 = $("#response2");
+  //   response3 = $("#response3");
+  //
+  //   // flags to check if dropdown menus have been used
+  //   // I think this needs to be [0,0,0]
+  //   let response_flags = [0, 0];
+  //
+  //   // I changed the if condition to === 2, next button doesnt show after 2nd press, but also not after 3rd
+  //   const display_button_checker = function (response_number) {
+  //     response_flags[response_number] = 1;
+  //     if (_.min(response_flags) === 1) {
+  //       $("#next")
+  //         .removeClass("magpie-nodisplay");
+  //     }
+  //   };
+  //
+  //   response1.on("change", function () {
+  //     response_flags[0] = 1;
+  //     display_button_checker(0);
+  //   });
+  //   response2.on("change", function () {
+  //     response_flags[1] = 1;
+  //     display_button_checker(1);
+  //   });
+  //   response3.on("change", function () {
+  //     response_flags[2] = 1;
+  //     display_button_checker(2);
+  //   });
+  //
+  //
+  //   $("#next")
+  //     .on("click", function () {
+  //       const RT = Date.now() - startingTime; // measure RT before anything else
+  //       // clear old timeouts and remove them from the timeout array
+  //       clearTimeout(window.timeout[0]);
+  //       window.timeout.shift();
+  //       let trial_data = {
+  //         trial_name: config.name,
+  //         trial_number: CT + 1,
+  //         sentence_frame: config.data[CT].sentence_chunk_1
+  //           .concat("...")
+  //           .concat(config.data[CT].sentence_chunk_2)
+  //           .concat("...")
+  //           .concat(config.data[CT].sentence_chunk_3)
+  //           .concat("...")
+  //           .concat(config.data[CT].sentence_chunk_4),
+  //         response_1: $(response1)
+  //           .val(),
+  //         response_2: $(response2)
+  //           .val(),
+  //         response_3: $(response3)
+  //           .val(),
+  //         RT: RT
+  //       };
+  //
+  //       trial_data = magpieUtils.view.save_config_trial_data(config.data[CT], trial_data);
+  //
+  //       magpie.trial_data.push(trial_data);
+  //       magpie.findNextView();
+  //     });
+  // }
+
   handle_response_function: function (config, CT, magpie, answer_container_generator, startingTime) {
-
-    let response1;
-    let response2;
-    let response3;
-
     $(".magpie-view")
       .append(answer_container_generator(config, CT));
 
-    response1 = $("#response1");
-    response2 = $("#response2");
-    response3 = $("#response3");
-
-    // flags to check if dropdown menus have been used
-    // I think this needs to be [0,0,0]
-    let response_flags = [0, 0];
-
-    // I changed the if condition to === 2, next button doesnt show after 2nd press, but also not after 3rd
-    const display_button_checker = function (response_number) {
-      response_flags[response_number] = 1;
-      if (_.min(response_flags) === 1) {
-        $("#next")
-          .removeClass("magpie-nodisplay");
-      }
-    };
-
-    response1.on("change", function () {
-      response_flags[0] = 1;
-      display_button_checker(0);
-    });
-    response2.on("change", function () {
-      response_flags[1] = 1;
-      display_button_checker(1);
-    });
-    response3.on("change", function () {
-      response_flags[2] = 1;
-      display_button_checker(2);
-    });
-
-
-    $("#next")
-      .on("click", function () {
-        const RT = Date.now() - startingTime; // measure RT before anything else
-        // clear old timeouts and remove them from the timeout array
-        clearTimeout(window.timeout[0]);
-        window.timeout.shift();
+    // attaches an event listener to the yes / no radio inputs
+    // when an input is selected a response property with a value equal
+    // to the answer is added to the trial object
+    // as well as a readingTimes property with value
+    $("input[name=answer]")
+      .on("change", function () {
+        const RT = Date.now() - startingTime;
         let trial_data = {
           trial_name: config.name,
           trial_number: CT + 1,
-          sentence_frame: config.data[CT].sentence_chunk_1
-            .concat("...")
-            .concat(config.data[CT].sentence_chunk_2)
-            .concat("...")
-            .concat(config.data[CT].sentence_chunk_3)
-            .concat("...")
-            .concat(config.data[CT].sentence_chunk_4),
-          response_1: $(response1)
-            .val(),
-          response_2: $(response2)
-            .val(),
-          response_3: $(response3)
+          response: $("input[name=answer]:checked")
             .val(),
           RT: RT
         };
@@ -403,8 +430,28 @@ const multi_button_generator = {
         trial_data = magpieUtils.view.save_config_trial_data(config.data[CT], trial_data);
 
         magpie.trial_data.push(trial_data);
+
+        // if ... showNextBtn();
+        // moves to the next view
+        // next.on("click", function() {
+        //     if (magpie.deploy.deployMethod === "Prolific") {
+        //         magpie.global_data.prolific_id = prolificId.val().trim();
+        //     }
+
+
         magpie.findNextView();
       });
   }
 
 };
+
+
+//needs to be deleted, but inspiration for function of next button from intro handle response function
+function showNextBtn() {
+  if (prolificId.val()
+    .trim() !== "") {
+    next.removeClass("magpie-nodisplay");
+  } else {
+    next.addClass("magpie-nodisplay");
+  }
+}
