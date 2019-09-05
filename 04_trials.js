@@ -21,7 +21,7 @@ const trial_info = {
 };
 
 const main_trials = {
-  multi_dropdown: [
+  multi_button: [
     {
       QUD: '<table border=1>' + table1 + '<table>',
       sentence_chunk_1: "In this table",

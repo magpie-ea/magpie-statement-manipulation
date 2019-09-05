@@ -193,7 +193,7 @@ var table3 = makeHTMLTable(matrix3);
 
 // Here, we will define some generator functions for a multi-dropdown view
 // take some info from examples, but change it to my purpose
-const multi_dropdown_gens = {
+const multi_button_generator = {
   // A generator for our view template
   stimulus_container_gen: function (config, CT) {
     return `<div class='magpie-view'>

@@ -133,26 +133,26 @@ const forced_choice_2A = magpieViews.view_generator("forced_choice", {
 });
 
 
-const multi_dropdown = magpieViews.view_generator("forced_choice", {
-    trials: main_trials.multi_dropdown.length,
+const multi_button = magpieViews.view_generator("forced_choice", {
+    trials: main_trials.multi_button.length,
     title: "Complete the sentence",
     QUD: "Choose one option for each missing word in this sentence.",
-    name: 'multi_dropdown',
+    name: 'multi_button',
     // You can also randomize (shuffle) the trials of a view
-    data: main_trials.multi_dropdown,
+    data: main_trials.multi_button,
     //_.shuffle(main_trials.multi_dropdown),
     // There is the possibility to add hooks after different events in the trials life cycle
     // after_pause, after_fix_point, after_stim_shown, after_stim_hidden, after_response_enabled
-    hook: {
-      after_response_enabled: time_limit
-    }
+    // hook: {
+    //   after_response_enabled: time_limit
+    // }
   },
   // We add our custom generators here
   {
 
-    stimulus_container_generator: multi_dropdown_gens.stimulus_container_gen,
-    answer_container_generator: multi_dropdown_gens.answer_container_gen,
-    handle_response_function: multi_dropdown_gens.handle_response_function
+    stimulus_container_generator: multi_button_generator.stimulus_container_gen,
+    answer_container_generator: multi_button_generator.answer_container_gen,
+    handle_response_function: multi_button_generator.handle_response_function
   }
 );
 

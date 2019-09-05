@@ -18,7 +18,7 @@ $("document")
       views_seq: [
             intro,
             instructions,
-            multi_dropdown,
+            multi_button,
             post_test,
             thanks,
         ],
