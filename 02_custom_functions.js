@@ -99,6 +99,11 @@ var table3 = makeHTMLTable(matrix3);
 //document.write('<table border=1>' + table3 + '<table>');
 
 
+function changeColour() {
+  document.getElementById("o1")
+    .style.color = "red";
+}
+
 
 // Here, we will define some generator functions for a multi-dropdown view
 // take some info from examples, but change it to my purpose
@@ -113,12 +118,12 @@ const multi_button_generator = {
   },
 
   answer_container_gen: function (config, CT) {
-    return `<div class='magpie-view-answer-container magpie-response-mutli-button'>
+    return `<div class='magpie-view-answer-container magpie-response-mutli-dropdown'>
     <div class='magpie-view-answer-container'>
                   <p class='magpie-view-question'>${config.data[CT].question}</p>
                  ${config.data[CT].sentence_chunk_1}
                   <div class= 'response-table' id='r-t-1'>
-                      <label for='o1' class='magpie-response-buttons'>${config.data[CT].choice_options_1[0]}</label>
+                      <label for='o1' class='magpie-response-buttons' onclick="changeColour()">${config.data[CT].choice_options_1[0]}</label>
                       <input type='radio' name='answer' id='o1' value=${config.data[CT].choice_options_1[0]} />
                       <label for='o2' class='magpie-response-buttons'>${config.data[CT].choice_options_1[1]}</label>
                       <input type='radio' name='answer' id='o2' value=${config.data[CT].choice_options_1[1]} />
@@ -231,8 +236,16 @@ const multi_button_generator = {
   // }
 
   handle_response_function: function (config, CT, magpie, answer_container_generator, startingTime) {
+    let response1;
+    let response2;
+    let response3;
+
     $(".magpie-view")
       .append(answer_container_generator(config, CT));
+
+    response1 = $("#r-t-1");
+    response2 = $("#r-t-2");
+    response3 = $("#r-t-3");
 
     // attaches an event listener to the yes / no radio inputs
     // when an input is selected a response property with a value equal
