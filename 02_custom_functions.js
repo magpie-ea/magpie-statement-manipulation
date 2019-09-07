@@ -104,6 +104,13 @@ function changeColour() {
     .style.color = "red";
 }
 
+function activateBtn() {
+  document.getElementById("myBtn")
+    .addEventListener("click", displayDate);
+
+}
+
+
 
 // Here, we will define some generator functions for a multi-dropdown view
 // take some info from examples, but change it to my purpose
@@ -156,8 +163,10 @@ const multi_button_generator = {
                 </div>
                 ${config.data[CT].sentence_chunk_4}
                 </p>
+        </div>
+          </div>
                 <button id='next' class='magpie-view-button magpie-nodisplay'>Next</button>
-            </div>`;
+          `;
   },
 
 
@@ -235,7 +244,10 @@ const multi_button_generator = {
   //     });
   // }
 
+
+
   handle_response_function: function (config, CT, magpie, answer_container_generator, startingTime) {
+
     let response1;
     let response2;
     let response3;
@@ -243,56 +255,101 @@ const multi_button_generator = {
     $(".magpie-view")
       .append(answer_container_generator(config, CT));
 
-    response1 = $("#r-t-1")[0];
-    response2 = $("#r-t-2")[0];
-    response3 = $("#r-t-3")[0];
+    response1 = $("#r-t-1");
+    response2 = $("#r-t-2");
+    response3 = $("#r-t-3");
 
-    let rspArr = [];
-    rspArr.push(response1);
-    rspArr.push(response2);
-    rspArr.push(response3);
-    // attaches an event listener to the yes / no radio inputs
-    // when an input is selected a response property with a value equal
-    // to the answer is added to the trial object
-    // as well as a readingTimes property with value
-    $("input[name=answer]")
-      .on("change", function () {
-        const RT = Date.now() - startingTime;
+    var response_flags = [0, 0, 0];
+
+    const display_button_checker = function (response_number) {
+      response_flags[response_number] = 1;
+
+      if (response_flags.toString() == [1, 1, 1].toString()) {
+        $("#next")
+          .removeClass("magpie-nodisplay");
+      }
+    };
+
+    // check all 3 lists
+    response1.on("click", function () {
+      response_flags[0] = 1;
+      display_button_checker(0);
+    });
+    response2.on("click", function () {
+      response_flags[1] = 1;
+      display_button_checker(1);
+    });
+    response3.on("click", function () {
+      response_flags[2] = 1;
+      display_button_checker(2);
+    });
+
+    console.log(response1);
+    console.log(response2);
+    console.log(response3);
+
+
+    $("#next")
+      .on("click", function () {
+        const RT = Date.now() - startingTime; // measure RT before anything else
         let trial_data = {
           trial_name: config.name,
           trial_number: CT + 1,
-          response: $("input[name=answer]:checked")
-            .val(),
+          response: response1.val() + response2.val() + response3.val(), // in other trials: $("input[name=answer]:checked").val(),textInput.val().trim(),
           RT: RT
         };
 
         trial_data = magpieUtils.view.save_config_trial_data(config.data[CT], trial_data);
+        console.log("do I get till here?");
+        magpie.trial_data.push(trial_data);
+        magpie.findNextView();
 
-        var tmp = [];
-        for (var i in rspArr) {
-          var children = rspArr[i].childNodes;
-          console.log(children);
-          for (var k in children) {
-            console.log(children[1])
-            console.log(typeof (children[1]));
-            if (k % 2 == 0) {
-              if (children[k].hasAttribute("active")) {
-                console.log("ever reached??");
+        // let rspArr = [];
+        // rspArr.push(response1);
+        // rspArr.push(response2);
+        // rspArr.push(response3);
+        //
+        // // attaches an event listener to the yes / no radio inputs
+        // // when an input is selected a response property with a value equal
+        // // to the answer is added to the trial object
+        // // as well as a readingTimes property with value
+        // $("input[name=answer]")
+        //   .on("change", function () {
+        //     const RT = Date.now() - startingTime;
+        //     let trial_data = {
+        //       trial_name: config.name,
+        //       trial_number: CT + 1,
+        //       response: $("input[name=answer]:checked")
+        //         .val(),
+        //       RT: RT
+        //     };
+        //
+        //     trial_data = magpieUtils.view.save_config_trial_data(config.data[CT], trial_data);
 
-                tmp.push(true);
-                break;
-              }
-            }
 
 
-          }
-        }
-        console.log(tmp);
-        if (tmp.length == rspArr.length) {
-          showNextBtn();
-        } else {
-          console.log("BLA");
-        }
+        // var tmp = [];
+        // for (var i in rspArr) {
+        //   var children = rspArr[i].childNodes;
+        //   console.log(children);
+        //   for (var k in children) {
+        //
+        //       if (children[k].hasAttribute("active")) {
+        //         console.log("ever reached??");
+        //
+        //         tmp.push(true);
+        //         break;
+        //       }
+        //
+        //
+        //   }
+        // }
+        // console.log(tmp);
+        // if (tmp.length == rspArr.length) {
+        //   showNextBtn();
+        // } else {
+        //   console.log("BLA");
+        // }
       });
   }
 };
@@ -300,7 +357,6 @@ const multi_button_generator = {
 
 //needs to be deleted, but inspiration for function of next button from intro handle response function
 function showNextBtn() {
-  console.log("tetete");
   next.on("click", function () {
     if (magpie.deploy.deployMethod === "Prolific") {
       magpie.global_data.prolific_id = prolificId.val()
