@@ -243,10 +243,14 @@ const multi_button_generator = {
     $(".magpie-view")
       .append(answer_container_generator(config, CT));
 
-    response1 = $("#r-t-1");
-    response2 = $("#r-t-2");
-    response3 = $("#r-t-3");
+    response1 = $("#r-t-1")[0];
+    response2 = $("#r-t-2")[0];
+    response3 = $("#r-t-3")[0];
 
+    let rspArr = [];
+    rspArr.push(response1);
+    rspArr.push(response2);
+    rspArr.push(response3);
     // attaches an event listener to the yes / no radio inputs
     // when an input is selected a response property with a value equal
     // to the answer is added to the trial object
@@ -264,29 +268,52 @@ const multi_button_generator = {
 
         trial_data = magpieUtils.view.save_config_trial_data(config.data[CT], trial_data);
 
-        magpie.trial_data.push(trial_data);
+        var tmp = [];
+        for (var i in rspArr) {
+          var children = rspArr[i].childNodes;
+          console.log(children);
+          for (var k in children) {
+            console.log(children[1])
+            console.log(typeof (children[1]));
+            if (k % 2 == 0) {
+              if (children[k].hasAttribute("active")) {
+                console.log("ever reached??");
 
-        // if ... showNextBtn();
-        // moves to the next view
-        // next.on("click", function() {
-        //     if (magpie.deploy.deployMethod === "Prolific") {
-        //         magpie.global_data.prolific_id = prolificId.val().trim();
-        //     }
+                tmp.push(true);
+                break;
+              }
+            }
 
 
-        magpie.findNextView();
+          }
+        }
+        console.log(tmp);
+        if (tmp.length == rspArr.length) {
+          showNextBtn();
+        } else {
+          console.log("BLA");
+        }
       });
   }
-
 };
 
 
 //needs to be deleted, but inspiration for function of next button from intro handle response function
 function showNextBtn() {
-  if (prolificId.val()
-    .trim() !== "") {
-    next.removeClass("magpie-nodisplay");
-  } else {
-    next.addClass("magpie-nodisplay");
-  }
+  console.log("tetete");
+  next.on("click", function () {
+    if (magpie.deploy.deployMethod === "Prolific") {
+      magpie.global_data.prolific_id = prolificId.val()
+        .trim();
+      magpie.findNextView();
+
+    }
+  });
+
+  // if (prolificId.val()
+  //   .trim() !== "") {
+  //   next.removeClass("magpie-nodisplay");
+  // } else {
+  //   next.addClass("magpie-nodisplay");
+  // }
 }

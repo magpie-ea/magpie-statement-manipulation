@@ -134,6 +134,7 @@ const forced_choice_2A = magpieViews.view_generator("forced_choice", {
 
 
 const multi_button = magpieViews.view_generator("forced_choice", {
+
     trials: main_trials.multi_button.length,
     title: "Complete the sentence",
     QUD: "Choose one option for each missing word in this sentence.",
