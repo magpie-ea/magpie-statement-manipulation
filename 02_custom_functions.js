@@ -25,7 +25,7 @@ var table = '';
 var rows = 6;
 var cols = 4;
 var names = ["John", "Lisa", "Amy", "Daniel", "Alex", "Tina", "Mia", "Julia", "Tim", "Johann", "Lesly", "Julian", "Chris", "Marie", "Lisanne", "Thomas", "Pablo", "Rebecca", "Theresa", "Susanne", "Jan", "Nico"]
-var questions = [" ", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6"]
+var questions = [" ", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12"]
 
 // function to generate random 1 and 0 values for table and store it
 function createMatrix(cols, rows) {
