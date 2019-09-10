@@ -43,12 +43,12 @@ var matrix1 = createMatrix(6, 6);
 var matrix2 = createMatrix(6, 6);
 var matrix3 = createMatrix(6, 6);
 
-// function which changes 0 and 1 to crossmark and checker
+// function which changes 0 and 1 to red crossmark and green checker
 function getCheck(result) {
   if (result == 0) {
-    return "&#10004"
+    return "<i style=color:#13AC38>" + "&#10004" + "</i>"
   } else {
-    return "&#10008"
+    return "<i style=color:#B12810>" + "&#10008" + "</i>"
   }
 }
 
@@ -212,12 +212,6 @@ const multi_button_generator = {
       response_flags[2] = 1;
       display_button_checker(2);
     });
-
-    console.log(response1);
-    console.log(response2);
-    console.log($(response1.on("click"))
-      .val());
-
 
     //activateBtn(response1);
     //  changeColour()
