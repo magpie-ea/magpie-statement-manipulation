@@ -99,7 +99,8 @@ var table3 = makeHTMLTable(matrix3);
 
 // check ob farbe für button sich ändert - wird nicht aufgerufen zur zeit
 function changeColour() {
-  document.getElementById("o1")
+  console.log("MS was here")
+  document.getElementById("rto1")
     .style.color = "red";
 }
 
@@ -122,6 +123,7 @@ const multi_button_generator = {
     return `<div class='magpie-view'>
                 <h1 class='magpie-view-title'>${config.title}</h1>
                 <p class='magpie-view-question magpie-view-qud'>${config.data[CT].QUD}</p>
+                <p class='magpie-view-question magpie-view-qud'>${config.data[CT].table}</p>
                 <p class='magpie-response-keypress-header' id = 'reminder'></p>
                 </div>`;
   },
@@ -132,36 +134,36 @@ const multi_button_generator = {
                   <p class='magpie-view-question'>${config.data[CT].question}</p>
                  ${config.data[CT].sentence_chunk_1}
                   <div class= 'response-table' id='r-t-1'>
-                      <label for='o1' class='magpie-response-buttons' onclick="changeColour()">${config.data[CT].choice_options_1[0]}</label>
-                      <input type='radio' name='answer' id='o1' value=${config.data[CT].choice_options_1[0]} />
-                      <label for='o2' class='magpie-response-buttons'>${config.data[CT].choice_options_1[1]}</label>
-                      <input type='radio' name='answer' id='o2' value=${config.data[CT].choice_options_1[1]} />
-                      <label for='o3' class='magpie-response-buttons'>${config.data[CT].choice_options_1[2]}</label>
-                      <input type='radio' name='answer' id='o3' value=${config.data[CT].choice_options_1[2]} />
-                      <label for='o4' class='magpie-response-buttons'>${config.data[CT].choice_options_1[3]}</label>
-                      <input type='radio' name='answer' id='o4' value=${config.data[CT].choice_options_1[3]} />
-                      <label for='o5' class='magpie-response-buttons'>${config.data[CT].choice_options_1[4]}</label>
-                      <input type='radio' name='answer' id='o5' value=${config.data[CT].choice_options_1[4]} />
+                      <label for='rt1o1' class='magpie-response-buttons'>${config.data[CT].choice_options_1[0]}</label>
+                      <input type='radio' name='answer1' id='rt1o1' style='display:none' value=${config.data[CT].choice_options_1[0]} />
+                      <label for='rt1o2' class='magpie-response-buttons'>${config.data[CT].choice_options_1[1]}</label>
+                      <input type='radio' name='answer1' id='rt1o2' style='display:none' value=${config.data[CT].choice_options_1[1]} />
+                      <label for='rt1o3' class='magpie-response-buttons'>${config.data[CT].choice_options_1[2]}</label>
+                      <input type='radio' name='answer1' id='rt1o3' style='display:none' value=${config.data[CT].choice_options_1[2]} />
+                      <label for='rt1o4' class='magpie-response-buttons'>${config.data[CT].choice_options_1[3]}</label>
+                      <input type='radio' name='answer1' style='display:none' id='rt1o4' value=${config.data[CT].choice_options_1[3]} />
+                      <label for='rt1o5' class='magpie-response-buttons'>${config.data[CT].choice_options_1[4]}</label>
+                      <input type='radio' name='answer1' style='display:none' id='rt1o5' value=${config.data[CT].choice_options_1[4]} />
                   </div>
                 ${config.data[CT].sentence_chunk_2}
                 <div class= 'response-table' id= 'r-t-2'>
-                      <label for='o1' class='magpie-response-buttons'>${config.data[CT].choice_options_2[0]}</label>
-                      <input type='radio' name='answer' id='o1' value=${config.data[CT].choice_options_2[0]} />
-                      <label for='o2' class='magpie-response-buttons'>${config.data[CT].choice_options_2[1]}</label>
-                      <input type='radio' name='answer' id='o2' value=${config.data[CT].choice_options_2[1]} />
-                      <label for='o3' class='magpie-response-buttons'>${config.data[CT].choice_options_2[2]}</label>
-                      <input type='radio' name='answer' id='o3' value=${config.data[CT].choice_options_2[2]} />
-                      <label for='o4' class='magpie-response-buttons'>${config.data[CT].choice_options_2[3]}</label>
-                      <input type='radio' name='answer' id='o4' value=${config.data[CT].choice_options_2[3]} />
-                      <label for='o5' class='magpie-response-buttons'>${config.data[CT].choice_options_2[4]}</label>
-                      <input type='radio' name='answer' id='o5' value=${config.data[CT].choice_options_2[4]} />
+                      <label for='rt2o1' class='magpie-response-buttons'>${config.data[CT].choice_options_2[0]}</label>
+                      <input type='radio' name='answer2' id='rt2o1' style='display:none' value=${config.data[CT].choice_options_2[0]} />
+                      <label for='rt2o2' class='magpie-response-buttons'>${config.data[CT].choice_options_2[1]}</label>
+                      <input type='radio' name='answer2' id='rt2o2' style='display:none' value=${config.data[CT].choice_options_2[1]} />
+                      <label for='rt2o3' class='magpie-response-buttons'>${config.data[CT].choice_options_2[2]}</label>
+                      <input type='radio' name='answer2' id='rt2o3' style='display:none' value=${config.data[CT].choice_options_2[2]} />
+                      <label for='rt2o4' class='magpie-response-buttons'>${config.data[CT].choice_options_2[3]}</label>
+                      <input type='radio' name='answer2' id='rt2o4' style='display:none' value=${config.data[CT].choice_options_2[3]} />
+                      <label for='rt2o5' class='magpie-response-buttons'>${config.data[CT].choice_options_2[4]}</label>
+                      <input type='radio' name='answer2' id='rt2o5' style='display:none' value=${config.data[CT].choice_options_2[4]} />
                 </div>
                 ${config.data[CT].sentence_chunk_3}
                 <div class= 'response-table' id = 'r-t-3'>
-                      <label for='o1' class='magpie-response-buttons'>${config.data[CT].choice_options_3[0]}</label>
-                      <input type='radio' name='answer' id='o1' value=${config.data[CT].choice_options_3[0]} />
-                      <label for='o2' class='magpie-response-buttons'>${config.data[CT].choice_options_3[1]}</label>
-                      <input type='radio' name='answer' id='o2' value=${config.data[CT].choice_options_3[1]} />
+                      <label for='rt3o1' class='magpie-response-buttons'>${config.data[CT].choice_options_3[0]}</label>
+                      <input type='radio' name='answer3' id='rt3o1' style='display:none' value=${config.data[CT].choice_options_3[0]} />
+                      <label for='rt3o2' class='magpie-response-buttons'>${config.data[CT].choice_options_3[1]}</label>
+                      <input type='radio' name='answer3' id='rt3o2' style='display:none' value=${config.data[CT].choice_options_3[1]} />
                 </div>
                 ${config.data[CT].sentence_chunk_4}
                 </p>
@@ -218,6 +220,7 @@ const multi_button_generator = {
 
 
     //activateBtn(response1);
+    //  changeColour()
 
     $("#next")
       .on("click", function () {
@@ -225,8 +228,11 @@ const multi_button_generator = {
         let trial_data = {
           trial_name: config.name,
           trial_number: CT + 1,
-          response: $(response1.on("click"))
-            .val(), //response1.val() + response2.val() + response3.val(), // in other trials: $("input[name=answer]:checked").val(),textInput.val().trim(),
+          response: [$("input[name=answer1]:checked")
+            .val(), $("input[name=answer2]:checked")
+            .val(), $("input[name=answer3]:checked")
+            .val()], //$(response1.on("click"))
+          //.val(), //response1.val() + response2.val() + response3.val(), // in other trials: $("input[name=answer]:checked").val(),textInput.val().trim(),
           RT: RT
         };
 

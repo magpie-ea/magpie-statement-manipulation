@@ -23,7 +23,8 @@ const trial_info = {
 const main_trials = {
   multi_button: [
     {
-      QUD: '<table border=1>' + table1 + '<table>',
+      QUD: '',
+      table: '<table border=1>' + table1 + '<table>',
       sentence_chunk_1: "In this table",
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",
@@ -33,7 +34,8 @@ const main_trials = {
       choice_options_3: ["right", "wrong"]
     },
     {
-      QUD: '<table border=1>' + table2 + '<table>',
+      QUD: '',
+      table: '<table border=1>' + table2 + '<table>',
       sentence_chunk_1: "In this table",
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",
@@ -43,7 +45,8 @@ const main_trials = {
       choice_options_3: ["right", "wrong"]
     },
     {
-      QUD: '<table border=1>' + table3 + '<table>',
+      QUD: '',
+      table: '<table border=1>' + table3 + '<table>',
       sentence_chunk_1: "In this table",
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",
