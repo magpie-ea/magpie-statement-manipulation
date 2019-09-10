@@ -43,7 +43,7 @@ var matrix1 = createMatrix(6, 6);
 var matrix2 = createMatrix(6, 6);
 var matrix3 = createMatrix(6, 6);
 
-// function which changes 0 and 1 to red crossmark and green checker
+// function which changes 0 and 1 to red crossmark and greenchecker
 function getCheck(result) {
   if (result == 0) {
     return "<i style=color:#13AC38>" + "&#10004" + "</i>"
@@ -123,15 +123,16 @@ const multi_button_generator = {
     return `<div class='magpie-view'>
                 <h1 class='magpie-view-title'>${config.title}</h1>
                 <p class='magpie-view-question magpie-view-qud'>${config.data[CT].QUD}</p>
-                <p class='magpie-view-question magpie-view-qud'>${config.data[CT].table}</p>
+                <p class='magpie-view-question magpie-view-table'>${config.data[CT].table}</p>
+                <p class='magpie-view-question magpie-view-question'>${config.data[CT].question}</p>
                 <p class='magpie-response-keypress-header' id = 'reminder'></p>
-                </div>`;
+            </div>`;
   },
 
   answer_container_gen: function (config, CT) {
     return `<div class='magpie-view-answer-container magpie-response-mutli-dropdown'>
+
     <div class='magpie-view-answer-container'>
-                  <p class='magpie-view-question'>${config.data[CT].question}</p>
                  ${config.data[CT].sentence_chunk_1}
                   <div class= 'response-table' id='r-t-1'>
                       <label for='rt1o1' class='magpie-response-buttons'>${config.data[CT].choice_options_1[0]}</label>
@@ -167,7 +168,7 @@ const multi_button_generator = {
                 </div>
                 ${config.data[CT].sentence_chunk_4}
                 </p>
-        </div>
+          </div>
           </div>
                 <button id='next' class='magpie-view-button magpie-nodisplay'>Next</button>
           `;
