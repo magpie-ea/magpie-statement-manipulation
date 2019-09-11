@@ -27,8 +27,7 @@
 }
 
 
-
-
+/* check where this is used */
 .magpie-response-dropdown {
     color: rgba(0, 0, 0, 0.87);
     font-size: 17px;
@@ -38,11 +37,11 @@
     max-width: 700px; /* this is made bigger, so that whole sentence is shown in one line */
 }
 
-
+/* html table headings */
 th {
   padding: 15px 15px ;
   font-family: calibri;
-  background:#dbc5c5;
+  background: #d0e5e9;
   }
 
 table, td, th {
@@ -75,8 +74,6 @@ table {
   align-items: center;
 }
 
-
-
 .response-table  {
   display: flex;
   align-items: center;
@@ -92,6 +89,12 @@ table {
      align-items: center;
      /* text-align: center; */
 }
+
+/* when buttons (used for magpie-response-buttons, but can be used for any) are clicked, the background changes to red */
+input[type=radio]:checked+label {
+     background-color: red;
+}
+
 
 /* I need to write formatting for class='magpie-view-answer-container magpie-response-list', wich is new */
 
