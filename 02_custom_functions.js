@@ -58,6 +58,7 @@ function makeHTMLTable(myArray) {
     result += '<th>' + questions[i] + '</th>';
   }
 
+
   for (var j = 0; j < myArray.length; j++) {
     result += '<tr>';
     result += '<th>' + names[j] + '</th>';

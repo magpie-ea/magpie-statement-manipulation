@@ -92,11 +92,9 @@ table {
 
 /* when buttons (used for magpie-response-buttons, but can be used for any) are clicked, the background changes to red */
 input[type=radio]:checked+label {
-     background-color: red;
+     background-color: green;
 }
 
-
-/* I need to write formatting for class='magpie-view-answer-container magpie-response-list', wich is new */
 
 /* .response-button-group {
   padding: 10px 0 10px 0;
@@ -121,23 +119,6 @@ input[type=radio]:checked+label {
   /* width: 50%; /* Set a width if needed */
   display: block; /* Make the buttons appear below each other */
   }
-
-  /* .response-button-group button:not(:last-child) {
-    border-bottom: none; /* Prevent double borders */
-  /*} */
-
-
-  /* Add a background color on hover */
-.response-button-group button:hover {
-    background-color: #3e8e41;
-}
-
-/* doesnt function as wanted */
-.response-button-group button:focus {
-    border: 2px solid red;
-  /* background-color: #3e8e41; */
-}
-
 
 .type {
   display: block;
