@@ -25,7 +25,7 @@ const main_trials = {
     {
       QUD: '',
       question: "Press those bottons which complete the sentence so that the sentence is as accurate as possible to you.",
-      table: '<table border=1>' + table1 + '<table>',
+      table: '<table border=1>' + x + '<table>',
       sentence_chunk_1: "In this table",
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",

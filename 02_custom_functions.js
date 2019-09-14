@@ -97,6 +97,53 @@ var table2 = makeHTMLTable(matrix2);
 var table3 = makeHTMLTable(matrix3);
 //document.write('<table border=1>' + table3 + '<table>');
 
+// function to make html table
+var names = ["John", "Lisa", "Amy", "Daniel", "Alex", "Tina", "Mia", "Julia", "Tim", "Johann", "Lesly", "Julian", "Chris", "Marie", "Lisanne", "Thomas", "Pablo", "Rebecca", "Theresa", "Susanne", "Jan", "Nico"]
+var questions = [" ", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12"]
+
+
+// takes as input attributes rows and cols, this gives the dimensions
+// of the output table, the bias influences the percentage of crosses
+// and checkers
+
+function tableGenerator(rows, cols, bias) {
+  var table = '';
+  // set dimensions of table
+  var nrRows = rows;
+  var nrCols = cols;
+  var bias = bias;
+  var tableNames = _.sampleSize(names, rows);
+
+  // in matrix I save random 1 and 0, with flat bias
+  var matrix = [];
+  for (var i = 0; i < rows; i++) {
+    matrix[i] = []; // Initialize inner array
+    for (var j = 0; j < cols; j++) {
+      matrix[i][j] = Math.round(Math.random());
+    }
+  }
+
+  var result = "<table border=1>";
+  for (var i = 0; i <= cols; i++) {
+    result += '<th>' + questions[i] + '</th>';
+  }
+
+  for (var j = 0; j < matrix.length; j++) {
+    result += '<tr>';
+    result += '<th>' + tableNames[j] + '</th>';
+    for (var k = 0; k < matrix[j].length; k++) {
+      result += "<td>" + this.getCheck(matrix[j][k]) + "</td>";
+    }
+    result += "</tr>";
+  }
+
+  result += "</table>";
+  return result;
+
+}
+
+x = tableGenerator(2, 4, 1);
+
 // Here, we will define some generator functions for a multi-dropdown view
 // take some info from examples, but change it to my purpose
 const multi_button_generator = {
