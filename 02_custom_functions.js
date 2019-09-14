@@ -112,6 +112,7 @@ function tableGenerator(rows, cols, bias) {
   var nrRows = rows;
   var nrCols = cols;
   var bias = bias;
+  // random sampleing of names
   var tableNames = _.sampleSize(names, rows);
 
   // in matrix I save random 1 and 0, with flat bias
@@ -119,14 +120,25 @@ function tableGenerator(rows, cols, bias) {
   for (var i = 0; i < rows; i++) {
     matrix[i] = []; // Initialize inner array
     for (var j = 0; j < cols; j++) {
-      matrix[i][j] = Math.round(Math.random());
+      if (bias = 0.5) {
+        matrix[i][j] = Math.round(Math.random());
+      } else {
+        matrix[i][j] = 1 //Math.random();
+        // if (matrix[i][j] > 0.95) {
+        //   matrix[i][j] = 1
+        // } else {
+        //   matrix[i][j] = 1
+        // }
+      }
     }
   }
 
+  console.log(matrix[1][1]);
   var result = "<table border=1>";
   for (var i = 0; i <= cols; i++) {
     result += '<th>' + questions[i] + '</th>';
   }
+
 
   for (var j = 0; j < matrix.length; j++) {
     result += '<tr>';
@@ -142,7 +154,12 @@ function tableGenerator(rows, cols, bias) {
 
 }
 
-x = tableGenerator(2, 4, 1);
+// here you can change the parameters to your own purpose
+let bias = 0.75;
+let rowNum = 5;
+let columnNum = 4;
+
+x = tableGenerator(rowNum, columnNum, bias);
 
 // Here, we will define some generator functions for a multi-dropdown view
 // take some info from examples, but change it to my purpose
