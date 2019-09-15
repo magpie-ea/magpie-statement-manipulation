@@ -24,8 +24,11 @@ const main_trials = {
   multi_button: [
     {
       QUD: '',
-      question: "Press those bottons which complete the sentence so that the sentence is as accurate as possible to you.",
-      table: '<table border=1>' + x + '<table>',
+      bias: 0.5,
+      row_number: 12,
+      column_number: 5,
+      question: "Press those buttons which complete the sentence so that the sentence is as accurate as possible to you.",
+      table: '<table border=1>' + tableGenerator(12, 5, 0.5) + '<table>',
       sentence_chunk_1: "In this table",
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",

@@ -259,8 +259,8 @@ const multi_button_generator = {
           response: [$("input[name=answer1]:checked")
             .val(), $("input[name=answer2]:checked")
             .val(), $("input[name=answer3]:checked")
-            .val()], //$(response1.on("click"))
-          //.val(), //response1.val() + response2.val() + response3.val(), // in other trials: $("input[name=answer]:checked").val(),textInput.val().trim(),
+            .val()],
+          bias: config.bias,
           RT: RT
         };
 
