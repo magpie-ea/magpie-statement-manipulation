@@ -68,20 +68,6 @@ function makeHTMLTable(myArray) {
     result += "</tr>";
   }
 
-  // still keep this info of how I did it initially
-  // for (var r = 0; r < myArray[r].length; r++) {
-  //   result += '<tr>';
-  //   result += '<th>' + names[r] + '</th>';
-  //   result += "<td>" + this.getCheck(myArray[0][r]) + "</td>";
-  //   result += "<td>" + myArray[1][r] + "</td>";
-  //   result += "<td>" + myArray[2][r] + "</td>";
-  //   result += "<td>" + myArray[3][r] + "</td>";
-  //   result += "<td>" + myArray[4][r] + "</td>";
-  //   result += "<td>" + myArray[5][r] + "</td>";
-  //   result += "<td>" + "&#10004" + "</td>";
-  //   result += "<td>" + "&#10008" + "</td>";
-  // }
-
   result += "</table>";
   return result;
 }
@@ -115,26 +101,21 @@ function tableGenerator(rows, cols, bias) {
   // random sampleing of names
   var tableNames = _.sampleSize(names, rows);
 
-  // in matrix I save random 1 and 0, with flat bias
+  // the matrix is filled with 1 and 0
+  // matrix size depends on parameters rows and cols
+  // percentage of 1 and 0 depends on parameter bias
   var matrix = [];
   for (var i = 0; i < rows; i++) {
     matrix[i] = []; // Initialize inner array
     for (var j = 0; j < cols; j++) {
-      if (bias == 0.5) {
-        matrix[i][j] = Math.round(Math.random());
+      matrix[i][j] = Math.random();
+      if (matrix[i][j] >= bias) {
+        matrix[i][j] = 1
       } else {
-        matrix[i][j] = 1 //Math.random();
-        // if (matrix[i][j] > 0.95) {
-        //   matrix[i][j] = 1
-        // } else {
-        //   matrix[i][j] = 0
-        // }
+        matrix[i][j] = 0
       }
     }
   }
-
-  console.log(matrix[1][1]);
-
   var result = "<table border=1>";
   for (var i = 0; i <= cols; i++) {
     result += '<th>' + questions[i] + '</th>';
@@ -156,11 +137,14 @@ function tableGenerator(rows, cols, bias) {
 }
 
 // here you can change the parameters to your own purpose
+// if you want more crosses than tickmarks, your bias should be lower than 0.5, if you want more tickmarks,
+// it should be higher than 0.5, if you put 0.5,
 let bias = 0.75;
-let rowNum = 5;
-let columnNum = 4;
+let rowNum = 12;
+let columnNum = 12;
 
 x = tableGenerator(rowNum, columnNum, bias);
+
 
 // Here, we will define some generator functions for a multi-dropdown view
 // take some info from examples, but change it to my purpose
