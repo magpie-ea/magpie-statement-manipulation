@@ -120,20 +120,21 @@ function tableGenerator(rows, cols, bias) {
   for (var i = 0; i < rows; i++) {
     matrix[i] = []; // Initialize inner array
     for (var j = 0; j < cols; j++) {
-      if (bias = 0.5) {
+      if (bias == 0.5) {
         matrix[i][j] = Math.round(Math.random());
       } else {
         matrix[i][j] = 1 //Math.random();
         // if (matrix[i][j] > 0.95) {
         //   matrix[i][j] = 1
         // } else {
-        //   matrix[i][j] = 1
+        //   matrix[i][j] = 0
         // }
       }
     }
   }
 
   console.log(matrix[1][1]);
+
   var result = "<table border=1>";
   for (var i = 0; i <= cols; i++) {
     result += '<th>' + questions[i] + '</th>';
