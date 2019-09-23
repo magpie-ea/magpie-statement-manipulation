@@ -64,7 +64,6 @@ const example_trials = {
 };
 
 
-
 const flat_bias_block = {
   multi_button: create_trials(5, 3, 3, 0.5)
 };

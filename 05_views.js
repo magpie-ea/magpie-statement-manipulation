@@ -133,7 +133,7 @@ const forced_choice_2A = magpieViews.view_generator("forced_choice", {
 });
 
 const flat_trial = magpieViews.view_generator("forced_choice", {
-    trials: flat_bias_block.multi_button.length,
+    trials: 5, //flat_bias_block.multi_button.length,
     // bias: 0.5,
     // row_num: 5,
     // col_num: 3,
@@ -170,8 +170,6 @@ const example_block = magpieViews.view_generator("forced_choice", {
     handle_response_function: multi_button_generator.handle_response_function
   }
 );
-
-
 
 
 // There are many more templates available:

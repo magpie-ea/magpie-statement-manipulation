@@ -18,8 +18,8 @@ $("document")
       views_seq: [
             intro,
             instructions,
-            example_block,
-            flat_trial,
+            //example_block,
+            //flat_trial,
             post_test,
             thanks,
         ],
