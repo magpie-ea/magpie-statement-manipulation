@@ -28,7 +28,7 @@ const main_trials = {
       row_number: 12,
       column_number: 5,
       question: "Press those buttons which complete the sentence so that the sentence is as accurate as possible to you.",
-      table: '<table border=1>' + tableGenerator(12, 5, 0.5) + '<table>',
+      table: '<table border=1>' + tableGenerator(5, 5, 0.5) + '<table>',
       sentence_chunk_1: "In this table",
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",
@@ -39,7 +39,7 @@ const main_trials = {
     },
     {
       QUD: '',
-      table: '<table border=1>' + table2 + '<table>',
+      table: '<table border=1>' + tableGenerator(5, 5, 0.9) + '<table>',
       sentence_chunk_1: "In this table",
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",
@@ -50,7 +50,7 @@ const main_trials = {
     },
     {
       QUD: '',
-      table: '<table border=1>' + table3 + '<table>',
+      table: '<table border=1>' + tableGenerator(5, 6, 0.2) + '<table>',
       sentence_chunk_1: "In this table",
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",

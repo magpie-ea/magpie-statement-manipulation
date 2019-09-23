@@ -20,29 +20,29 @@ const generateID = function (len) {
 
 // create html table for trials
 // prerequisits
-var table = '';
-// set dimensions of table
-var rows = 6;
-var cols = 4;
-var names = ["John", "Lisa", "Amy", "Daniel", "Alex", "Tina", "Mia", "Julia", "Tim", "Johann", "Lesly", "Julian", "Chris", "Marie", "Lisanne", "Thomas", "Pablo", "Rebecca", "Theresa", "Susanne", "Jan", "Nico"]
-var questions = [" ", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12"]
-
-// function to generate random 1 and 0 values for table and store it
-function createMatrix(cols, rows) {
-  var matrix = [];
-  for (var i = 0; i < cols; i++) {
-    matrix[i] = []; // Initialize inner array
-    for (var j = 0; j < rows; j++) {
-      matrix[i][j] = Math.round(Math.random());
-    }
-  }
-  return matrix;
-}
-
-var matrix1 = createMatrix(6, 6);
-var matrix2 = createMatrix(6, 6);
-var matrix3 = createMatrix(6, 6);
-
+// var table = '';
+// // set dimensions of table
+// var rows = 6;
+// var cols = 4;
+// var names = ["John", "Lisa", "Amy", "Daniel", "Alex", "Tina", "Mia", "Julia", "Tim", "Johann", "Lesly", "Julian", "Chris", "Marie", "Lisanne", "Thomas", "Pablo", "Rebecca", "Theresa", "Susanne", "Jan", "Nico"]
+// var questions = [" ", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12"]
+//
+// // function to generate random 1 and 0 values for table and store it
+// function createMatrix(cols, rows) {
+//   var matrix = [];
+//   for (var i = 0; i < cols; i++) {
+//     matrix[i] = []; // Initialize inner array
+//     for (var j = 0; j < rows; j++) {
+//       matrix[i][j] = Math.round(Math.random());
+//     }
+//   }
+//   return matrix;
+// }
+//
+// var matrix1 = createMatrix(6, 6);
+// var matrix2 = createMatrix(6, 6);
+// var matrix3 = createMatrix(6, 6);
+//
 // function which changes 0 and 1 to red crossmark and greenchecker
 function getCheck(result) {
   if (result == 0) {
@@ -51,37 +51,37 @@ function getCheck(result) {
     return "<i style=color:#B12810>" + "&#10008" + "</i>"
   }
 }
-
-function makeHTMLTable(myArray) {
-  var result = "<table border=1>";
-  for (var i = 0; i <= myArray.length; i++) {
-    result += '<th>' + questions[i] + '</th>';
-  }
-
-
-  for (var j = 0; j < myArray.length; j++) {
-    result += '<tr>';
-    result += '<th>' + names[j] + '</th>';
-    for (var k = 0; k < myArray[j].length; k++) {
-      result += "<td>" + this.getCheck(myArray[j][k]) + "</td>";
-    }
-    result += "</tr>";
-  }
-
-  result += "</table>";
-  return result;
-}
-
-
-// these are final tables
-var table1 = makeHTMLTable(matrix1);
-//document.write('<table border=1>' + table1 + '<table>');
-
-var table2 = makeHTMLTable(matrix2);
-//document.write('<table border=1>' + table2 + '<table>');
-
-var table3 = makeHTMLTable(matrix3);
-//document.write('<table border=1>' + table3 + '<table>');
+//
+// function makeHTMLTable(myArray) {
+//   var result = "<table border=1>";
+//   for (var i = 0; i <= myArray.length; i++) {
+//     result += '<th>' + questions[i] + '</th>';
+//   }
+//
+//
+//   for (var j = 0; j < myArray.length; j++) {
+//     result += '<tr>';
+//     result += '<th>' + names[j] + '</th>';
+//     for (var k = 0; k < myArray[j].length; k++) {
+//       result += "<td>" + this.getCheck(myArray[j][k]) + "</td>";
+//     }
+//     result += "</tr>";
+//   }
+//
+//   result += "</table>";
+//   return result;
+// }
+//
+//
+// // these are final tables
+// var table1 = makeHTMLTable(matrix1);
+// //document.write('<table border=1>' + table1 + '<table>');
+//
+// var table2 = makeHTMLTable(matrix2);
+// //document.write('<table border=1>' + table2 + '<table>');
+//
+// var table3 = makeHTMLTable(matrix3);
+// //document.write('<table border=1>' + table3 + '<table>');
 
 // function to make html table
 var names = ["John", "Lisa", "Amy", "Daniel", "Alex", "Tina", "Mia", "Julia", "Tim", "Johann", "Lesly", "Julian", "Chris", "Marie", "Lisanne", "Thomas", "Pablo", "Rebecca", "Theresa", "Susanne", "Jan", "Nico"]
@@ -156,12 +156,11 @@ const multi_button_generator = {
                 <p class='magpie-view-question magpie-view-qud'>${config.data[CT].QUD}</p>
                 <p class='magpie-view-question magpie-view-table'>${config.data[CT].table}</p>
                 <p class='magpie-view-question magpie-view-question'>${config.data[CT].question}</p>
-                <p class='magpie-response-keypress-header' id = 'reminder'></p>
             </div>`;
   },
 
   answer_container_gen: function (config, CT) {
-    return `<div class='magpie-view-answer-container magpie-response-mutli-dropdown'>
+    return `<div class='magpie-view-answer-container magpie-response-multi-dropdown'>
 
     <div class='magpie-view-answer-container'>
                  ${config.data[CT].sentence_chunk_1}

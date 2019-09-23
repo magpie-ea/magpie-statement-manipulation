@@ -53,7 +53,7 @@ const instructions = magpieViews.view_generator("instructions", {
   title: 'General Instructions',
   text: `In the following,
       you will be presented with tables showing the exam results of students of the statistics class.
-      A  "&#10004" indicates that a task was graded as correclty,"&#10008" that it was graded as wrong.
+      A  "<i style=color:#13AC38>  &#10004 </i>" indicates that a task was rated as correctly, "<i style=color:#B12810> &#10008 </i>" that it was rated as wrong.
       <br />
       <br />
       Given the information from the table, please choose the three words to complete the sentence, so that it

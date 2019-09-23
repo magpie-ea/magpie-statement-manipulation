@@ -88,7 +88,26 @@ table {
      flex-direction: row;
      align-items: center;
      /* text-align: center; */
+     font-family: "Lato", "Noto Sans", sans-serif;
+     margin: 30px auto;
 }
+
+/*
+.magpie-view-answer-container {
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 17px;
+    line-height: 27px;
+
+    margin: 30px auto;
+    max-width: 550px;
+    text-align: center; */
+
+
+.magpie-view-answer-container magpie-response-mutli-dropdown{
+  margin: 5px auto;
+  padding: 2px 2px 2px 2px;
+}
+
 
 /* when buttons (used for magpie-response-buttons, but can be used for any) are clicked, the background changes to red */
 input[type=radio]:checked+label {
@@ -119,6 +138,8 @@ input[type=radio]:checked+label {
   /* width: 50%; /* Set a width if needed */
   display: block; /* Make the buttons appear below each other */
   }
+
+
 
 .type {
   display: block;
