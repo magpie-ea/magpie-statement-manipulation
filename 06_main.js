@@ -18,7 +18,8 @@ $("document")
       views_seq: [
             intro,
             instructions,
-            multi_button,
+            example_block,
+            flat_trial,
             post_test,
             thanks,
         ],
@@ -37,7 +38,8 @@ $("document")
       progress_bar: {
         in: [
                 // list the view-names of the views for which you want a progress bar
-                multi_button.name,
+                example_block.name,
+                flat_trial.name,
             ],
         // Possible styles are "default", "separate" and "chunks"
         style: "separate",

@@ -139,12 +139,70 @@ function tableGenerator(rows, cols, bias) {
 // here you can change the parameters to your own purpose
 // if you want more crosses than tickmarks, your bias should be lower than 0.5, if you want more tickmarks,
 // it should be higher than 0.5, if you put 0.5,
-let bias = 0.75;
-let rowNum = 12;
-let columnNum = 12;
 
-x = tableGenerator(rowNum, columnNum, bias);
+// let bias = 0.75;
+// let rowNum = 12;
+// let columnNum = 12;
 
+// x = tableGenerator(rowNum, columnNum, bias);
+
+function create_trials(n, rows, cols, bias) {
+
+  var nr_trials = n;
+  var trials = [];
+  var i = 0;
+
+  for (var i = 0; i < nr_trials; i++) {
+    trials[i] = {
+      QUD: '',
+      question: '',
+      bias: bias,
+      row_number: rows,
+      column_number: cols,
+      question: "Press those buttons which complete the sentence so that the sentence is as accurate as possible to you.",
+      table: '<table border=1>' + tableGenerator(rows, cols, bias) + '<table>',
+      sentence_chunk_1: "In this table",
+      sentence_chunk_2: "of the students got",
+      sentence_chunk_3: "of the questions",
+      sentence_chunk_4: ".",
+      choice_options_1: ["all", "some", "most", "many", "none"],
+      choice_options_2: ["all", "some", "most", "many", "none"],
+      choice_options_3: ["right", "wrong"],
+      expected: "placeholder",
+      correct: "placeholder"
+    };
+    i += 1;
+
+  }
+
+  return (trials);
+  console.log(nr_trials);
+  console.log(trials);
+};
+
+//  old trial
+//const create_trials = function(n, bias, rows, cols) {
+//   var t1 = {};
+//   for (var i = 0; i <= n; i++) {
+//
+//     t1.QUD = '',
+//       t1.question = '',
+//       t1.bias = bias,
+//       t1.row_number = rows,
+//       t1.column_number = cols,
+//       t1.question = "Press those buttons which complete the sentence so that the sentence is as accurate as possible to you.",
+//       t1.table = '<table border=1>' + tableGenerator(t1.row_number, t1.column_number, t1.bias) + '<table>',
+//       t1.sentence_chunk_1 = "In this table",
+//       t1.sentence_chunk_2 = "of the students got",
+//       t1.sentence_chunk_3 = "of the questions",
+//       t1.sentence_chunk_4 = ".",
+//       t1.choice_options_1 = ["all", "some", "most", "many", "none"],
+//       t1.choice_options_2 = ["all", "some", "most", "many", "none"],
+//       t1.choice_options_3 = ["right", "wrong"]
+//   }
+//
+//   return ([t1]);
+// }
 
 // Here, we will define some generator functions for a multi-dropdown view
 // take some info from examples, but change it to my purpose
@@ -219,8 +277,6 @@ const multi_button_generator = {
     response2 = $("#r-t-2");
     response3 = $("#r-t-3");
 
-    console.log(response1[0]);
-
     var response_flags = [0, 0, 0];
 
     const display_button_checker = function (response_number) {
@@ -260,6 +316,9 @@ const multi_button_generator = {
             .val(), $("input[name=answer3]:checked")
             .val()],
           bias: config.bias,
+          row_num: config.nrRows,
+          col_num: config.nrCols,
+          names: config.tableNames,
           RT: RT
         };
 
