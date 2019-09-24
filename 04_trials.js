@@ -1,34 +1,14 @@
 // In this file you can specify the trial data for your experiment
 
-
-const trial_info = {
-  forced_choice: [
-    {
-      question: "What's on the bread?",
-      picture: "images/question_mark_02.png",
-      option1: 'jam',
-      option2: 'ham',
-      correct: 'jam'
-        },
-    {
-      question: "What's the weather like?",
-      picture: "images/weather.jpg",
-      option1: "shiny",
-      option2: "rainbow",
-      correct: "shiny"
-        }
-    ]
-};
-
 const example_trials = {
   multi_button: [
     {
       QUD: '',
       bias: 0.5,
-      row_number: 12,
-      column_number: 5,
+      row_number: 5,
+      column_number: 12,
       question: "Press those buttons which complete the sentence so that the sentence is as accurate as possible to you.",
-      table: '<table border=1>' + tableGenerator(5, 5, 0.5) + '<table>',
+      table: '<table border=1>' + tableGenerator(5, 12, 0.5) + '<table>',
       sentence_chunk_1: "In this table",
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",
@@ -39,7 +19,11 @@ const example_trials = {
     },
     {
       QUD: '',
-      table: '<table border=1>' + tableGenerator(5, 5, 0.9) + '<table>',
+      bias: 0.9,
+      row_number: 5,
+      column_number: 12,
+      question: "Press those buttons which complete the sentence so that the sentence is as accurate as possible to you.",
+      table: '<table border=1>' + tableGenerator(5, 12, 0.9) + '<table>',
       sentence_chunk_1: "In this table",
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",
@@ -50,7 +34,11 @@ const example_trials = {
     },
     {
       QUD: '',
-      table: '<table border=1>' + tableGenerator(5, 6, 0.2) + '<table>',
+      bias: 0.2,
+      row_number: 5,
+      column_number: 12,
+      question: "Press those buttons which complete the sentence so that the sentence is as accurate as possible to you.",
+      table: '<table border=1>' + tableGenerator(5, 12, 0.2) + '<table>',
       sentence_chunk_1: "In this table",
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",

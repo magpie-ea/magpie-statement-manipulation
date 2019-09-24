@@ -118,20 +118,6 @@ const thanks = magpieViews.view_generator("thanks", {
     */
 
 
-
-// Here, we initialize a normal forced_choice view
-const forced_choice_2A = magpieViews.view_generator("forced_choice", {
-  // This will use all trials specified in data you can user a smaller value (for testing), but not a larger value
-  trials: trial_info.forced_choice.length,
-  // name should be identical to the variable name
-  name: 'forced_choice_2A',
-  data: trial_info.forced_choice,
-  // you can add custom functions at different stages through a view's life cycle
-  // hook: {
-  //     after_response_enabled: check_response
-  // }
-});
-
 const flat_trial = magpieViews.view_generator("forced_choice", {
     trials: flat_bias_block.multi_button.length,
     title: "Complete the sentence",
@@ -163,7 +149,7 @@ const good_trial = magpieViews.view_generator("forced_choice", {
 const bad_trial = magpieViews.view_generator("forced_choice", {
     trials: bias_bad_grades.multi_button.length,
     title: "Complete the sentence",
-    name: "bad_grde_bias",
+    name: "bad_grade_bias",
     // trial_type: "flat_buttons",
     data: bias_bad_grades.multi_button,
   }, // now the custom generators

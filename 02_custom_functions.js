@@ -16,34 +16,11 @@ const generateID = function (len) {
   return Array.from(arr, this.dec2hex)
     .join("");
 };
+
+
 // Declare your helper functions here
 
-// create html table for trials
-// prerequisits
-// var table = '';
-// // set dimensions of table
-// var rows = 6;
-// var cols = 4;
-// var names = ["John", "Lisa", "Amy", "Daniel", "Alex", "Tina", "Mia", "Julia", "Tim", "Johann", "Lesly", "Julian", "Chris", "Marie", "Lisanne", "Thomas", "Pablo", "Rebecca", "Theresa", "Susanne", "Jan", "Nico"]
-// var questions = [" ", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12"]
-//
-// // function to generate random 1 and 0 values for table and store it
-// function createMatrix(cols, rows) {
-//   var matrix = [];
-//   for (var i = 0; i < cols; i++) {
-//     matrix[i] = []; // Initialize inner array
-//     for (var j = 0; j < rows; j++) {
-//       matrix[i][j] = Math.round(Math.random());
-//     }
-//   }
-//   return matrix;
-// }
-//
-// var matrix1 = createMatrix(6, 6);
-// var matrix2 = createMatrix(6, 6);
-// var matrix3 = createMatrix(6, 6);
-//
-// function which changes 0 and 1 to red crossmark and greenchecker
+// function gets called within tableGenerator, it changes 0 and 1 to red crossmark and greenchecker
 function getCheck(result) {
   if (result == 0) {
     return "<i style=color:#13AC38>" + "&#10004" + "</i>"
@@ -51,47 +28,14 @@ function getCheck(result) {
     return "<i style=color:#B12810>" + "&#10008" + "</i>"
   }
 }
-//
-// function makeHTMLTable(myArray) {
-//   var result = "<table border=1>";
-//   for (var i = 0; i <= myArray.length; i++) {
-//     result += '<th>' + questions[i] + '</th>';
-//   }
-//
-//
-//   for (var j = 0; j < myArray.length; j++) {
-//     result += '<tr>';
-//     result += '<th>' + names[j] + '</th>';
-//     for (var k = 0; k < myArray[j].length; k++) {
-//       result += "<td>" + this.getCheck(myArray[j][k]) + "</td>";
-//     }
-//     result += "</tr>";
-//   }
-//
-//   result += "</table>";
-//   return result;
-// }
-//
-//
-// // these are final tables
-// var table1 = makeHTMLTable(matrix1);
-// //document.write('<table border=1>' + table1 + '<table>');
-//
-// var table2 = makeHTMLTable(matrix2);
-// //document.write('<table border=1>' + table2 + '<table>');
-//
-// var table3 = makeHTMLTable(matrix3);
-// //document.write('<table border=1>' + table3 + '<table>');
 
-// function to make html table
+// prerequisits for html table
 var names = ["John", "Lisa", "Amy", "Daniel", "Alex", "Tina", "Mia", "Julia", "Tim", "Johann", "Lesly", "Julian", "Chris", "Marie", "Lisanne", "Thomas", "Pablo", "Rebecca", "Theresa", "Susanne", "Jan", "Nico"]
 var questions = [" ", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12"]
 
-
-// takes as input attributes rows and cols, this gives the dimensions
+// this function takes as input attributes rows and cols, this gives the dimensions
 // of the output table, the bias influences the percentage of crosses
 // and checkers
-
 function tableGenerator(rows, cols, bias) {
   var table = '';
   // set dimensions of table
@@ -121,7 +65,6 @@ function tableGenerator(rows, cols, bias) {
     result += '<th>' + questions[i] + '</th>';
   }
 
-
   for (var j = 0; j < matrix.length; j++) {
     result += '<tr>';
     result += '<th>' + tableNames[j] + '</th>';
@@ -136,18 +79,9 @@ function tableGenerator(rows, cols, bias) {
 
 }
 
-// here you can change the parameters to your own purpose
-// if you want more crosses than tickmarks, your bias should be lower than 0.5, if you want more tickmarks,
-// it should be higher than 0.5, if you put 0.5,
-
-// let bias = 0.75;
-// let rowNum = 12;
-// let columnNum = 12;
-
-// x = tableGenerator(rowNum, columnNum, bias);
-
+// takes in n = number of trials it should give output, rows = nr of rows table should have,
+// cols = nr. of columns table should have, bias = percentage of crosses / tickmarks (high number means more tickmarks)
 function create_trials(n, rows, cols, bias) {
-
   var nr_trials = n;
   var trials = [];
   var i = 0;
@@ -176,33 +110,8 @@ function create_trials(n, rows, cols, bias) {
   }
 
   return (trials);
-  console.log(nr_trials);
-  console.log(trials);
 };
 
-//  old trial
-//const create_trials = function(n, bias, rows, cols) {
-//   var t1 = {};
-//   for (var i = 0; i <= n; i++) {
-//
-//     t1.QUD = '',
-//       t1.question = '',
-//       t1.bias = bias,
-//       t1.row_number = rows,
-//       t1.column_number = cols,
-//       t1.question = "Press those buttons which complete the sentence so that the sentence is as accurate as possible to you.",
-//       t1.table = '<table border=1>' + tableGenerator(t1.row_number, t1.column_number, t1.bias) + '<table>',
-//       t1.sentence_chunk_1 = "In this table",
-//       t1.sentence_chunk_2 = "of the students got",
-//       t1.sentence_chunk_3 = "of the questions",
-//       t1.sentence_chunk_4 = ".",
-//       t1.choice_options_1 = ["all", "some", "most", "many", "none"],
-//       t1.choice_options_2 = ["all", "some", "most", "many", "none"],
-//       t1.choice_options_3 = ["right", "wrong"]
-//   }
-//
-//   return ([t1]);
-// }
 
 // Here, we will define some generator functions for a multi-dropdown view
 // take some info from examples, but change it to my purpose
@@ -315,15 +224,10 @@ const multi_button_generator = {
             .val(), $("input[name=answer2]:checked")
             .val(), $("input[name=answer3]:checked")
             .val()],
-          bias: config.bias,
-          row_num: config.nrRows,
-          col_num: config.nrCols,
-          names: config.tableNames,
           RT: RT
         };
 
         trial_data = magpieUtils.view.save_config_trial_data(config.data[CT], trial_data);
-        console.log("do I get till here?");
         magpie.trial_data.push(trial_data);
         magpie.findNextView()
       });
