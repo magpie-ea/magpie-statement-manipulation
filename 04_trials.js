@@ -65,13 +65,13 @@ const example_trials = {
 
 
 const flat_bias_block = {
-  multi_button: create_trials(5, 3, 3, 0.5)
+  multi_button: create_trials(1, 3, 3, 0.5)
 };
 
 const bias_bad_grades = {
-  multi_button: create_trials(5, 3, 3, 0.1)
+  multi_button: create_trials(1, 4, 4, 0.1)
 };
 
 const bias_good_grades = {
-  multi_button: create_trials(1, 3, 3, 0.9)
+  multi_button: create_trials(1, 3, 8, 0.9)
 };

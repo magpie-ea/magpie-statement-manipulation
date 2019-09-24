@@ -18,8 +18,10 @@ $("document")
       views_seq: [
             intro,
             instructions,
-            //example_block,
-            //flat_trial,
+            example_block,
+            flat_trial,
+            bad_trial,
+            good_trial,
             post_test,
             thanks,
         ],
@@ -40,6 +42,8 @@ $("document")
                 // list the view-names of the views for which you want a progress bar
                 example_block.name,
                 flat_trial.name,
+                bad_trial.name,
+                good_trial.name
             ],
         // Possible styles are "default", "separate" and "chunks"
         style: "separate",

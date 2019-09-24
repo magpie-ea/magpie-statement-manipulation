@@ -133,10 +133,7 @@ const forced_choice_2A = magpieViews.view_generator("forced_choice", {
 });
 
 const flat_trial = magpieViews.view_generator("forced_choice", {
-    trials: 5, //flat_bias_block.multi_button.length,
-    // bias: 0.5,
-    // row_num: 5,
-    // col_num: 3,
+    trials: flat_bias_block.multi_button.length,
     title: "Complete the sentence",
     name: "flat_bias",
     // trial_type: "flat_buttons",
@@ -148,12 +145,41 @@ const flat_trial = magpieViews.view_generator("forced_choice", {
     handle_response_function: multi_button_generator.handle_response_function
   });
 
+
+const good_trial = magpieViews.view_generator("forced_choice", {
+    trials: bias_good_grades.multi_button.length,
+    title: "Complete the sentence",
+    name: "good_grade_bias",
+    // trial_type: "flat_buttons",
+    data: bias_good_grades.multi_button,
+  }, // now the custom generators
+  {
+    stimulus_container_generator: multi_button_generator.stimulus_container_gen,
+    answer_container_generator: multi_button_generator.answer_container_gen,
+    handle_response_function: multi_button_generator.handle_response_function
+  });
+
+
+const bad_trial = magpieViews.view_generator("forced_choice", {
+    trials: bias_bad_grades.multi_button.length,
+    title: "Complete the sentence",
+    name: "bad_grde_bias",
+    // trial_type: "flat_buttons",
+    data: bias_bad_grades.multi_button,
+  }, // now the custom generators
+  {
+    stimulus_container_generator: multi_button_generator.stimulus_container_gen,
+    answer_container_generator: multi_button_generator.answer_container_gen,
+    handle_response_function: multi_button_generator.handle_response_function
+  });
+
+
 const example_block = magpieViews.view_generator("forced_choice", {
 
     trials: example_trials.multi_button.length,
     title: "Complete the sentence",
     QUD: "Choose one option for each missing word in this sentence.",
-    name: 'multi_button',
+    name: 'example_trials',
     // You can also randomize (shuffle) the trials of a view
     data: example_trials.multi_button,
     //_.shuffle(main_trials.multi_dropdown),

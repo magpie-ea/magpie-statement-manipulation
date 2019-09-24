@@ -152,7 +152,7 @@ function create_trials(n, rows, cols, bias) {
   var trials = [];
   var i = 0;
 
-  for (var i = 0; i < nr_trials; i++) {
+  for (var k = 0; k < nr_trials; k++) {
     trials[i] = {
       QUD: '',
       question: '',
