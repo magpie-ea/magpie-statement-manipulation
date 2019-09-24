@@ -58,10 +58,28 @@ const instructions = magpieViews.view_generator("instructions", {
       <br />
       Given the information from the table, please choose the three words to complete the sentence, so that it
       best describes the reality.
-      `,
-  buttonText: 'go to trials'
+
+      We will start with some example trials, before the actual experiment begins.`,
+  buttonText: 'go to example trials'
 });
 
+
+const instructions2 = magpieViews.view_generator("instructions", {
+  trials: 1,
+  name: 'instructions2',
+  title: 'General Instructions',
+  text: `Great! Do you still have questions about the experiment? If so, you can ask the instructor now.
+        If everything is clear, we start with the experimental trials now.
+        <br />
+        <br />
+        Remember: the tables are showing the exam results of students of the statistics class.
+        A "<i style=color:#13AC38>  &#10004 </i>" indicates that a task was rated as correctly, "<i style=color:#B12810> &#10008 </i>" that it was rated as wrong.
+        <br />
+        <br />
+        Given the information from the table, please choose the three words to complete the sentence, so that it
+        best describes the reality.`,
+  buttonText: 'go to trials'
+});
 
 // In the post test questionnaire you can ask your participants addtional questions
 const post_test = magpieViews.view_generator("post_test", {
@@ -117,6 +135,23 @@ const thanks = magpieViews.view_generator("thanks", {
     * https://magpie-ea.github.io/magpie-docs/01_designing_experiments/01_template_views/#trial-views
     */
 
+const example_block = magpieViews.view_generator("forced_choice", {
+    trials: example_trials.multi_button.length,
+    title: "Complete the sentence",
+    QUD: "Choose one option for each missing word in this sentence.",
+    name: 'example_trials',
+    // You can also randomize (shuffle) the trials of a view
+    data: _.shuffle(example_trials.multi_button),
+  },
+  // We add our custom generators here
+  {
+    stimulus_container_generator: multi_button_generator.stimulus_container_gen,
+    answer_container_generator: multi_button_generator.answer_container_gen,
+    handle_response_function: multi_button_generator.handle_response_function
+  }
+);
+
+
 
 const flat_trial = magpieViews.view_generator("forced_choice", {
     trials: flat_bias_block.multi_button.length,
@@ -136,7 +171,6 @@ const good_trial = magpieViews.view_generator("forced_choice", {
     trials: bias_good_grades.multi_button.length,
     title: "Complete the sentence",
     name: "good_grade_bias",
-    // trial_type: "flat_buttons",
     data: bias_good_grades.multi_button,
   }, // now the custom generators
   {
@@ -158,31 +192,6 @@ const bad_trial = magpieViews.view_generator("forced_choice", {
     answer_container_generator: multi_button_generator.answer_container_gen,
     handle_response_function: multi_button_generator.handle_response_function
   });
-
-
-const example_block = magpieViews.view_generator("forced_choice", {
-
-    trials: example_trials.multi_button.length,
-    title: "Complete the sentence",
-    QUD: "Choose one option for each missing word in this sentence.",
-    name: 'example_trials',
-    // You can also randomize (shuffle) the trials of a view
-    data: example_trials.multi_button,
-    //_.shuffle(main_trials.multi_dropdown),
-    // There is the possibility to add hooks after different events in the trials life cycle
-    // after_pause, after_fix_point, after_stim_shown, after_stim_hidden, after_response_enabled
-    // hook: {
-    //   after_response_enabled: time_limit
-    // }
-  },
-  // We add our custom generators here
-  {
-    stimulus_container_generator: multi_button_generator.stimulus_container_gen,
-    answer_container_generator: multi_button_generator.answer_container_gen,
-    handle_response_function: multi_button_generator.handle_response_function
-  }
-);
-
 
 // There are many more templates available:
 // forced_choice, slider_rating, dropdown_choice, testbox_input, rating_scale, image_selection, sentence_choice,

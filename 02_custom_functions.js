@@ -1,7 +1,4 @@
 // Here, you can define all custom functions, you want to use and initialize some variables
-
-
-
 /* For generating random participant IDs */
 // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
 // dec2hex :: Integer -> String
@@ -106,9 +103,7 @@ function create_trials(n, rows, cols, bias) {
       correct: "placeholder"
     };
     i += 1;
-
   }
-
   return (trials);
 };
 
@@ -210,9 +205,6 @@ const multi_button_generator = {
       response_flags[2] = 1;
       display_button_checker(2);
     });
-
-    //activateBtn(response1);
-    //  changeColour()
 
     $("#next")
       .on("click", function () {

@@ -19,6 +19,7 @@ $("document")
             intro,
             instructions,
             example_block,
+            instructions2,
             flat_trial,
             bad_trial,
             good_trial,
