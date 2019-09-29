@@ -78,7 +78,7 @@ function tableGenerator(rows, cols, bias) {
 
 // takes in n = number of trials it should give output, rows = nr of rows table should have,
 // cols = nr. of columns table should have, bias = percentage of crosses / tickmarks (high number means more tickmarks)
-function create_trials(n, rows, cols, bias) {
+function create_trials(n, rows, cols, bias, condition) {
   var nr_trials = n;
   var trials = [];
   var i = 0;
@@ -90,9 +90,11 @@ function create_trials(n, rows, cols, bias) {
       bias: bias,
       row_number: rows,
       column_number: cols,
-      question: "Press those buttons which complete the sentence so that the sentence is as accurate as possible to you.",
-      table: '<table border=1>' + tableGenerator(rows, cols, bias) + '<table>',
-      sentence_chunk_1: "In this table",
+      condition: condition,
+      question: condition == "low" ? "Describe these results of <strong>Riverside</strong> so as to make it appear as if there is a <strong>low</strong> success rate without lying." :
+       "Describe these results of <strong>Green Valley</strong> so as to make it appear as if there is a <strong>high</strong> success rate without lying.",
+      // table: '<table border=1>' + tableGenerator(rows, cols, bias) + '<table>',
+      sentence_chunk_1: "In this exam",
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",
       sentence_chunk_4: ".",
@@ -112,11 +114,14 @@ function create_trials(n, rows, cols, bias) {
 // take some info from examples, but change it to my purpose
 const multi_button_generator = {
   // A generator for our view template
-  stimulus_container_gen: function (config, CT) {
+    stimulus_container_gen: function (config, CT) {
+        const table = '<table border=1>' +
+              tableGenerator(config.data[CT].row_number,
+                             config.data[CT].column_number,
+                             config.data[CT].bias) +
+              '<table>';
     return `<div class='magpie-view'>
-                <h1 class='magpie-view-title'>${config.title}</h1>
-                <p class='magpie-view-question magpie-view-qud'>${config.data[CT].QUD}</p>
-                <p class='magpie-view-question magpie-view-table'>${config.data[CT].table}</p>
+                <p class='magpie-view-question magpie-view-table'>${table}</p>
                 <p class='magpie-view-question magpie-view-question'>${config.data[CT].question}</p>
             </div>`;
   },

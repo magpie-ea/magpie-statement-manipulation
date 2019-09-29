@@ -51,15 +51,16 @@ const instructions = magpieViews.view_generator("instructions", {
   trials: 1,
   name: 'instructions',
   title: 'General Instructions',
-  text: `In the following,
-      you will be presented with tables showing the exam results of students of the statistics class.
-      A  "<i style=color:#13AC38>  &#10004 </i>" indicates that a task was rated as correctly, "<i style=color:#B12810> &#10008 </i>" that it was rated as wrong.
+    text: `<strong>Background story:</strong> Please imagine that you are hired as an external investigator for a nation-wide evaluation of high school performances. Your job is in particular to deliver descriptions of the results of standardized math exam questions for high schools: <strong>Riverside</strong> and <strong>Green Valley</strong>.<br/>
+  Importantly, <strong>although you should not tell any lies, your job is not necessarily to report objectively on the facts</strong>. For very good reasons, it is important that Riverside will appear like a high school with a rather <i>low success probability</i> of students succeeding at any one of the standardized math questions. In contrast, it is important that Green Valley appears like a high school with a rather <i>high success probability</i> of any given student succeeding in any given answer. In sum, <strong>you should present Riverside's results to give the impression that is has a low rate of success, and to present Green Valley's results to give the impression that is has a high rate of success</strong>, without telling lies. <br/>
+      In the following,
+      you will be presented with tables showing the results of students who took a math exam for each high school.
+      A  "<i style=color:#13AC38>  &#10004 </i>" indicates that a question was answered correctly, "<i style=color:#B12810> &#10008 </i>" that it was answered incorrect.
       <br />
       <br />
-      Given the information from the table, please choose the three words to complete the sentence, so that it
-      best describes the reality.
+      Given the information from the table, please choose the words to complete a given sentence, so that the resulting sentence best presents Riverside or Green Valley in the way described above.
 
-      We will start with some example trials, before the actual experiment begins.`,
+      We will start with some training trials, before the actual experiment begins, so you can get used to the displays and the manner of forming sentences.`,
   buttonText: 'go to example trials'
 });
 
@@ -68,17 +69,15 @@ const instructions2 = magpieViews.view_generator("instructions", {
   trials: 1,
   name: 'instructions2',
   title: 'General Instructions',
-  text: `Great! Do you still have questions about the experiment? If so, you can ask the instructor now.
-        If everything is clear, we start with the experimental trials now.
+  text: `Great! You've completed the training phase. We will move on to the main part of the experiment next.
         <br />
         <br />
         Remember: the tables are showing the exam results of students of the statistics class.
         A "<i style=color:#13AC38>  &#10004 </i>" indicates that a task was rated as correctly, "<i style=color:#B12810> &#10008 </i>" that it was rated as wrong.
         <br />
         <br />
-        Given the information from the table, please choose the three words to complete the sentence, so that it
-        best describes the reality.`,
-  buttonText: 'go to trials'
+        Given the information from the table, you should present Riverside's results to give the impression that is has a low rate of success, and to present Green Valley's results to give the impression that is has a high rate of success</strong>, but avoid telling lies.`,
+  buttonText: 'Start main experiment'
 });
 
 // In the post test questionnaire you can ask your participants addtional questions
@@ -112,38 +111,13 @@ const thanks = magpieViews.view_generator("thanks", {
   prolificConfirmText: 'Press the button'
 });
 
-/** trial (magpie's Trial Type Views) below
-
-* Obligatory properties
-
-    - trials: int - the number of trials this view will appear
-    - name: string - the name of the view type as it shall be known to _magpie (e.g. for use with a progress bar)
-            and the name of the trial as you want it to appear in the submitted data
-    - data: array - an array of trial objects
-
-    * Optional properties
-
-        - pause: number (in ms) - blank screen before the fixation point or stimulus show
-        - fix_duration: number (in ms) - blank screen with fixation point in the middle
-        - stim_duration: number (in ms) - for how long to have the stimulus on the screen
-          More about trial life cycle - https://magpie-ea.github.io/magpie-docs/01_designing_experiments/04_lifecycles_hooks/
-
-        - hook: object - option to hook and add custom functions to the view
-          More about hooks - https://magpie-ea.github.io/magpie-docs/01_designing_experiments/04_lifecycles_hooks/
-
-    * All about the properties of trial views
-    * https://magpie-ea.github.io/magpie-docs/01_designing_experiments/01_template_views/#trial-views
-    */
-
-const example_block = magpieViews.view_generator("forced_choice", {
-    trials: example_trials.multi_button.length,
+const training_trials = magpieViews.view_generator("forced_choice", {
+    trials: training_trials_data.length,
     title: "Complete the sentence",
     QUD: "Choose one option for each missing word in this sentence.",
-    name: 'example_trials',
-    // You can also randomize (shuffle) the trials of a view
-    data: _.shuffle(example_trials.multi_button),
+    name: 'training_trials',
+    data: _.shuffle(training_trials_data),
   },
-  // We add our custom generators here
   {
     stimulus_container_generator: multi_button_generator.stimulus_container_gen,
     answer_container_generator: multi_button_generator.answer_container_gen,
@@ -151,48 +125,15 @@ const example_block = magpieViews.view_generator("forced_choice", {
   }
 );
 
-
-
-const flat_trial = magpieViews.view_generator("forced_choice", {
-    trials: flat_bias_block.multi_button.length,
+const main_trials = magpieViews.view_generator("forced_choice", {
+    trials: main_trials_data.length,
     title: "Complete the sentence",
-    name: "flat_bias",
-    // trial_type: "flat_buttons",
-    data: flat_bias_block.multi_button,
-  }, // now the custom generators
+    name: "main_trials",
+    data: main_trials_data,
+  },
   {
     stimulus_container_generator: multi_button_generator.stimulus_container_gen,
     answer_container_generator: multi_button_generator.answer_container_gen,
     handle_response_function: multi_button_generator.handle_response_function
   });
 
-
-const good_trial = magpieViews.view_generator("forced_choice", {
-    trials: bias_good_grades.multi_button.length,
-    title: "Complete the sentence",
-    name: "good_grade_bias",
-    data: bias_good_grades.multi_button,
-  }, // now the custom generators
-  {
-    stimulus_container_generator: multi_button_generator.stimulus_container_gen,
-    answer_container_generator: multi_button_generator.answer_container_gen,
-    handle_response_function: multi_button_generator.handle_response_function
-  });
-
-
-const bad_trial = magpieViews.view_generator("forced_choice", {
-    trials: bias_bad_grades.multi_button.length,
-    title: "Complete the sentence",
-    name: "bad_grade_bias",
-    // trial_type: "flat_buttons",
-    data: bias_bad_grades.multi_button,
-  }, // now the custom generators
-  {
-    stimulus_container_generator: multi_button_generator.stimulus_container_gen,
-    answer_container_generator: multi_button_generator.answer_container_gen,
-    handle_response_function: multi_button_generator.handle_response_function
-  });
-
-// There are many more templates available:
-// forced_choice, slider_rating, dropdown_choice, testbox_input, rating_scale, image_selection, sentence_choice,
-// key_press, self_paced_reading and self_paced_reading_rating_scale

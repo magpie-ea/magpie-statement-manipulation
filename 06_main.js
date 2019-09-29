@@ -18,11 +18,9 @@ $("document")
       views_seq: [
             intro,
             instructions,
-            example_block,
+            training_trials,
             instructions2,
-            flat_trial,
-            bad_trial,
-            good_trial,
+            main_trials,
             post_test,
             thanks,
         ],
@@ -41,10 +39,8 @@ $("document")
       progress_bar: {
         in: [
                 // list the view-names of the views for which you want a progress bar
-                example_block.name,
-                flat_trial.name,
-                bad_trial.name,
-                good_trial.name
+                training_trials.name,
+                main_trials.name
             ],
         // Possible styles are "default", "separate" and "chunks"
         style: "separate",
