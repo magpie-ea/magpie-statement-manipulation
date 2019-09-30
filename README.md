@@ -10,4 +10,4 @@ This experiment was built using [\_magpie](https://magpie-ea.github.io/magpie-si
 
 ## Running the experiment
 
-This experiment is still under development and is therefore still in debug mode.
+This experiment is still under development, but a first running version can be visited [here](https://argumentative-language-pilot.netlify.com).
