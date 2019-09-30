@@ -72,7 +72,7 @@ function tableGenerator(rows, cols, bias) {
   }
 
   result += "</table>";
-  return result;
+  return {table: result, matrix: matrix};
 
 }
 
@@ -115,11 +115,11 @@ function create_trials(n, rows, cols, bias, condition) {
 const multi_button_generator = {
   // A generator for our view template
     stimulus_container_gen: function (config, CT) {
-        const table = '<table border=1>' +
-              tableGenerator(config.data[CT].row_number,
-                             config.data[CT].column_number,
-                             config.data[CT].bias) +
-              '<table>';
+        const stimulus = tableGenerator(config.data[CT].row_number,
+                                        config.data[CT].column_number,
+                                        config.data[CT].bias);
+        config.data[CT].stimulus = stimulus.matrix;
+        const table = '<table border=1>' + stimulus.table + '<table>';
     return `<div class='magpie-view'>
                 <p class='magpie-view-question magpie-view-table'>${table}</p>
                 <p class='magpie-view-question magpie-view-question'>${config.data[CT].question}</p>
@@ -217,10 +217,7 @@ const multi_button_generator = {
         let trial_data = {
           trial_name: config.name,
           trial_number: CT + 1,
-          response: [$("input[name=answer1]:checked")
-            .val(), $("input[name=answer2]:checked")
-            .val(), $("input[name=answer3]:checked")
-            .val()],
+            response: [$("input[name=answer1]:checked").val(), $("input[name=answer2]:checked").val(), $("input[name=answer3]:checked").val()],
           RT: RT
         };
 
