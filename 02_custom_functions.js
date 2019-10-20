@@ -98,8 +98,8 @@ function create_trials(n, rows, cols, bias, condition) {
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",
       sentence_chunk_4: ".",
-      choice_options_1: ["all", "some", "most", "many", "none"],
-      choice_options_2: ["all", "some", "most", "many", "none"],
+      choice_options_1: ["all", "most", "many", "some", "few", "none"],
+      choice_options_2: ["all", "most", "many", "some", "few", "none"],
       choice_options_3: ["right", "wrong"],
       expected: "placeholder",
       correct: "placeholder"
@@ -142,6 +142,8 @@ const multi_button_generator = {
                       <label for='rt1o4' class='magpie-response-buttons'>${config.data[CT].choice_options_1[3]}</label>
                       <input type='radio' name='answer1' style='display:none' id='rt1o5' value=${config.data[CT].choice_options_1[4]} />
                       <label for='rt1o5' class='magpie-response-buttons'>${config.data[CT].choice_options_1[4]}</label>
+                      <input type='radio' name='answer1' style='display:none' id='rt1o6' value=${config.data[CT].choice_options_1[5]} />
+                      <label for='rt1o6' class='magpie-response-buttons'>${config.data[CT].choice_options_1[5]}</label>
 
                   </div>
                 ${config.data[CT].sentence_chunk_2}
@@ -156,6 +158,8 @@ const multi_button_generator = {
                       <label for='rt2o4' class='magpie-response-buttons'>${config.data[CT].choice_options_2[3]}</label>
                       <input type='radio' name='answer2' id='rt2o5' style='display:none' value=${config.data[CT].choice_options_2[4]} />
                       <label for='rt2o5' class='magpie-response-buttons'>${config.data[CT].choice_options_2[4]}</label>
+                      <input type='radio' name='answer2' id='rt2o6' style='display:none' value=${config.data[CT].choice_options_2[5]} />
+                      <label for='rt2o6' class='magpie-response-buttons'>${config.data[CT].choice_options_2[5]}</label>
 
                 </div>
                 ${config.data[CT].sentence_chunk_3}

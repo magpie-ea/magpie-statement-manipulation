@@ -51,16 +51,18 @@ const instructions = magpieViews.view_generator("instructions", {
   trials: 1,
   name: 'instructions',
   title: 'General Instructions',
-    text: `<strong>Background story:</strong> Please imagine that you are hired as an external investigator for a nation-wide evaluation of high school performances. Your job is in particular to deliver descriptions of the results of standardized math exam questions for high schools: <strong>Riverside</strong> and <strong>Green Valley</strong>.<br/>
-  Importantly, <strong>although you should not tell any lies, your job is not necessarily to report objectively on the facts</strong>. For very good reasons, it is important that Riverside will appear like a high school with a rather <i>low success probability</i> of students succeeding at any one of the standardized math questions. In contrast, it is important that Green Valley appears like a high school with a rather <i>high success probability</i> of any given student succeeding in any given answer. In sum, <strong>you should present Riverside's results to give the impression that is has a low rate of success, and to present Green Valley's results to give the impression that is has a high rate of success</strong>, without telling lies. <br/>
-      In the following,
-      you will be presented with tables showing the results of students who took a math exam for each high school.
-      A  "<i style=color:#13AC38>  &#10004 </i>" indicates that a question was answered correctly, "<i style=color:#B12810> &#10008 </i>" that it was answered incorrect.
-      <br />
-      <br />
-      Given the information from the table, please choose the words to complete a given sentence, so that the resulting sentence best presents Riverside or Green Valley in the way described above.
-
-      We will start with some training trials, before the actual experiment begins, so you can get used to the displays and the manner of forming sentences.`,
+  text: `<strong>Background story:</strong> Please imagine you have been hired as a marketing consultant for Green Valley High School. Part of your job is to write a report on the results of standardized math exam questions. These results have been published for Green Valley and for your main rival, Riverside High School.
+  <br/><br/>
+  It's important that you don't tell any lies in the report, but you don't have to report objectively on the facts. <strong>Your aim is to make Green Valley sound like a school whose students have a high probability of success on the exam questions, and Riverside sound like a school whose students have a low probability of success.</strong>
+  <br/><br/>
+  In the following, you will be presented with tables showing the results of students who took a math exam for each high school.
+  A  "<i style=color:#13AC38>  &#10004 </i>" indicates that a question was answered correctly, "<i style=color:#B12810> &#10008 </i>" that it was answered incorrectly.
+  <br />
+  <br />
+  Given the information from the table, please choose the words to complete a given sentence, so that the resulting sentence best presents Riverside or Green Valley in the way described above.
+  <br />
+  <br />
+  We will start with some training trials, before the actual experiment begins, so you can get used to the displays and the manner of forming sentences.`,
   buttonText: 'go to example trials'
 });
 
@@ -76,7 +78,7 @@ const instructions2 = magpieViews.view_generator("instructions", {
         A "<i style=color:#13AC38>  &#10004 </i>" indicates that a task was rated as correctly, "<i style=color:#B12810> &#10008 </i>" that it was rated as wrong.
         <br />
         <br />
-        Given the information from the table, you should present Riverside's results to give the impression that is has a low rate of success, and to present Green Valley's results to give the impression that is has a high rate of success</strong>, but avoid telling lies.`,
+        Given the information from the table, you should present Riverside's results in such a way as to give the impression that Riverside has a low rate of success, and to present Green Valley's results to give the impression that is has a high rate of success</strong>, but avoid telling lies.`,
   buttonText: 'Start main experiment'
 });
 

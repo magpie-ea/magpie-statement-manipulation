@@ -13,8 +13,8 @@ const training_trials_data = [
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",
       sentence_chunk_4: ".",
-      choice_options_1: ["all", "some", "most", "many", "none"],
-      choice_options_2: ["all", "some", "most", "many", "none"],
+      choice_options_1: ["all", "most", "many", "some", "few", "none"],
+      choice_options_2: ["all", "most", "many", "some", "few", "none"],
       choice_options_3: ["right", "wrong"]
     },
     {
@@ -28,8 +28,8 @@ const training_trials_data = [
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",
       sentence_chunk_4: ".",
-      choice_options_1: ["all", "some", "most", "many", "none"],
-      choice_options_2: ["all", "some", "most", "many", "none"],
+      choice_options_1: ["all", "most", "many", "some", "few", "none"],
+      choice_options_2: ["all", "most", "many", "some", "few", "none"],
       choice_options_3: ["right", "wrong"]
     },
     {
@@ -43,8 +43,8 @@ const training_trials_data = [
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",
       sentence_chunk_4: ".",
-      choice_options_1: ["all", "some", "most", "many", "none"],
-      choice_options_2: ["all", "some", "most", "many", "none"],
+      choice_options_1: ["all", "most", "many", "some", "few", "none"],
+      choice_options_2: ["all", "most", "many", "some", "few", "none"],
       choice_options_3: ["right", "wrong"]
       }
   ];
@@ -55,9 +55,28 @@ const training_trials_data = [
 // main trials
 
 const main_trials_data = _.shuffle(_.flatten([
-    create_trials(1,5,7,0.2, "low"),
-    create_trials(1,5,7,0.5, "high"),
-    create_trials(1,5,7,0.8, "low")
+
+    create_trials(1,5,12,0.2, "low"),
+    create_trials(1,5,12,0.2, "high"),
+
+    create_trials(1,5,12,0.3, "low"),
+    create_trials(1,5,12,0.3, "high"),
+
+    create_trials(1,5,12,0.4, "low"),
+    create_trials(1,5,12,0.4, "high"),
+
+    create_trials(1,5,12,0.5, "low"),
+    create_trials(1,5,12,0.5, "high"),
+
+    create_trials(1,5,12,0.6, "low"),
+    create_trials(1,5,12,0.6, "high"),
+
+    create_trials(1,5,12,0.7, "low"),
+    create_trials(1,5,12,0.7, "high"),
+
+    create_trials(1,5,12,0.8, "low"),
+    create_trials(1,5,12,0.8, "high")
+
 ]));
 
 console.log(main_trials_data);
