@@ -118,7 +118,7 @@ const multi_button_generator = {
         const stimulus = tableGenerator(config.data[CT].row_number,
                                         config.data[CT].column_number,
                                         config.data[CT].bias);
-        config.data[CT].stimulus = stimulus.matrix;
+        config.data[CT].stimulus = _.toString(stimulus.matrix).replace(/,/g, "|");
         const table = '<table border=1>' + stimulus.table + '<table>';
     return `<div class='magpie-view'>
                 <p class='magpie-view-question magpie-view-table'>${table}</p>
@@ -227,7 +227,7 @@ const multi_button_generator = {
 
         trial_data = magpieUtils.view.save_config_trial_data(config.data[CT], trial_data);
         magpie.trial_data.push(trial_data);
-        magpie.findNextView()
+        magpie.findNextView();
       });
   }
 };

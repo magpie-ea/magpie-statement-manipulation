@@ -17,21 +17,21 @@ $("document")
       // You have to specify all views you want to use in this experiment and the order of them
       views_seq: [
             intro,
-            instructions,
-            training_trials,
-            instructions2,
+            // instructions,
+            // training_trials,
+            // instructions2,
             main_trials,
             post_test,
             thanks,
         ],
       // Here, you can specify all information for the deployment
       deploy: {
-        experimentID: "2",
+        experimentID: "3",
           serverAppURL: "https://mcmpact.ikw.uni-osnabrueck.de/magpie/api/submit_experiment/",
         // Possible deployment methods are:
         // "debug" and "directLink"
         // As well as "MTurk", "MTurkSandbox" and "Prolific"
-        deployMethod: "Prolific",
+        deployMethod: "directLink",
         contact_email: "mchfranke@gmail.com",
           prolificURL: "https://app.prolific.co/submissions/complete?cc=7F134DEF"
       },
