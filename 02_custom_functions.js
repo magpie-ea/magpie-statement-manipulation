@@ -119,6 +119,7 @@ const multi_button_generator = {
                                         config.data[CT].column_number,
                                         config.data[CT].bias);
         config.data[CT].stimulus = _.toString(stimulus.matrix).replace(/,/g, "|");
+        console.log(config.data[CT].stimulus);
         const table = '<table border=1>' + stimulus.table + '<table>';
     return `<div class='magpie-view'>
                 <p class='magpie-view-question magpie-view-table'>${table}</p>
