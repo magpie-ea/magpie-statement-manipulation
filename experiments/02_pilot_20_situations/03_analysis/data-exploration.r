@@ -159,7 +159,7 @@ plot_data = counts %>% ungroup() %>%
   )
   
 plot_data %>%
-  filter(count > 1 ) %>%
+  filter(count > 5 ) %>%
   ggplot(aes(y = count, x = (arg_str), color = condition)) + 
   geom_point() +
   geom_smooth(method = "lm") +
