@@ -118,7 +118,7 @@ const training_trials = magpieViews.view_generator("forced_choice", {
     title: "Complete the sentence",
     QUD: "Choose one option for each missing word in this sentence.",
     name: 'training_trials',
-    data: _.shuffle(training_trials_data),
+    data: training_trials_data,
   },
   {
     stimulus_container_generator: multi_button_generator.stimulus_container_gen,

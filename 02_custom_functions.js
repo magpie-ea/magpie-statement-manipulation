@@ -30,6 +30,53 @@ function getCheck(result) {
 var names = ["John", "Lisa", "Amy", "Daniel", "Alex", "Tina", "Mia", "Julia", "Tim", "Johann", "Lesly", "Julian", "Chris", "Marie", "Lisanne", "Thomas", "Pablo", "Rebecca", "Theresa", "Susanne", "Jan", "Nico"];
 var questions = [" ", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12"];
 
+// this function takes as input attributes rows and cols, this gives the dimensions
+// of the output table, the bias influences the percentage of crosses
+// and checkers
+function tableGenerator_bias(rows, cols, bias) {
+  var table = '';
+  // set dimensions of table
+  var nrRows = rows;
+  var nrCols = cols;
+  var bias = bias;
+  // random sampleing of names
+  var tableNames = _.sampleSize(names, rows);
+
+  // the matrix is filled with 1 and 0
+  // matrix size depends on parameters rows and cols
+  // percentage of 1 and 0 depends on parameter bias
+  var matrix = [];
+  for (var i = 0; i < rows; i++) {
+    matrix[i] = []; // Initialize inner array
+    for (var j = 0; j < cols; j++) {
+      matrix[i][j] = Math.random();
+      if (matrix[i][j] >= bias) {
+        matrix[i][j] = 1
+      } else {
+        matrix[i][j] = 0
+      }
+    }
+  }
+  var result = "<table border=1>";
+  for (var i = 0; i <= cols; i++) {
+    result += '<th>' + questions[i] + '</th>';
+  }
+
+  for (var j = 0; j < matrix.length; j++) {
+    result += '<tr>';
+    result += '<th>' + tableNames[j] + '</th>';
+    for (var k = 0; k < matrix[j].length; k++) {
+      result += "<td>" + this.getCheck(matrix[j][k]) + "</td>";
+    }
+    result += "</tr>";
+  }
+
+  result += "</table>";
+  return {table: result, matrix: matrix};
+
+}
+
+
 // this function takes as input a situation object (as given in 04_trials.js)
 // it creates the table in a matrix description and a HTML description
 function tableGenerator_situation(situation) {
