@@ -1,0 +1,5 @@
+- ran two batches on Prolific (each with intended 20 people)
+- first batch recorded the input stimulus (matrix/table of marks and crosses) wrongly, it seems
+- second batch does that right
+- could use data from both sets to see whether the manipulations (high/low framing, probability of success (=bias)) have effects on choices
+- paid 1 pound (estimated 8 min, but that might have been too optimistic)
