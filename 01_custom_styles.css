@@ -78,7 +78,7 @@ table {
   display: flex;
   align-items: center;
   display: block;
-  margin: 1px;
+  margin: 5px;
 
 }
 
@@ -143,4 +143,23 @@ input[type=radio]:checked+label {
 
 .type {
   display: block;
+}
+
+
+.magpie-help-text {
+    font-size: 0px;
+    max-height: 0px;
+}
+
+.progress-bar-container {
+    float: right;
+    margin: 0 10px 60px 10px;
+}
+
+.clearfix {
+    clear: none;
+}
+
+.magpie-view {
+    padding-top: 50px;
 }

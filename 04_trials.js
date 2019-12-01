@@ -201,27 +201,32 @@ const training_trials_data = _.flatten([
 
 // main trials
 
+const high_low_allocation = _.shuffle(
+    ["high", "high", "high", "high", "high", "high", "high", "high", "high", "high",
+     "low", "low", "low", "low", "low", "low", "low", "low", "low", "low" ]
+);
+
 const main_trials_data = _.shuffle(_.flatten([
 
-    create_trials_situation(1, "high", situations[0]),
-    create_trials_situation(1, "high", situations[1]),
-    create_trials_situation(1, "high", situations[2]),
-    create_trials_situation(1, "high", situations[3]),
-    create_trials_situation(1, "high", situations[4]),
-    create_trials_situation(1, "high", situations[5]),
-    create_trials_situation(1, "high", situations[6]),
-    create_trials_situation(1, "high", situations[7]),
-    create_trials_situation(1, "high", situations[8]),
-    create_trials_situation(1, "high", situations[9]),
-    create_trials_situation(1, "high", situations[10]),
-    create_trials_situation(1, "high", situations[11]),
-    create_trials_situation(1, "high", situations[12]),
-    create_trials_situation(1, "high", situations[13]),
-    create_trials_situation(1, "high", situations[14]),
-    create_trials_situation(1, "high", situations[15]),
-    create_trials_situation(1, "high", situations[16]),
-    create_trials_situation(1, "high", situations[17]),
-    create_trials_situation(1, "high", situations[18]),
-    create_trials_situation(1, "high", situations[19])
+    create_trials_situation(1, high_low_allocation[0], situations[0]),
+    create_trials_situation(1, high_low_allocation[1], situations[1]),
+    create_trials_situation(1, high_low_allocation[2], situations[2]),
+    create_trials_situation(1, high_low_allocation[3], situations[3]),
+    create_trials_situation(1, high_low_allocation[4], situations[4]),
+    create_trials_situation(1, high_low_allocation[5], situations[5]),
+    create_trials_situation(1, high_low_allocation[6], situations[6]),
+    create_trials_situation(1, high_low_allocation[7], situations[7]),
+    create_trials_situation(1, high_low_allocation[8], situations[8]),
+    create_trials_situation(1, high_low_allocation[9], situations[9]),
+    create_trials_situation(1, high_low_allocation[10], situations[10]),
+    create_trials_situation(1, high_low_allocation[11], situations[11]),
+    create_trials_situation(1, high_low_allocation[12], situations[12]),
+    create_trials_situation(1, high_low_allocation[13], situations[13]),
+    create_trials_situation(1, high_low_allocation[14], situations[14]),
+    create_trials_situation(1, high_low_allocation[15], situations[15]),
+    create_trials_situation(1, high_low_allocation[16], situations[16]),
+    create_trials_situation(1, high_low_allocation[17], situations[17]),
+    create_trials_situation(1, high_low_allocation[18], situations[18]),
+    create_trials_situation(1, high_low_allocation[19], situations[19])
 
 ]));

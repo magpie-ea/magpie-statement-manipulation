@@ -56,13 +56,13 @@ const instructions = magpieViews.view_generator("instructions", {
   It's important that you don't tell any lies in the report, but you don't have to report objectively on the facts. <strong>Your aim is to make Green Valley sound like a school whose students have a high probability of success on the exam questions, and Riverside sound like a school whose students have a low probability of success.</strong>
   <br/><br/>
   In the following, you will be presented with tables showing the results of students who took a math exam for each high school.
-  A  "<i style=color:#13AC38>  &#10004 </i>" indicates that a question was answered correctly, "<i style=color:#B12810> &#10008 </i>" that it was answered incorrectly.
+  The tables show the number of questions each student answered correctly or incorrectly. For each correctly answered question, the table contains a "<i style=color:#13AC38>  &#10004 </i>", and for each incorrectly answered question, the table contains a "<i style=color:#B12810> &#10008 </i>".
   <br />
   <br />
   Given the information from the table, please choose the words to complete a given sentence, so that the resulting sentence best presents Riverside or Green Valley in the way described above.
   <br />
   <br />
-  We will start with some training trials, before the actual experiment begins, so you can get used to the displays and the manner of forming sentences.`,
+  We will start with some training trials, before the actual experiment begins, so you can get used to the displays and the manner of forming sentences. During the training trials, you will see the same situation twice in a row (unlike in the main experiment), so as to practice describing the same result as indicative of either a high or a low success rate.`,
   buttonText: 'go to example trials'
 });
 
@@ -70,7 +70,7 @@ const instructions = magpieViews.view_generator("instructions", {
 const instructions2 = magpieViews.view_generator("instructions", {
   trials: 1,
   name: 'instructions2',
-  title: 'General Instructions',
+  title: 'Instructions (reminder)',
   text: `Great! You've completed the training phase. We will move on to the main part of the experiment next.
         <br />
         <br />

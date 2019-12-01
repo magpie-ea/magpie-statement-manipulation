@@ -133,39 +133,6 @@ function tableGenerator_situation(situation) {
 
 }
 
-// takes in n = number of trials it should give output, rows = nr of rows table should have,
-// cols = nr. of columns table should have, bias = percentage of crosses / tickmarks (high number means more tickmarks)
-function create_trials(n, rows, cols, bias, condition) {
-  var nr_trials = n;
-  var trials = [];
-  var i = 0;
-
-  for (var k = 0; k < nr_trials; k++) {
-    trials[i] = {
-      QUD: '',
-      question: '',
-      bias: bias,
-      row_number: rows,
-      column_number: cols,
-      condition: condition,
-      question: condition == "low" ? "Describe these results of <strong>Riverside</strong> so as to make it appear as if there is a <strong>low</strong> success rate without lying." :
-       "Describe these results of <strong>Green Valley</strong> so as to make it appear as if there is a <strong>high</strong> success rate without lying.",
-      // table: '<table border=1>' + tableGenerator_bias(rows, cols, bias) + '<table>',
-      sentence_chunk_1: "In this exam",
-      sentence_chunk_2: "of the students got",
-      sentence_chunk_3: "of the questions",
-      sentence_chunk_4: ".",
-      choice_options_1: ["all", "most", "many", "some", "few", "none"],
-      choice_options_2: ["all", "most", "many", "some", "few", "none"],
-      choice_options_3: ["right", "wrong"],
-      expected: "placeholder",
-      correct: "placeholder"
-    };
-    i += 1;
-  }
-  return (trials);
-};
-
 // takes as arguments:
 // + n = number of trials it should give output,
 // + condition = string indicating whether high/low description is the goal
@@ -177,7 +144,6 @@ function create_trials_situation(n, condition, situation) {
     for (var k = 0; k < nr_trials; k++) {
         trials[i] = {
             QUD: '',
-            question: '',
             sitation_number: situation.number,
             situation: situation,
             row_number: situation.instances[0].rows,
@@ -212,8 +178,8 @@ const multi_button_generator = {
         config.data[CT].stimulus = _.toString(stimulus.matrix).replace(/,/g, "|");
         const table = '<table border=1>' + stimulus.table + '<table>';
     return `<div class='magpie-view'>
-                <p class='magpie-view-question magpie-view-table'>${table}</p>
                 <p class='magpie-view-question magpie-view-question'>${config.data[CT].question}</p>
+                <p class='magpie-view-question magpie-view-table'>${table}</p>
             </div>`;
   },
 
