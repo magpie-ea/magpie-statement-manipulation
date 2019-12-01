@@ -83,9 +83,7 @@ function tableGenerator_situation(situation) {
     var table = '';
     // set dimensions of table
     var nrRows = situation.instances[0].rows.length;
-    console.log(nrRows);
     var nrCols = situation.instances[0].n_col;
-    console.log(nrCols);
     var rows = situation.instances[0].rows;
     var tableNames = _.sampleSize(names, nrRows);
 
@@ -123,11 +121,6 @@ function tableGenerator_situation(situation) {
     }
 
     result += "</table>";
-
-    console.log("HTML Table output");
-    console.log(result);
-    console.log("matrix representation");
-    console.log(matrix);
 
     return {table: result, matrix: matrix};
 
