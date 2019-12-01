@@ -19,60 +19,70 @@ const generateID = function (len) {
 
 // function gets called within tableGenerator, it changes 0 and 1 to red crossmark and greenchecker
 function getCheck(result) {
-  if (result == 0) {
-    return "<i style=color:#13AC38>" + "&#10004" + "</i>"
+  if (result == 1) {
+      return "<i style=color:#073813>" + "&#10004" + "</i>";
   } else {
-    return "<i style=color:#B12810>" + "&#10008" + "</i>"
+      return "<i style=color:#e0beba>" + "&#10008" + "</i>";
   }
 }
 
 // prerequisits for html table
-var names = ["John", "Lisa", "Amy", "Daniel", "Alex", "Tina", "Mia", "Julia", "Tim", "Johann", "Lesly", "Julian", "Chris", "Marie", "Lisanne", "Thomas", "Pablo", "Rebecca", "Theresa", "Susanne", "Jan", "Nico"]
-var questions = [" ", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12"]
+var names = ["John", "Lisa", "Amy", "Daniel", "Alex", "Tina", "Mia", "Julia", "Tim", "Johann", "Lesly", "Julian", "Chris", "Marie", "Lisanne", "Thomas", "Pablo", "Rebecca", "Theresa", "Susanne", "Jan", "Nico"];
+var questions = [" ", "Q1", "Q2", "Q3", "Q4", "Q5", "Q6", "Q7", "Q8", "Q9", "Q10", "Q11", "Q12"];
 
-// this function takes as input attributes rows and cols, this gives the dimensions
-// of the output table, the bias influences the percentage of crosses
-// and checkers
-function tableGenerator(rows, cols, bias) {
-  var table = '';
-  // set dimensions of table
-  var nrRows = rows;
-  var nrCols = cols;
-  var bias = bias;
-  // random sampleing of names
-  var tableNames = _.sampleSize(names, rows);
+// this function takes as input a situation object (as given in 04_trials.js)
+// it creates the table in a matrix description and a HTML description
+function tableGenerator_situation(situation) {
+    var table = '';
+    // set dimensions of table
+    var nrRows = situation.instances[0].rows.length;
+    console.log(nrRows);
+    var nrCols = situation.instances[0].n_col;
+    console.log(nrCols);
+    var rows = situation.instances[0].rows;
+    var tableNames = _.sampleSize(names, nrRows);
 
-  // the matrix is filled with 1 and 0
-  // matrix size depends on parameters rows and cols
-  // percentage of 1 and 0 depends on parameter bias
-  var matrix = [];
-  for (var i = 0; i < rows; i++) {
-    matrix[i] = []; // Initialize inner array
-    for (var j = 0; j < cols; j++) {
-      matrix[i][j] = Math.random();
-      if (matrix[i][j] >= bias) {
-        matrix[i][j] = 1
-      } else {
-        matrix[i][j] = 0
-      }
+    // the matrix is filled with 1 and 0
+    // matrix size depends on parameters rows and cols
+    // percentage of 1 and 0 depends on parameter bias
+    var matrix = [];
+    for (var i = 0; i < nrRows; i++) {
+        matrix[i] = []; // Initialize inner array
+        for (var j = 0; j < nrCols; j++) {
+            if (rows[i] > j) {
+                matrix[i][j] = 1;
+            } else {
+                matrix[i][j] = 0;
+            }
+        }
     }
-  }
-  var result = "<table border=1>";
-  for (var i = 0; i <= cols; i++) {
-    result += '<th>' + questions[i] + '</th>';
-  }
+    var result = "<table border=1>";
+    // for (var i = 0; i <= nrCols; i++) {
+    //     result += '<th>' + questions[i] + '</th>';
+    // }
 
-  for (var j = 0; j < matrix.length; j++) {
-    result += '<tr>';
-    result += '<th>' + tableNames[j] + '</th>';
-    for (var k = 0; k < matrix[j].length; k++) {
-      result += "<td>" + this.getCheck(matrix[j][k]) + "</td>";
+    for (var j = 0; j < matrix.length; j++) {
+        result += '<tr>';
+        result += '<th>' + tableNames[j] + '</th>';
+        for (var k = 0; k < matrix[j].length; k++) {
+            if(matrix[j][k] == 1) {
+                result += "<td bgcolor='#59b370'>" + this.getCheck(matrix[j][k]) + "</td>";
+            } else {
+                result += "<td bgcolor='#f26049'>" + this.getCheck(matrix[j][k]) + "</td>";
+            }
+            // result += "<td>" + this.getCheck(matrix[j][k]) + "</td>";
+        }
+        result += "</tr>";
     }
-    result += "</tr>";
-  }
 
-  result += "</table>";
-  return {table: result, matrix: matrix};
+    result += "</table>";
+
+    console.log("HTML Table output");
+    console.log(result);
+    console.log("matrix representation");
+    console.log(matrix);
+
+    return {table: result, matrix: matrix};
 
 }
 
@@ -93,7 +103,7 @@ function create_trials(n, rows, cols, bias, condition) {
       condition: condition,
       question: condition == "low" ? "Describe these results of <strong>Riverside</strong> so as to make it appear as if there is a <strong>low</strong> success rate without lying." :
        "Describe these results of <strong>Green Valley</strong> so as to make it appear as if there is a <strong>high</strong> success rate without lying.",
-      // table: '<table border=1>' + tableGenerator(rows, cols, bias) + '<table>',
+      // table: '<table border=1>' + tableGenerator_bias(rows, cols, bias) + '<table>',
       sentence_chunk_1: "In this exam",
       sentence_chunk_2: "of the students got",
       sentence_chunk_3: "of the questions",
@@ -109,17 +119,50 @@ function create_trials(n, rows, cols, bias, condition) {
   return (trials);
 };
 
+// takes as arguments:
+// + n = number of trials it should give output,
+// + condition = string indicating whether high/low description is the goal
+// + situation = situation object (as defined in 04_trials.js)
+function create_trials_situation(n, condition, situation) {
+    var nr_trials = n;
+    var trials = [];
+    var i = 0;
+    for (var k = 0; k < nr_trials; k++) {
+        trials[i] = {
+            QUD: '',
+            question: '',
+            sitation_number: situation.number,
+            situation: situation,
+            row_number: situation.instances[0].rows,
+            column_number: situation.instances[0].rows.length,
+            condition: condition,
+            question: condition == "low" ? "Describe these results of <strong>Riverside</strong> so as to make it appear as if there is a <strong>low</strong> success rate without lying." :
+                "Describe these results of <strong>Green Valley</strong> so as to make it appear as if there is a <strong>high</strong> success rate without lying.",
+            // table: '<table border=1>' + tableGenerator_bias(rows, cols, bias) + '<table>',
+            sentence_chunk_1: "In this exam",
+            sentence_chunk_2: "of the students got",
+            sentence_chunk_3: "of the questions",
+            sentence_chunk_4: ".",
+            choice_options_1: ["all", "most", "some", "none"],
+            choice_options_2: ["all", "most", "some", "none"],
+            choice_options_3: ["right", "wrong"],
+            expected: "placeholder",
+            correct: "placeholder"
+        };
+        i += 1;
+    }
+    return (trials);
+};
+
+
 
 // Here, we will define some generator functions for a multi-dropdown view
 // take some info from examples, but change it to my purpose
 const multi_button_generator = {
   // A generator for our view template
     stimulus_container_gen: function (config, CT) {
-        const stimulus = tableGenerator(config.data[CT].row_number,
-                                        config.data[CT].column_number,
-                                        config.data[CT].bias);
+        const stimulus = tableGenerator_situation(config.data[CT].situation);
         config.data[CT].stimulus = _.toString(stimulus.matrix).replace(/,/g, "|");
-        console.log(config.data[CT].stimulus);
         const table = '<table border=1>' + stimulus.table + '<table>';
     return `<div class='magpie-view'>
                 <p class='magpie-view-question magpie-view-table'>${table}</p>
@@ -141,11 +184,6 @@ const multi_button_generator = {
                       <label for='rt1o3' class='magpie-response-buttons'>${config.data[CT].choice_options_1[2]}</label>
                       <input type='radio' name='answer1' style='display:none' id='rt1o4' value=${config.data[CT].choice_options_1[3]} />
                       <label for='rt1o4' class='magpie-response-buttons'>${config.data[CT].choice_options_1[3]}</label>
-                      <input type='radio' name='answer1' style='display:none' id='rt1o5' value=${config.data[CT].choice_options_1[4]} />
-                      <label for='rt1o5' class='magpie-response-buttons'>${config.data[CT].choice_options_1[4]}</label>
-                      <input type='radio' name='answer1' style='display:none' id='rt1o6' value=${config.data[CT].choice_options_1[5]} />
-                      <label for='rt1o6' class='magpie-response-buttons'>${config.data[CT].choice_options_1[5]}</label>
-
                   </div>
                 ${config.data[CT].sentence_chunk_2}
                 <div class= 'response-table' id= 'r-t-2'>
@@ -157,11 +195,6 @@ const multi_button_generator = {
                       <label for='rt2o3' class='magpie-response-buttons'>${config.data[CT].choice_options_2[2]}</label>
                       <input type='radio' name='answer2' id='rt2o4' style='display:none' value=${config.data[CT].choice_options_2[3]} />
                       <label for='rt2o4' class='magpie-response-buttons'>${config.data[CT].choice_options_2[3]}</label>
-                      <input type='radio' name='answer2' id='rt2o5' style='display:none' value=${config.data[CT].choice_options_2[4]} />
-                      <label for='rt2o5' class='magpie-response-buttons'>${config.data[CT].choice_options_2[4]}</label>
-                      <input type='radio' name='answer2' id='rt2o6' style='display:none' value=${config.data[CT].choice_options_2[5]} />
-                      <label for='rt2o6' class='magpie-response-buttons'>${config.data[CT].choice_options_2[5]}</label>
-
                 </div>
                 ${config.data[CT].sentence_chunk_3}
                 <div class= 'response-table' id = 'r-t-3'>
