@@ -46,11 +46,23 @@ const intro = magpieViews.view_generator("intro", {
   buttonText: 'Begin the experiment'
 });
 
-// For most tasks, you need instructions views
-const instructions = magpieViews.view_generator("instructions", {
+const instructions_general = magpieViews.view_generator("instructions", {
   trials: 1,
   name: 'instructions',
   title: 'General Instructions',
+  text: `Many events in life can be interpreted in one way or another. Think of describing the same glass as either half full or half empty. In this experiment, we are interested in how <i>you</i> would creatively use language to stress one view of a situation or another.
+  <br/><br/>
+  We will show you pictures of situations (results from an exam). Your task is to write a description of that situation, which might emphasize or deemphasize a certain impression in the mind of a person who has not seen the picture. <strong>Please refrain from giving blatantly false descriptions (no lies!)</strong>. But otherwise, try to be creative in the use of your language.
+  <br/><br/>
+  The next screen will give you more concrete instructions for the upcoming task.`,
+  buttonText: 'Got it! Proceed!'
+});
+
+
+const instructions_specific = magpieViews.view_generator("instructions", {
+  trials: 1,
+  name: 'instructions',
+  title: 'Background Story & Specific Instructions',
   text: `<strong>Background story:</strong> Please imagine you have been hired as a marketing consultant for Green Valley High School. Part of your job is to write a report on the results of standardized math exam questions. These results have been published for Green Valley and for your main rival, Riverside High School.
   <br/><br/>
   It's important that you don't tell any lies in the report, but you don't have to report objectively on the facts. <strong>Your aim is to make Green Valley sound like a school whose students have a high probability of success on the exam questions, and Riverside sound like a school whose students have a low probability of success.</strong>
@@ -59,13 +71,46 @@ const instructions = magpieViews.view_generator("instructions", {
   The tables show the number of questions each student answered correctly or incorrectly. For each correctly answered question, the table contains a "<i style=color:#13AC38>  &#10004 </i>", and for each incorrectly answered question, the table contains a "<i style=color:#B12810> &#10008 </i>".
   <br />
   <br />
-  Given the information from the table, please choose the words to complete a given sentence, so that the resulting sentence best presents Riverside or Green Valley in the way described above.
+  Given the information from the table, please <strong>type a short sentence which truthfully describes the situation and which emphasizes a high or low overall probability of success</strong> (as indicated in each trial).
   <br />
   <br />
-  We will start with some training trials, before the actual experiment begins, so you can get used to the displays and the manner of forming sentences. During the training trials, you will see the same situation twice in a row (unlike in the main experiment), so as to practice describing the same result as indicative of either a high or a low success rate.`,
-  buttonText: 'go to example trials'
+  The next screen will show you an example, which will surely make all of this much clearer.`,
+  buttonText: 'Show me an example!'
 });
 
+
+
+const example = magpieViews.view_generator("instructions", {
+  trials: 1,
+  name: 'instructions',
+  title: 'Example',
+  text: `
+  Here is an example of a picture showing exam results. For each student listed, you see an indication of how many questions that student answered correctly. Remember that for each correctly answered question, the table contains a "<i style=color:#13AC38>  &#10004 </i>", and for each incorrectly answered question, the table contains a "<i style=color:#B12810> &#10008
+  <br />
+  <br />
+  </i>
+  <img src="07_example_picture.png" style="width:100%;" alt="exam results">
+  <br />
+  <br />
+  If these are results from Green Valley, so that your task is to make this as if like students, on average, have a high probability of success, you could say things like:
+  <br />
+  "Most of the students got most of the questions right."
+  <br />
+  "Two students got every task right."
+   <br />
+  "Only two students did not get most questions right."
+  <br />
+  <br />
+  If these are results from Riverside, so that your task is to make this sound as if students, on average, have a low probability of success, you could say things like:
+  <br />
+  "Some of the students answered only few of the questions right."
+  <br />
+  "Two students got most of the questions wrong."
+   <br />
+  "Only two students got a full score."
+`,
+  buttonText: 'Start Experiment!'
+});
 
 const instructions2 = magpieViews.view_generator("instructions", {
   trials: 1,
@@ -127,15 +172,19 @@ const training_trials = magpieViews.view_generator("forced_choice", {
   }
 );
 
-const main_trials = magpieViews.view_generator("forced_choice", {
+const main_trials = magpieViews.view_generator("textbox_input", {
     trials: main_trials_data.length,
     title: "Complete the sentence",
     name: "main_trials",
     data: main_trials_data,
   },
   {
-    stimulus_container_generator: multi_button_generator.stimulus_container_gen,
-    answer_container_generator: multi_button_generator.answer_container_gen,
-    handle_response_function: multi_button_generator.handle_response_function
+      stimulus_container_generator: multi_button_generator.stimulus_container_gen,
+      answer_container_generator: function(config, CT) {
+          return `<div class='magpie-view-answer-container'>
+                        <textarea name='textbox-input' rows=5 cols=50 class='magpie-response-text' />
+                    </div>
+                    <button id='next' class='magpie-view-button magpie-nodisplay'>next</button>`;
+      }
   });
 

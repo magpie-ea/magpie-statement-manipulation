@@ -16,13 +16,13 @@ $("document")
     window.magpie_monitor = magpieInit({
       // You have to specify all views you want to use in this experiment and the order of them
       views_seq: [
-            intro,
-            instructions,
-            training_trials,
-            instructions2,
-            main_trials,
-            post_test,
-            thanks,
+          intro,
+          instructions_general,
+          instructions_specific,
+          example,
+          main_trials,
+          post_test,
+          thanks,
         ],
       // Here, you can specify all information for the deployment
       deploy: {
@@ -31,7 +31,7 @@ $("document")
         // Possible deployment methods are:
         // "debug" and "directLink"
         // As well as "MTurk", "MTurkSandbox" and "Prolific"
-        deployMethod: "Prolific",
+        deployMethod: "debug",
         contact_email: "mchfranke@gmail.com",
           prolificURL: "https://app.prolific.co/submissions/complete?cc=2797FC26"
       },
