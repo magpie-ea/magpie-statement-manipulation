@@ -52,7 +52,7 @@ const instructions_general = magpieViews.view_generator("instructions", {
   title: 'General Instructions',
   text: `Many events in life can be interpreted in one way or another. Think of describing the same glass as either half full or half empty. In this experiment, we are interested in how <i>you</i> would creatively use language to stress one view of a situation or another.
   <br/><br/>
-  We will show you pictures of situations (results from an exam). Your task is to write a description of that situation, which might emphasize or deemphasize a certain impression in the mind of a person who has not seen the picture. <strong>Please refrain from giving blatantly false descriptions (no lies!)</strong>. But otherwise, try to be creative in the use of your language.
+  We will show you pictures of situations (results from an exam). Your task is to write a description of that situation, which might emphasize or deemphasize a certain impression in the mind of a person who has not seen the picture. <strong>Please refrain from giving blatantly false descriptions (no lies!)</strong>. But otherwise, try to be creative in your use of language.
   <br/><br/>
   The next screen will give you more concrete instructions for the upcoming task.`,
   buttonText: 'Got it! Proceed!'
@@ -74,7 +74,7 @@ const instructions_specific = magpieViews.view_generator("instructions", {
   Given the information from the table, please <strong>type a short sentence which truthfully describes the situation and which emphasizes a high or low overall probability of success</strong> (as indicated in each trial).
   <br />
   <br />
-  The next screen will show you an example, which will surely make all of this much clearer.`,
+  The next screen will show you an example.`,
   buttonText: 'Show me an example!'
 });
 
@@ -92,22 +92,14 @@ const example = magpieViews.view_generator("instructions", {
   <img src="07_example_picture.png" style="width:100%;" alt="exam results">
   <br />
   <br />
-  If these are results from Green Valley, so that your task is to make this as if like students, on average, have a high probability of success, you could say things like:
+  If these are results from Green Valley, so that your task is to make this as if like students, on average, have a high probability of success, you could say something like:
   <br />
   "Most of the students got most of the questions right."
   <br />
-  "Two students got every task right."
-   <br />
-  "Only two students did not get most questions right."
   <br />
+  If these are results from Riverside, so that your task is to make this sound as if students, on average, have a low probability of success, you could say something like:
   <br />
-  If these are results from Riverside, so that your task is to make this sound as if students, on average, have a low probability of success, you could say things like:
-  <br />
-  "Some of the students answered only few of the questions right."
-  <br />
-  "Two students got most of the questions wrong."
-   <br />
-  "Only two students got a full score."
+  "Only a few students got a full score."
 `,
   buttonText: 'Start Experiment!'
 });
@@ -173,7 +165,7 @@ const training_trials = magpieViews.view_generator("forced_choice", {
 );
 
 const main_trials = magpieViews.view_generator("textbox_input", {
-    trials: main_trials_data.length,
+    trials: 11,
     title: "Complete the sentence",
     name: "main_trials",
     data: main_trials_data,

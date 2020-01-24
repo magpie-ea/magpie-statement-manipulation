@@ -137,7 +137,7 @@ function create_trials_situation(n, condition, situation) {
     for (var k = 0; k < nr_trials; k++) {
         trials[i] = {
             QUD: '',
-            sitation_number: situation.number,
+            situation_number: situation.number,
             situation: situation,
             row_number: situation.instances[0].rows,
             column_number: situation.instances[0].rows.length,
