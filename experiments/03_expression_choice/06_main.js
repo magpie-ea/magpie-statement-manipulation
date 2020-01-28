@@ -16,25 +16,24 @@ $("document")
     window.magpie_monitor = magpieInit({
       // You have to specify all views you want to use in this experiment and the order of them
       views_seq: [
-          intro,
-          legal_info,
-          instructions_general,
-          instructions_specific,
-          example,
-          main_trials,
-          post_test,
-          thanks,
+            intro,
+            instructions,
+            training_trials,
+            instructions2,
+            main_trials,
+            post_test,
+            thanks,
         ],
       // Here, you can specify all information for the deployment
       deploy: {
-        experimentID: "80",
-          serverAppURL: "https://mcmpact.ikw.uni-osnabrueck.de/babe/api/submit_experiment/",
+        experimentID: "4",
+          serverAppURL: "https://mcmpact.ikw.uni-osnabrueck.de/magpie/api/submit_experiment/",
         // Possible deployment methods are:
         // "debug" and "directLink"
         // As well as "MTurk", "MTurkSandbox" and "Prolific"
-        deployMethod: "Prolific",
-        contact_email: "exprag@gmail.com",
-          prolificURL: "https://app.prolific.co/submissions/complete?cc=2797FC26"
+        deployMethod: "debug",
+        contact_email: "mchfranke@gmail.com",
+          prolificURL: "https://app.prolific.co/submissions/complete?cc=7F134DEF"
       },
       // Here, you can specify how the progress bar should look like
       progress_bar: {

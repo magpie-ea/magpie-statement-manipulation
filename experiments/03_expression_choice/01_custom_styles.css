@@ -1,0 +1,146 @@
+/* In this file you can overwrite/extend the given magpie-styles or declare your own ones */
+
+/* Example of extending a given magpie-style */
+
+/*.magpie-view-stimulus-container {
+    height: auto;
+    max-height: 350px;
+} */
+
+/* Display all titles in red */
+/*.magpie-view-title {
+    color: red;
+}*/
+
+/* Example of declaring your own style */
+.custom-border {
+   border: 1px solid powderblue;
+}
+
+
+/* get rid of picture space in slider rating */
+.magpie-view-stimulus-container {
+    display: flex;
+    height: auto; /*before it was hardcoded 350px;*/
+    margin: 0 auto;
+    width: auto;
+}
+
+
+/* check where this is used */
+.magpie-response-dropdown {
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 17px;
+    line-height: 27px;
+    font-family: "Lato", "Noto Sans", sans-serif;
+    margin: 30px auto;
+    max-width: 700px; /* this is made bigger, so that whole sentence is shown in one line */
+}
+
+/* html table headings */
+th {
+  padding: 15px 15px ;
+  font-family: calibri;
+  background: #d0e5e9;
+  }
+
+table, td, th {
+  font-family: "Lato", "Noto Sans", sans-serif;
+  align: center;
+  border: 1px solid;
+
+}
+
+td{
+    padding: 15px;
+}
+
+table {
+  /* table border: 1;
+  cellpadding: 0;
+  cellspacing: 0;
+  width: 200px; */
+  border-collapse:  collapse;
+  margin: 30px auto;
+}
+
+.magpie-response-dropdown{
+  display: flex;
+  align-items: center;
+}
+
+.magpie-response-buttons {
+  display: block;
+  align-items: center;
+}
+
+.response-table  {
+  display: flex;
+  align-items: center;
+  display: block;
+  margin: 5px;
+
+}
+
+/* handles that the button list is vertical */
+.magpie-view-answer-container {
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     /* text-align: center; */
+     font-family: "Lato", "Noto Sans", sans-serif;
+     margin: 30px auto;
+}
+
+/*
+.magpie-view-answer-container {
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 17px;
+    line-height: 27px;
+
+    margin: 30px auto;
+    max-width: 550px;
+    text-align: center; */
+
+
+.magpie-view-answer-container magpie-response-mutli-dropdown{
+  margin: 5px auto;
+  padding: 2px 2px 2px 2px;
+}
+
+
+/* when buttons (used for magpie-response-buttons, but can be used for any) are clicked, the background changes to red */
+input[type=radio]:checked+label {
+     background-color: green;
+}
+
+
+/* .response-button-group {
+  padding: 10px 0 10px 0;
+  display: inline;
+} */
+.response-button-group button {
+  /* background-color: #4CAF50; /* Green background */
+  /* border: 1px solid green; /* Green border */
+   padding: 5px 10px 5px 10px;
+   color: white; /*rgba(0, 0, 0, 0.87);*/
+   font-size: 17px; /* size of button text*/
+   line-height: 27px;
+   font-family: "Lato", "Noto Sans", sans-serif, fine;
+   border: darkgrey;
+   /* background: linear-gradient(lightgrey, grey); */
+   border-radius: 5px;
+   width: 70px;
+   background-color: #dbc5c5;
+    /* margin: 30px auto; */
+   /* max-width: 700px; */
+  /* cursor: pointer; /* Pointer/hand icon */
+  /* width: 50%; /* Set a width if needed */
+  display: block; /* Make the buttons appear below each other */
+  }
+
+
+
+.type {
+  display: block;
+}

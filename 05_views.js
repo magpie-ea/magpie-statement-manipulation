@@ -28,20 +28,64 @@ const intro = magpieViews.view_generator("intro", {
           <br />
           <br />
           Legal information:
-          By answering the following questions, you are participating in a study
-          being performed by scientists from the University of Osnabrueck.
+          Before starting the experiment, please read the legal information on the next page carefully.
           <br />
           <br />
           You must be at least 18 years old to participate.
           <br />
-          <br />
-          Your participation in this research is voluntary.
-          You may decline to answer any or all of the following questions.
-          You may decline further participation, at any time, without adverse consequences.
-          <br />
-          <br />
           Your anonymity is assured; the researchers who have requested your
           participation will not receive any personal information about you.
+          `,
+  buttonText: 'Show me the legal information'
+});
+
+const legal_info = magpieViews.view_generator("intro", {
+  trials: 1,
+  name: 'legal_info',
+  // If you use JavaScripts Template String `I am a Template String`, you can use HTML <></> and javascript ${} inside
+  text: `<b>Study title</b>: Describing exam results
+         <br />
+         <br />
+         <b>Principal Investigator</b>: Chris Cummins
+         <br />
+         <br />
+         <b>Researcher collecting data</b>: Michael Franke
+          <br />
+          <br />
+          <b>What is this document?</b>  This document explains what kind of study we’re doing, what your rights are, and what will be done with your data. You should print this page for your records.
+          <br />
+          <br />
+          <b>Nature of the study.</b> You are invited to participate in a study which involves looking sets of at (fictitious) exam results. You will either be asked to describe these results, or to interpret other people’s descriptions of them. Once you finish, we may have also some questions about your experience (e.g., age, gender, language background). Your session should last for up to 20 minutes. You will be given full instructions shortly.
+          <br />
+          <br />
+          <b>Compensation.</b> You will be paid £2.50 for your participation in this study.
+          <br />
+          <br />
+          <b>Risks and benefits.</b> There are no known risks to participation in this study. Other than the payment mentioned, there are no tangible benefits to you, however you will be contributing to our knowledge about language.  
+          <br />
+          <br />
+          <b>Confidentiality and use of data.</b> All the information we collect during the course of the research will be processed in accordance with Data Protection Law. In order to safeguard your privacy, we will never share personal information (like your name) with anyone outside the research team. Your data will be referred to by a unique participant number rather than by name). Please note that we will temporarily collect your participant ID to prevent repeated participation, however we will never share this information with anyone outside the research team. We will store any personal data (i.e., participant ID) securely using the University of Osnabrück’s storage systems. The anonymised data collected during this study will be used for research purposes and may be shared with other researchers or with the general public (e.g., we may make it available through the world wide web, or use it in TV or radio broadcasts).
+          <br />
+          <br />
+          <b>What are my data protection rights?</b> The University of Edinburgh is a Data Controller for the information you provide.  You have the right to access information held about you. Your right of access can be exercised in accordance Data Protection Law. You also have other rights including rights of correction, erasure and objection.  For more details, including the right to lodge a complaint with the Information Commissioner’s Office, please visit www.ico.org.uk.  Questions, comments and requests about your personal data can also be sent to the University Data Protection Officer at dpo@ed.ac.uk.
+          <br />
+          <br />
+          <b>Voluntary participation and right to withdraw.</b> Your participation is voluntary, and you may withdraw from the study at any time and for any reason. If you withdraw from the study after data gathering, we will delete your data and there is no penalty or loss of benefits to which you are otherwise entitled. To withdraw from the study after data gathering please contact the research team until 31/03/2020 by providing your prolific participant ID. After this deadline we will delete the participant IDs which means we won’t be able to identify you to delete your data. 
+          <br />
+          <br />
+          If you have any questions about what you’ve just read, please feel free to ask, or contact us later. You can contact us by email at ccummins@exseed.ed.ac.uk. This project has been approved by PPLS Ethics committee. If you have questions or comments regarding your rights as a participant, they can be contacted at +44 (0)131 650 4020 or ppls.ethics@ed.ac.uk.
+          <br />
+          <br />
+          By accepting this task, you consent to the following:
+          <br />
+          <br />
+          <span style="margin-left:2em">1. <b>I agree to participate in this study.</b></span>
+          <br />
+          <br />
+          <span style="padding-left:2em">2. I confirm that I have read and understood <b>how my data will be stored and used.</b></span>
+          <br />
+          <br />
+          <span style="margin-left:2em">3. I understand that I have the <b>right to terminate this session</b> at any point. If I choose to <b>withdraw after completing the study</b> by contacting the research team until <b>31/03/2020</b>, my <b>data will be deleted</b> at that time.</span>
           `,
   buttonText: 'Begin the experiment'
 });
