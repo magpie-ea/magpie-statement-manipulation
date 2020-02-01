@@ -174,7 +174,7 @@ plot_data_low = filter(plot_data, condition == "low", count >= min_count_to_show
   mutate(count = - count)
 
 plot_data %>% 
-  filter(count > 1) %>% 
+  # filter(count > 0) %>% 
   ggplot(
     mapping = aes(
       x = fct_reorder(response, arg_str), 
@@ -190,4 +190,41 @@ plot_data %>%
   labs(
     x = ""
   )
+
+# ---- get a semantics table ----
+
+
+sentences <- expand.grid(
+  outer = c("all", "some", "most", "none"),
+  inner = c("all", "some", "most", "none"),
+  predicate = c("wrong", "right")
+) %>% 
+  mutate(
+    compact = str_c(outer, "|", inner, "|", predicate)
+  ) %>% pull(compact)
+
+situations <- d %>% 
+  select(situation_number, stimulus) %>% 
+  unique %>% 
+  arrange(situation_number)
+
+get_truth_value_2 = Vectorize(function(sentence, stimulus) {
+  resp     = sentence
+  stimulus = stimulus %>% str_split("\\|", simplify = F) %>% unlist()
+  stimulus = stimulus %>% as.numeric() %>% matrix(byrow = T, ncol = 12)
+  # stimulus = 1 - stimulus
+  evaluate_truth(resp, stimulus)
+})
+
+combined <- 
+  expand.grid(
+    situation_number = 1:20,
+    sentence = sentences
+  ) %>% 
+  full_join(situations, by = "situation_number") %>% 
+  as_tibble() %>% 
+  mutate(
+    truth_value = get_truth_value_2(sentence, stimulus)
+  )
+
 
