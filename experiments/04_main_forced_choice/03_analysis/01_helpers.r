@@ -235,8 +235,35 @@ d = d %>%
     informativity = get_informativity(response) %>% as.numeric()
   )
 
+## *****************************
+## extract matrix of counts ----
+## *****************************
 
+# focus on only true responses
 
+d_true <- filter(d, truth_value == T)
+
+y_counts_high = matrix(0, nrow = 20, ncol = length(sentences))
+y_counts_low  = matrix(0, nrow = 20, ncol = length(sentences))
+
+colnames(y_counts_high) <- sentences
+colnames(y_counts_low)  <- sentences
+
+rownames(y_counts_high) <- str_c("Situation ", 1:20)
+rownames(y_counts_low)  <- str_c("Situation ", 1:20)
+
+for (i in 1:nrow(d_true)) {
+  condition_i <- d_true$condition[i]
+  response_i  <- d_true$response[i]
+  situation_i <- d_true$situation_number[i]
+  if (condition_i == "high") {
+    y_counts_high[situation_i, which(sentences == response_i)] <-  
+      y_counts_high[situation_i, which(sentences == response_i)] + 1
+  } else {
+    y_counts_low[situation_i, which(sentences == response_i)] <- 
+      y_counts_low[situation_i, which(sentences == response_i)] + 1
+  }
+}
 
 
 
