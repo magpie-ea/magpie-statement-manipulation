@@ -38,6 +38,20 @@ situations <- d %>%
   unique %>% 
   arrange(situation_number)
 
+## ***************
+## clean data ----
+## ***************
+
+# check for incomplete responses
+message(
+  "There were ", 
+  d %>% filter(! response %in% sentences) %>% nrow(),
+  " trials which were excluded because they were recorded incompletely (due to a technical issue)."
+)
+
+# remove incompletely recorded trials
+d = d %>% filter(response %in% sentences)
+
 ## *****************************
 ## semantics of expressions ----
 ## *****************************
@@ -139,9 +153,9 @@ get_argument_strength = Vectorize(
 # testing
 # get_argument_strength("most|all|right", 0.8)
 
-## *******************************
-## built a big look-up table  ----
-## *******************************
+## *********************************************************
+## built a big look-up table & other useful structures  ----
+## *********************************************************
 
 # combine all sentences and situation
 look_up_table <- 
@@ -159,9 +173,30 @@ look_up_table <-
   # add arg_strength of best true argument for each situation & condition
   group_by(situation_number) %>% 
   mutate(
-    true_best_high = max(truth_value * arg_strength),
-    true_best_low  = max(truth_value * -arg_strength)
+    true_best_high = max(arg_strength[truth_value]),
+    true_best_low  = max(-arg_strength[truth_value])
   )
+
+# matrix representation of truth values
+#   situations in rows, sentences in columns
+truth_table <- look_up_table %>% 
+  mutate(truth_value = as.numeric(truth_value)) %>% 
+  select(situation_number, sentence, truth_value) %>% 
+  pivot_wider(
+    id_cols = c("situation_number"),
+    names_from = sentence,
+    values_from = truth_value
+  )
+truth_table_matrix <- as.matrix(truth_table[,-1])
+
+# vector of arg_strength for each sentence (in correct order)
+arg_strength_vector <- get_argument_strength(sentences, bias = theta_arg)
+
+# vector of informativity for each sentence
+informativity_vector <- log(1 / colSums(truth_table[,-1]))
+
+# # check if entries are in the right order
+# names(arg_strength_vector) == colnames(truth_table_matrix)
 
 ## *****************************
 ## add information to data  ----
@@ -179,30 +214,29 @@ get_best_low <- Vectorize(
   }
 )
 
+get_informativity <- Vectorize(
+  function(sentence) {
+    informativity_vector[which(names(informativity_vector) == sentence)] %>% as.numeric()
+  }
+)
+
 d = d %>% 
   mutate(
     # add truth-value 
     truth_value = get_truth_value(response, situation_number),
     # add argument strength
-    arg_strength = get_argument_strength(response, bias = theta_arg),
+    arg_strength_raw = get_argument_strength(response, bias = theta_arg),
+    arg_strength = ifelse(condition == "high", arg_strength_raw, - arg_strength_raw),
     true_best_high = get_best_high(situation_number),
-    true_best_low = get_best_low(situation_number)
+    true_best_low  = get_best_low(situation_number),
+    true_best = ifelse(condition == "high", true_best_high, true_best_low),
+    # deviance from the max. arg_strength among all true statements
+    best_arg_deviance = true_best - arg_strength,
+    informativity = get_informativity(response) %>% as.numeric()
   )
 
 
-## ***************
-## clean data ----
-## ***************
 
-# check for incomplete responses
-message(
-  "There were ", 
-  d %>% filter(is.na(truth_value)) %>% nrow(),
-  " trials which were excluded because they were recorded incompletely (due to a technical issue)."
-)
-
-# remove incompletely recorded trials
-d = d %>% filter(! is.na(truth_value))
 
 
 
