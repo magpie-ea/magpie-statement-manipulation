@@ -2,7 +2,9 @@ library(tidyverse)
 
 d = read_csv('../02_data/data_raw.csv') %>% 
   # fix typo in column head
-  rename(situation_number = sitation_number)
+  rename(situation_number = sitation_number) %>% 
+  # remove incomplete answer
+  filter(response != "some|some|")
 
 
 ## semantics of expressions ----
@@ -164,3 +166,65 @@ plot_data %>%
   geom_point() +
   geom_smooth(method = "lm") +
   ggrepel::geom_text_repel(aes(label = response))
+
+max_count = max(plot_data$count,na.rm = T)
+min_count_to_show = 0
+plot_data_high = filter(plot_data, condition == "high", count >= min_count_to_show)
+plot_data_low = filter(plot_data, condition == "low", count >= min_count_to_show) %>% 
+  mutate(count = - count)
+
+plot_data %>% 
+  # filter(count > 0) %>% 
+  ggplot(
+    mapping = aes(
+      x = fct_reorder(response, arg_str), 
+      y = count, 
+      group = condition, 
+      fill = condition
+    )
+  ) +
+  geom_col(data = plot_data_low, fill = "darkorange") + 
+  geom_col(data = plot_data_high, fill = "darkgreen") + 
+  coord_flip() +
+  ylim(c(-max_count, max_count)) +
+  labs(
+    x = ""
+  )
+
+# ---- get a semantics table ----
+
+
+sentences <- expand.grid(
+  outer = c("all", "some", "most", "none"),
+  inner = c("all", "some", "most", "none"),
+  predicate = c("wrong", "right")
+) %>% 
+  mutate(
+    compact = str_c(outer, "|", inner, "|", predicate)
+  ) %>% pull(compact)
+
+situations <- d %>% 
+  select(situation_number, stimulus) %>% 
+  unique %>% 
+  arrange(situation_number)
+
+get_truth_value_2 = Vectorize(function(sentence, stimulus) {
+  resp     = sentence
+  stimulus = stimulus %>% str_split("\\|", simplify = F) %>% unlist()
+  stimulus = stimulus %>% as.numeric() %>% matrix(byrow = T, ncol = 12)
+  # stimulus = 1 - stimulus
+  evaluate_truth(resp, stimulus)
+})
+
+combined <- 
+  expand.grid(
+    situation_number = 1:20,
+    sentence = sentences
+  ) %>% 
+  full_join(situations, by = "situation_number") %>% 
+  as_tibble() %>% 
+  mutate(
+    truth_value = get_truth_value_2(sentence, stimulus)
+  )
+
+
