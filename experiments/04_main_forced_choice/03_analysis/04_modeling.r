@@ -82,9 +82,9 @@ y_low  <- as_data(y_counts_low)
 # theta_false <- uniform(- 10000, 0)
 # theta_neg <- uniform(- 10000, 0)
 # theta_false <- uniform(-100,0)
-theta_neg <- uniform(-5,0)
+theta_neg <- uniform(-10,0)
 theta_info_arg_weight <- uniform(0,1)
-theta_alpha <- uniform(0,10)
+theta_alpha <- uniform(0,5)
 
 ## predictions
 #### (build matrix representations for utility ingredients (sit x sent))

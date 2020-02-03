@@ -6,7 +6,7 @@ library(tidyverse)
 ## set some global variables ----
 ## ******************************
 
-theta_arg <- 0.8
+theta_arg <- 0.9
 
 ## ****************************
 ## load & precprocess data ----
