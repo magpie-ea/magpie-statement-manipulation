@@ -82,17 +82,17 @@ y_low  <- as_data(y_counts_low)
 # theta_false <- uniform(- 10000, 0)
 # theta_neg <- uniform(- 10000, 0)
 # theta_false <- uniform(-100,0)
-theta_neg <- 0
+theta_neg <- uniform(-5,0)
 theta_info_arg_weight <- uniform(0,1)
 theta_alpha <- uniform(0,10)
 
 ## predictions
 #### (build matrix representations for utility ingredients (sit x sent))
-truth_matrix_greta <- (1 - truth_table_matrix) * -20
+truth_matrix_greta <- (1 - truth_table_matrix) * -60
 # truth_matrix_greta <- log(truth_table_matrix)
 # cost 
-boolean_negation_matrix <-  # entry 1 for all sentences starting with "none"
-  matrix(rep(c(0,0,0,1), times = 8 * 20), nrow = 20, byrow = T)
+boolean_negation_matrix <-  # entry 1 for all sentences containing "none"
+  matrix(rep(str_detect(sentences, "none") %>% as.numeric, times = 20), nrow = 20, byrow = T)
 cost_matrix_greta <- theta_neg * boolean_negation_matrix
 # informativity
 info_matrix_greta <- 
@@ -101,12 +101,14 @@ info_matrix_greta <-
 argstr_matrix_greta <- 
   matrix(rep(arg_strength_vector, times = 20), nrow = 20, byrow = T)
 # utility
-util <- truth_matrix_greta + cost_matrix_greta + 
-  info_matrix_greta + (1 - theta_info_arg_weight) * argstr_matrix_greta
+util <- truth_matrix_greta + 
+  cost_matrix_greta + 
+  theta_info_arg_weight * info_matrix_greta + 
+  (1 - theta_info_arg_weight) * argstr_matrix_greta
 # prediction
 logits <- exp(theta_alpha * util)
 logit_sums <- greta::apply(logits, MARGIN = 1, FUN = "sum")
-pred <- sweep(logits, 1, logit_sums, FUN = "/") 
+pred <- sweep(logits, 1, logit_sums, FUN = "/")
 
 ## likelihood
 
@@ -114,7 +116,7 @@ distribution(y_high) <- multinomial(size = rowSums(y_counts_high), prob = pred)
 
 ## define model
 
-m <- model(pred, theta_info_arg_weight, theta_alpha)
+m <- model(pred, theta_info_arg_weight, theta_alpha, theta_neg)
 
 # samples <- greta::mcmc(m, n_samples =1000)
 # bayesplot::mcmc_dens(samples)
@@ -144,6 +146,11 @@ obs_tibble <- as_tibble(prop.table(y_counts_high,1)) %>% mutate(situation = 1:20
     ) %>% 
   arrange(situation, -abs(pred_error))
 
+with(obs_tibble,
+     cor.test(predicted, observed)
+) %>% show()
+  
+
 # View(obs_tibble)
 
 obs_tibble %>% 
@@ -151,33 +158,19 @@ obs_tibble %>%
   geom_smooth(method = "lm") +
   geom_point() 
 
-
-
-
-
-stop()
-
 stop()
 
 samples <- greta::mcmc(m, n_samples = 1000)
+tidy_draws <- ggmcmc::ggs(samples) %>% 
+  filter(!str_detect(Parameter, "pred"))
+tidy_draws %>% 
+  ggplot(aes(x = value)) +
+  geom_density() +
+  facet_wrap(~Parameter, scales = "free")
+
 bayesplot::mcmc_dens(samples)
 bayesplot::mcmc_pairs(samples)
 bayesplot::mcmc_trace(samples)
-
-
-
-get_prediction <- function(theta_false, theta_neg, theta_mix, theta_rat){
-  truth <- 1
-  TRUE
-}
-
-
-
-
-
-
-
-
 
 
 
