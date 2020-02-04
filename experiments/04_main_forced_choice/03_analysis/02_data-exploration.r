@@ -25,6 +25,13 @@ tibble(
 
 d %>% count(truth_value) # most answers were true!!
 
+d_true %>% 
+  group_by(condition) %>% 
+  summarise(
+    mean_info = mean(informativity),
+    mean_argu = mean(arg_strength)
+  )
+
 # by-subject & condition mean truth and mean arg.str
 d_true %>% group_by(submission_id, condition) %>% 
   summarize(
@@ -79,8 +86,8 @@ d_true %>%
   ) +
   geom_point()
 
-s_nr = 20
-model_prediction = as.matrix(fit_MAP$par$pre)
+s_nr = 2
+model_prediction = as.matrix(fit_MAP$par$pred_high)
 colnames(model_prediction) = sentences
 d_true %>% 
   filter(situation_number == s_nr, condition == "high") %>% 

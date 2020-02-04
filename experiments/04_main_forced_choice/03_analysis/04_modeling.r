@@ -83,6 +83,7 @@ y_low  <- as_data(y_counts_low)
 # theta_neg <- uniform(- 10000, 0)
 # theta_false <- uniform(-100,0)
 # theta_neg <- uniform(-10,0)
+theta_neg <- -3
 theta_info_arg_weight <- uniform(0,1)
 theta_alpha <- uniform(0,5)
 
@@ -173,10 +174,24 @@ obs_tibble <- as_tibble(
     ) %>% 
   arrange(condition, situation, -abs(pred_error))
 
+
 with(obs_tibble,
      cor.test(predicted, observed)
 ) %>% show()
   
+message(
+  "Correlation overall: ",
+  with(obs_tibble, cor.test(predicted, observed))$estimate %>% signif(3)
+)
+message(
+  "Correlation 'high': ",
+  with(obs_tibble %>% filter(condition == "high"), cor.test(predicted, observed))$estimate %>% signif(3)
+)
+message(
+  "Correlation 'low': ",
+  with(obs_tibble %>% filter(condition == "low"), cor.test(predicted, observed))$estimate %>% signif(3)
+)
+
 
 # View(obs_tibble)
 
@@ -185,16 +200,56 @@ obs_pred_plot <- obs_tibble %>%
   geom_smooth(method = "lm") +
   geom_point( alpha = 0.5)
 
-stop()
+##******************************************
+## ---- samples from Bayesian posterior ----
+##******************************************
 
-samples <- greta::mcmc(m, n_samples = 2000)
+samples <- greta::mcmc(m, n_samples = 4000, thin = 2)
 tidy_draws <- ggmcmc::ggs(samples) %>% 
   filter(!str_detect(Parameter, "pred"))
-posterior_plot <- tidy_draws %>% 
-  ggplot(aes(x = value)) +
-  geom_density() +
-  facet_wrap(~Parameter, scales = "free")
 
+# obtain Bayesian point and interval estimates
+Bayes_estimates <- tidy_draws %>% 
+  group_by(Parameter) %>%
+  summarise(
+    '|95%' = HDInterval::hdi(value)[1],
+    mean = mean(value),
+    '95|%' = HDInterval::hdi(value)[2]
+  )
+Bayes_estimates
 
+##******************************************
+## ---- plotting the Bayesian posterior ----
+##******************************************
+
+dens_alpha <- filter(tidy_draws, Parameter == "theta_alpha") %>% pull(value) %>% 
+  density()
+dens_beta <- filter(tidy_draws, Parameter == "theta_info_arg_weight") %>% pull(value) %>% 
+  density()
+
+post_plot_data <- 
+  tibble(
+    parameter = c(rep("alpha", length(dens_alpha$x)), rep("beta", length(dens_beta$x))),
+    x = c(dens_alpha$x, dens_beta$x),
+    y = c(dens_alpha$y, dens_beta$y),
+    x_area = case_when(
+      parameter == "alpha" ~ ifelse(x > Bayes_estimates[1,2] %>% as.numeric & x < Bayes_estimates[1,4] %>% as.numeric, x, NA ),
+      parameter == "beta"  ~ ifelse(x > Bayes_estimates[2,2] %>% as.numeric & x < Bayes_estimates[2,4] %>% as.numeric, x, NA )
+    )
+  ) 
+
+posterior_plot <- 
+  post_plot_data %>% 
+  ggplot(aes(x = x, y = y)) +
+  geom_line(size = 1.5) +
+  geom_area(aes(x = x_area),
+            fill = "firebrick", alpha = 0.5) +
+  facet_wrap(~parameter, scales = "free", labeller = label_parsed) +
+  labs(
+    x = "",
+    y = ""
+  )
+
+ggsave(plot = posterior_plot, filename = "posterior_plot.png", width = 4, height = 2.5)
 
 
