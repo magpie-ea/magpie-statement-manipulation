@@ -2,11 +2,12 @@
 
 library(tidyverse)
 
+
 ## ******************************
 ## set some global variables ----
 ## ******************************
 
-theta_arg <- 0.9
+theta_arg <- 0.85
 
 ## ****************************
 ## load & precprocess data ----
@@ -140,8 +141,8 @@ calculate_probability = function(resp, bias) {
 }
 
 # testing
-# calculate_probability("all|all|right", 0.8)
-# calculate_probability("some|all|right", 0.8)
+calculate_probability("all|all|right", 0.9)
+calculate_probability("none|some|wrong", 0.9)
 
 # calculate argumentative strength for a given bias
 get_argument_strength = Vectorize(
@@ -157,6 +158,7 @@ get_argument_strength = Vectorize(
 ## built a big look-up table & other useful structures  ----
 ## *********************************************************
 
+
 # combine all sentences and situation
 look_up_table <- 
   expand.grid(
@@ -167,15 +169,8 @@ look_up_table <-
   as_tibble() %>% 
   # add truth-values
   mutate(
-    truth_value = get_truth_value(sentence, situation_number),
-    arg_strength = get_argument_strength(sentence, bias = theta_arg)
-  ) %>% 
-  # add arg_strength of best true argument for each situation & condition
-  group_by(situation_number) %>% 
-  mutate(
-    true_best_high = max(arg_strength[truth_value]),
-    true_best_low  = max(-arg_strength[truth_value])
-  )
+    truth_value = get_truth_value(sentence, situation_number)
+  ) 
 
 # matrix representation of truth values
 #   situations in rows, sentences in columns
@@ -194,6 +189,25 @@ arg_strength_vector <- get_argument_strength(sentences, bias = theta_arg)
 
 # vector of informativity for each sentence
 informativity_vector <- log(1 / colSums(truth_table[,-1]))
+
+look_up_table <- 
+  look_up_table %>% 
+  # add arg-str and informativity related info 
+  mutate(
+    arg_strength = get_argument_strength(sentence, bias = theta_arg),
+    informativity = informativity_vector[sentence]
+  ) %>% 
+  group_by(situation_number) %>% 
+  mutate(
+    true_best_high = max(arg_strength[truth_value]),
+    true_best_low  = max(-arg_strength[truth_value]),
+    best_info      = max(informativity[truth_value])
+    # best_arg_high_sentence = sentences[truth_value][which.max(arg_strength[truth_value])],
+    # best_arg_low_sentence = sentences[truth_value][which.max(-arg_strength[truth_value])],
+    # best_info_sentence = sentences[truth_value][which.max(informativity[truth_value])]
+  ) %>% 
+  ungroup()
+  
 
 # # check if entries are in the right order
 # names(arg_strength_vector) == colnames(truth_table_matrix)
@@ -220,6 +234,12 @@ get_informativity <- Vectorize(
   }
 )
 
+get_best_info <- Vectorize(
+  function(s_nr) {
+    filter(look_up_table, situation_number == s_nr) %>% pull(best_info) %>% .[1] %>% as.numeric()
+  }
+)
+
 d = d %>% 
   mutate(
     # add truth-value 
@@ -232,8 +252,12 @@ d = d %>%
     true_best = ifelse(condition == "high", true_best_high, true_best_low),
     # deviance from the max. arg_strength among all true statements
     best_arg_deviance = true_best - arg_strength,
-    informativity = get_informativity(response) %>% as.numeric()
+    informativity = get_informativity(response) %>% as.numeric(),
+    best_info = get_best_info(situation_number),
+    best_info_deviance = best_info - informativity
   )
+
+get_best_high(20)
 
 ## *****************************
 ## extract matrix of counts ----
@@ -265,5 +289,68 @@ for (i in 1:nrow(d_true)) {
   }
 }
 
+## *****************************
+## plotting theme ----
+## *****************************
 
+theme_ida <- function(title.size = 16, text.size = 14,
+                      legend.position = "top", show.axis = FALSE, 
+                      plot.margin = c(.2, .1, .2, .1)){
+  # baseline
+  layout <- ggplot2::theme_classic()
+  layout <- layout + theme(text = element_text(size = text.size),
+                           title = element_text(size = title.size, 
+                                                face = "bold"),
+                           line = element_line(size = .5))
+  
+  # axes
+  if (inherits(show.axis, "character") | show.axis == FALSE){
+    if (inherits(show.axis, "character")){
+      show.axis <- tolower(show.axis)
+      if (show.axis == "x"){
+        layout <- layout + theme(axis.line.y = element_blank())
+      }
+      if (show.axis == "y"){
+        layout <- layout + theme(axis.line.x = element_blank())
+      }
+    } else {
+      layout <- layout + theme(axis.line.x = element_blank(),
+                               axis.line.y = element_blank())
+    }
+  }
+  
+  # legend
+  layout <- layout + theme(legend.position = legend.position,
+                           legend.background = element_blank(),
+                           legend.key.height = unit(2, "line"))
+  
+  # facets 
+  layout <- layout + theme(strip.background = element_blank(),
+                           strip.text = element_text(size = title.size,
+                                                     face = "bold"))
+  
+  # misc 
+  layout <- layout + theme(panel.background = element_rect(fill = "transparent"),
+                           plot.background = element_rect(fill = "transparent"),
+                           plot.margin = unit(plot.margin, "cm"))
+  
+  layout
+}
 
+project_colors = rcartocolor::carto_pal(11, "Safe")[c(3,4,5,6,7,8,9,10,11,1,2)] # https://github.com/Nowosad/rcartocolor & https://carto.com/carto-colors/
+# color blind friendly
+# project_colors = c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+# project_colors =RColorBrewer::brewer.pal(8, "Set2")
+
+# setting theme colors globally
+## following: https://data-se.netlify.com/2018/12/12/changing-the-default-color-scheme-in-ggplot2/
+scale_colour_discrete <- function(...) {
+  scale_colour_manual(..., values = project_colors)
+}
+scale_fill_discrete <- function(...) {
+  scale_fill_manual(..., values = project_colors)
+} 
+
+theme_set(
+  theme_ida()
+)

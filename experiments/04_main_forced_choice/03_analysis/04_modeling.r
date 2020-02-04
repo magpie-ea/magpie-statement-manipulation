@@ -82,14 +82,13 @@ y_low  <- as_data(y_counts_low)
 # theta_false <- uniform(- 10000, 0)
 # theta_neg <- uniform(- 10000, 0)
 # theta_false <- uniform(-100,0)
-theta_neg <- uniform(-10,0)
+# theta_neg <- uniform(-10,0)
 theta_info_arg_weight <- uniform(0,1)
 theta_alpha <- uniform(0,5)
 
 ## predictions
 #### (build matrix representations for utility ingredients (sit x sent))
 truth_matrix_greta <- (1 - truth_table_matrix) * -60
-# truth_matrix_greta <- log(truth_table_matrix)
 # cost 
 boolean_negation_matrix <-  # entry 1 for all sentences containing "none"
   matrix(rep(str_detect(sentences, "none") %>% as.numeric, times = 20), nrow = 20, byrow = T)
@@ -98,25 +97,41 @@ cost_matrix_greta <- theta_neg * boolean_negation_matrix
 info_matrix_greta <- 
   matrix(rep(informativity_vector, each = 20), nrow = 20)
 # argumentative strength
-argstr_matrix_greta <- 
+argstr_matrix_greta_high <- 
   matrix(rep(arg_strength_vector, times = 20), nrow = 20, byrow = T)
+argstr_matrix_greta_low <-
+  matrix(rep(-arg_strength_vector, times = 20), nrow = 20, byrow = T)
 # utility
-util <- truth_matrix_greta + 
+util_high <- truth_matrix_greta + 
   cost_matrix_greta + 
   theta_info_arg_weight * info_matrix_greta + 
-  (1 - theta_info_arg_weight) * argstr_matrix_greta
+  (1 - theta_info_arg_weight) * argstr_matrix_greta_high
+util_low <- truth_matrix_greta +
+  cost_matrix_greta +
+  theta_info_arg_weight * info_matrix_greta +
+  (1 - theta_info_arg_weight) * argstr_matrix_greta_low
+
 # prediction
-logits <- exp(theta_alpha * util)
-logit_sums <- greta::apply(logits, MARGIN = 1, FUN = "sum")
-pred <- sweep(logits, 1, logit_sums, FUN = "/")
+logits_high <- exp(theta_alpha * util_high)
+logits_low  <- exp(theta_alpha * util_low)
+logit_sums_high <- greta::apply(logits_high, MARGIN = 1, FUN = "sum")
+logit_sums_low  <- greta::apply(logits_low,  MARGIN = 1, FUN = "sum")
+pred_high <- sweep(logits_high, 1, logit_sums_high, FUN = "/")
+pred_low  <- sweep(logits_low, 1,  logit_sums_low,  FUN = "/")
 
 ## likelihood
 
-distribution(y_high) <- multinomial(size = rowSums(y_counts_high), prob = pred)
+distribution(y_high) <- multinomial(size = rowSums(y_counts_high), prob = pred_high)
+distribution(y_low)  <- multinomial(size = rowSums(y_counts_low),  prob = pred_low)
 
 ## define model
 
-m <- model(pred, theta_info_arg_weight, theta_alpha, theta_neg)
+m <- model(
+  pred_high, 
+  pred_low, 
+  theta_info_arg_weight, 
+  theta_alpha
+)
 
 # samples <- greta::mcmc(m, n_samples =1000)
 # bayesplot::mcmc_dens(samples)
@@ -127,15 +142,27 @@ show(fit_MAP)
 
 # exploring MAP-predictions
 
-obs_tibble <- as_tibble(prop.table(y_counts_high,1)) %>% mutate(situation = 1:20) %>%  
-  pivot_longer(cols = - situation, names_to = "sentence", values_to = "observed") %>% 
+obs_tibble <- as_tibble(
+  rbind(prop.table(y_counts_high,1),
+        prop.table(y_counts_low,1)
+  )
+) %>% 
   mutate(
-    predicted = fit_MAP$par$pred %>% 
+    situation = rep(1:20,2), 
+    condition = rep(c("high", "low"), each = 20)
+  ) %>%  
+  pivot_longer(
+    cols = - c("situation", "condition"), 
+    names_to = "sentence", 
+    values_to = "observed"
+  ) %>% 
+  mutate(
+    predicted = rbind(fit_MAP$par$pred_high, fit_MAP$par$pred_low)  %>% 
       as_tibble() %>% 
       pivot_longer(everything()) %>% 
       pull(value) %>% 
       as.vector(),
-    truth = truth_table_matrix %>% 
+    truth = rbind(truth_table_matrix, truth_table_matrix) %>% 
       as_tibble() %>% 
       pivot_longer(everything()) %>% 
       pull(value) %>% 
@@ -144,7 +171,7 @@ obs_tibble <- as_tibble(prop.table(y_counts_high,1)) %>% mutate(situation = 1:20
     informativity = informativity_vector[sentence],
     pred_error = predicted - observed
     ) %>% 
-  arrange(situation, -abs(pred_error))
+  arrange(condition, situation, -abs(pred_error))
 
 with(obs_tibble,
      cor.test(predicted, observed)
@@ -153,24 +180,21 @@ with(obs_tibble,
 
 # View(obs_tibble)
 
-obs_tibble %>% 
-  ggplot(aes( x = predicted, y = observed)) + 
+obs_pred_plot <- obs_tibble %>% 
+  ggplot(aes( x = predicted, y = observed, color = condition)) + 
   geom_smooth(method = "lm") +
-  geom_point() 
+  geom_point( alpha = 0.5)
 
 stop()
 
-samples <- greta::mcmc(m, n_samples = 1000)
+samples <- greta::mcmc(m, n_samples = 2000)
 tidy_draws <- ggmcmc::ggs(samples) %>% 
   filter(!str_detect(Parameter, "pred"))
-tidy_draws %>% 
+posterior_plot <- tidy_draws %>% 
   ggplot(aes(x = value)) +
   geom_density() +
   facet_wrap(~Parameter, scales = "free")
 
-bayesplot::mcmc_dens(samples)
-bayesplot::mcmc_pairs(samples)
-bayesplot::mcmc_trace(samples)
 
 
 
