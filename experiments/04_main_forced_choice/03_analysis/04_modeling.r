@@ -1,6 +1,6 @@
 library(greta)
 
-# source('01_helpers.r')
+source('01_helpers.r')
 
 ##*************************************
 ## ---- fidget a soft-max function ----
