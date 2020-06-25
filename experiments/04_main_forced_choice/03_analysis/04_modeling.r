@@ -140,6 +140,7 @@ m <- model(
 
 fit_MAP <- opt(m)
 show(fit_MAP)
+saveRDS(fit_MAP, 'fit_MAP.RDS')
 
 # exploring MAP-predictions
 
