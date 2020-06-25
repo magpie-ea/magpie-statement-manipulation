@@ -1,6 +1,8 @@
 # load helper functions
 source('01_helpers.r')
 
+fit_MAP <- readRDS("fit_MAP.RDS")
+
 ## ***********************************
 ## exploring the design / set-up  ----
 ## ***********************************
@@ -129,16 +131,17 @@ proportions_by_situation <- d_true %>%
       response[which(min(best_info_deviance) == best_info_deviance)]
   )
 
-proportions_by_situation %>% 
-  pivot_longer(c("proportion_best_arg", "proportion_best_info")) %>% 
+p2 <- proportions_by_situation %>% 
+  pivot_longer(c("proportion_best_arg", "proportion_best_info")) %>%
+  filter(situation_number %in% c(1, 5, 7, 10, 15, 17, 20)) %>% 
   ggplot(aes(x = name, y = value, fill = name)) +
   geom_col() +
   coord_flip() +
   # checks and marks
   # custom axis
-  geom_segment(aes(x = 0, xend = 3, y = 0, yend = 0 ), color = "lightgray") +
+  geom_segment(aes(x = 0, xend = 3, y = 0, yend = 0 ), color = "black") +
   # geom_text(aes(x = 1.5, y = -0.025, label = "0"), size = 3, color = "lightgray") +
-  geom_segment(aes(x = 0, xend = 3, y = 1, yend = 1 ), color = "lightgray") +
+  geom_segment(aes(x = 0, xend = 3, y = 1, yend = 1 ), color = "black") +
   # geom_text(
   #   data = filter(proportions_by_situation, modal_resp_best_arg == T),
   #   aes(x = 1, y = 1.025, label = "X"),
@@ -147,12 +150,49 @@ proportions_by_situation %>%
   # ) +
   # facets & style
   facet_grid(situation_number ~ condition) +
-  theme_ida(y.axis = F) +
+  theme_void() +
+  # theme_ida(y.axis = F) +
   theme(
     axis.ticks = element_blank(),
     axis.text =  element_blank(),
-  )
+    axis.title = element_blank(),
+    strip.text = element_blank(),
+    legend.position = "none",
+    panel.spacing.x = unit(4, "lines")
+  ) +
+  scale_fill_manual(values = c("#a6cee3", "#1f78b4")) +
+  scale_y_reverse()
 
+g1 <- ggplotGrob(p1)
+g2 <- ggplotGrob(p2)
+
+panels <- c('panel-1-1', 'panel-1-2', 'panel-2-1', 'panel-2-2', 'panel-1-3', 'panel-2-3', 'panel-1-4')
+
+for (p in panels){
+  g1$grobs[grep(p, g1$layout$name)] <- g2$grobs[grep(p, g2$layout$name)]
+}
+
+grid.newpage()
+
+grid.draw(g1)
+
+# sc01 <- image_read("../04_situation_plots/scene01-sing.png")
+# sc02 <- image_read("../04_situation_plots/scene02-sing.png")
+# sc03 <- image_read("../04_situation_plots/scene03-sing.png")
+# sc04 <- image_read("../04_situation_plots/scene04-sing.png")
+# sc05 <- image_read("../04_situation_plots/scene05-sing.png")
+# sc06 <- image_read("../04_situation_plots/scene06-sing.png")
+# sc07 <- image_read("../04_situation_plots/scene07-sing.png")
+# 
+# ggdraw(g1) + 
+#   draw_image(sc01, x = .5, y = .5, scale = .1) #+
+#   # draw_image(homo_hetero, x = -.18, y = .32, scale = .12) +
+#   draw_image(hetero, x = .38, y = .08, scale = .20) +
+#   # draw_image(hetero, x = -.18, y = .06, scale = .12) +
+#   # draw_image(homo, x = .15, y = -.18, scale = .12) +
+#   draw_image(homo, x = .38, y = -.12, scale = .20)
+
+ggsave("produc-choice.png", g1)
 
 ## ***********************************
 ## comparison between conditions  ----
