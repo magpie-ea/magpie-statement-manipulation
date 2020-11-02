@@ -1,6 +1,6 @@
 library(greta)
 
-# source('01_helpers.r')
+source('01_helpers.r')
 
 ##*************************************
 ## ---- fidget a soft-max function ----
@@ -140,6 +140,7 @@ m <- model(
 
 fit_MAP <- opt(m)
 show(fit_MAP)
+saveRDS(fit_MAP, 'fit_MAP.RDS')
 
 # exploring MAP-predictions
 
